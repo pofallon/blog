@@ -1,11 +1,12 @@
-import React from "react"
-import { Link } from "gatsby"
+import React from 'react'
+import { Link } from 'gatsby'
 import { MDXProvider } from '@mdx-js/react'
-import Playlist from "../components/playlist"
+import * as Processors from '../components/processors'
+import Playlist from '../components/playlist'
 
 import { rhythm, scale } from "../utils/typography"
 
-const components = { playlist: Playlist }
+const components = { Playlist, ...Processors }
 
 const Layout = ({ location, title, children }) => {
   const rootPath = `${__PATH_PREFIX__}/`

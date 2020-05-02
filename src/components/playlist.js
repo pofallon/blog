@@ -1,9 +1,6 @@
 import React from "react"
 
-const Playlist = ({content, title, preprocess}) => {
-  if (preprocess instanceof Function) {
-    content = preprocess(content)
-  }
+const Playlist = ({content, title}) => {
   return (
     <div>
       <h3>{title || content.title}</h3>

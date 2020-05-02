@@ -8,9 +8,9 @@ playlists:
     id: 'PL2yQDdvlhXf8_d_QOFD9Twg2LILEmluDH'
 ---
 
-import { reinvent } from "../../../src/utils/preprocessors"
-
-<playlist name="three" content={props.playlists.one} preprocess={reinvent} />
+<ReinventProcessor playlist={props.playlists.one}>
+  <Playlist />
+</ReinventProcessor>
 
 Wow! I love blogging so much already.
 
