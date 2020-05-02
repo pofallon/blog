@@ -14,12 +14,14 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
 
   const playlists = { }
   
-  post.childrenPlaylistCollection[0].childrenPlaylist.forEach(p => {
-    playlists[p.name] = {
-      title: p.title,
-      videos: p.childrenPlaylistVideo
-    }
-  })
+  if (post.childrenPlaylistCollection[0]) {
+    post.childrenPlaylistCollection[0].childrenPlaylist.forEach(p => {
+      playlists[p.name] = {
+        title: p.title,
+        videos: p.childrenPlaylistVideo
+      }
+    })
+  }
 
   return (
     <Layout location={location} title={siteTitle}>
