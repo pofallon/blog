@@ -74,55 +74,6 @@ exports.onCreateNode = async ({ node, actions, getNode, createNodeId, createCont
       node,
       value,
     })
-
-    if (node.frontmatter.playlists) {
-      // console.log(`Adding ${Object.keys(node.frontmatter.playlists).length} playlist children to node ${node.id}...`)
-      const playlistChildren = await Promise.all(node.frontmatter.playlists.map(async (playlist) => {
-        // console.log(`Fetching playlist ${playlist.id} as ${playlist.name}`)
-        const results = await ps.getPlaylistItems(playlist.id)
-        const videoChildren = results.items.map(item => {
-          const videoNode = {
-            id: item.videoId,
-            title: item.title,
-            description: item.description,
-            date: item.publishedAt,
-            url: item.videoUrl,
-            parent: playlist.id,
-            internal: {
-              type: 'playlistVideo',
-              contentDigest: createContentDigest(item.videoId)
-            }
-          }
-          createNode(videoNode)
-          return(item.videoId)
-        })
-        // console.log(videoChildren)
-        const playlistNode = {
-          id: playlist.id,
-          title: results.playlistTitle,
-          name: playlist.name,
-          parent: createNodeId(`${node.id}-playlists`),
-          children: videoChildren,
-          internal: {
-            type: 'playlist',
-            contentDigest: createContentDigest(playlist.id)
-          }
-        }
-        createNode(playlistNode)
-        return(playlist.id)
-      }))
-
-      const playlistsParent = {
-        id: createNodeId(`${node.id}-playlists`),
-        children: playlistChildren,
-        internal: {
-          type: 'playlistCollection',
-          contentDigest: createContentDigest(playlistChildren)
-        }
-      }
-
-      createNode(playlistsParent)
-      createParentChildLink({ parent: node, child: playlistsParent })
-    }
   }
+  
 }
