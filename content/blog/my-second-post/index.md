@@ -3,9 +3,9 @@ title: My Second Post!
 date: "2015-05-06T23:46:37.121Z"
 playlists:
   - name: one
-    id: 'PL2yQDdvlhXf8xDhf0MLJbercENCI6s_8y'
+    id: PL2yQDdvlhXf8xDhf0MLJbercENCI6s_8y
   - name: two
-    id: 'PL2yQDdvlhXf8_d_QOFD9Twg2LILEmluDH'
+    id: PL2yQDdvlhXf8_d_QOFD9Twg2LILEmluDH
 ---
 
 <ReinventProcessor playlist={props.playlists.one}>

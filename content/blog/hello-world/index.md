@@ -4,7 +4,7 @@ date: "2015-05-01T22:12:03.284Z"
 description: "Hello World"
 playlists:
   - name: three
-    id: "PL2yQDdvlhXf8d-EXLaKIt-naTcllN5Gzt"
+    id: PL2yQDdvlhXf8d-EXLaKIt-naTcllN5Gzt
 ---
 
 <ReinventProcessor playlist={props.playlists.three}>
@@ -27,3 +27,11 @@ Oh, and here's a great quote from this Wikipedia on
 > firm-textured, round yolk that is bright orange-red in color.
 
 ![Chinese Salty Egg](./salty_egg.jpg)
+
+Some source code:
+
+```js
+let foo = (props) => {
+  return("bar")
+}
+```
