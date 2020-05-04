@@ -1,7 +1,9 @@
 import React from 'react'
 
 const reinvent = (playlist) => {
-  const {videos, ...newPlaylist} = playlist
+  const {videos, title, ...newPlaylist} = playlist
+  newPlaylist.title = title.replace(/^AWS re:Invent \d{4}.*\| /, '')
+
   newPlaylist.videos = videos.map(video => {
     let {title, ...newVideo} = video
     title = title.replace(/^AWS re:Invent \d{4}:\s*/, '')
@@ -10,6 +12,7 @@ const reinvent = (playlist) => {
     newVideo.title = title
     return newVideo
   })
+  
   return newPlaylist
 }
 
