@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     title: `Get2Know`,
     author: {
-      name: `Paul O'Fallon`,
+      name: `Paul`,
       summary: `Believer, Husband, Dad, @CoxAutomotive Architect by day / open source enthusiast and @Pluralsight author by night.`,
     },
     description: `Let's learn together!`,
