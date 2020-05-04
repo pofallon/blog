@@ -58,7 +58,7 @@ const Bio = () => {
       />
       <p>
         {/* Written by <strong>{author.name}</strong> <div>{author.summary}</div> */}
-        Written by <strong>{author.name}</strong>
+        Written with ❤ and ☕ in Atlanta by <strong>{author.name}</strong>
         {/* {` `} */}
         <div><a href={`https://twitter.com/${social.twitter}`}>
           You can find him on Twitter
