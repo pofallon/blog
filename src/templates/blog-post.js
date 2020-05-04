@@ -14,11 +14,13 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
 
   const playlists = { }
   
-  if (post.childrenPlaylistCollection[0]) {
-    post.childrenPlaylistCollection[0].childrenPlaylist.forEach(p => {
+  console.log(post)
+
+  if (post.children) {
+    post.children[0].children.forEach(p => {
       playlists[p.name] = {
         title: p.title,
-        videos: p.childrenPlaylistVideo
+        videos: p.children
       }
     })
   }
@@ -108,15 +110,25 @@ export const pageQuery = graphql`
         date(formatString: "MMMM DD, YYYY")
         description
       }
-      childrenPlaylistCollection {
-        childrenPlaylist {
-          name
-          title
-          childrenPlaylistVideo {
-            date,
-            description,
-            title
-            url
+      children {
+        ... on playlistCollection {
+          id
+          children {
+            id
+            ... on playlist {
+              id
+              name
+              title
+              children {
+                ... on playlistVideo {
+                  id
+                  title
+                  url
+                  description
+                  date
+                }
+              }
+            }
           }
         }
       }
