@@ -17,7 +17,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
   console.log(post)
 
   if (post.children) {
-    post.children[0].children.forEach(p => {
+    post.children.forEach(p => {
       playlists[p.name] = {
         title: p.title,
         videos: p.children
@@ -111,23 +111,18 @@ export const pageQuery = graphql`
         description
       }
       children {
-        ... on playlistCollection {
+        id
+        ... on playlist {
           id
+          name
+          title
           children {
-            id
-            ... on playlist {
+            ... on playlistVideo {
               id
-              name
               title
-              children {
-                ... on playlistVideo {
-                  id
-                  title
-                  url
-                  description
-                  date
-                }
-              }
+              videoUrl
+              description
+              publishedAt
             }
           }
         }
