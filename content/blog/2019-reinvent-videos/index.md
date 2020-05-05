@@ -35,8 +35,8 @@ playlists:
 AWS does a great job sharing content from their yearly [re:Invent conference](https://reinvent.awsevents.com).  However, it's difficult to find this content in one (easily searchable) place.  This page is built with the help of the [gatsby-transformer-playlists](https://github.com/pofallon/gatsby-transformer-playlists) plugin.  Enjoy!
 
 <div>
-  { Object.keys(props.playlists).map(p =>
-    <ReinventProcessor playlist={props.playlists[p]}>
+  { Object.values(props.playlists).map(p =>
+    <ReinventProcessor playlist={p}>
       <Playlist />
     </ReinventProcessor>
   ) }
