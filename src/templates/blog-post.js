@@ -13,8 +13,6 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
   const { previous, next } = pageContext
 
   const playlists = { }
-  
-  console.log(post)
 
   if (post.children) {
     post.children.forEach(p => {
