@@ -11,6 +11,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
   const post = data.mdx
   const siteTitle = data.site.siteMetadata.title
   const { previous, next } = pageContext
+  const thumbnail = post.frontmatter.thumbnail
 
   const playlists = { }
 
@@ -28,6 +29,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
       <SEO
         title={post.frontmatter.title}
         description={post.frontmatter.description || post.excerpt}
+        thumbnail={thumbnail}
       />
       <article>
         <header>
@@ -107,6 +109,13 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         description
+        thumbnail {
+          childImageSharp {
+            sizes(maxWidth: 600) {
+              ...GatsbyImageSharpSizes
+            }
+          }
+        }
       }
       children {
         id
