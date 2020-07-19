@@ -2,7 +2,7 @@
 title: '2019 re:Invent Videos'
 date: 2020-05-02
 description: "Bringing together the 2019 re:Invent videos in one place!"
-thumbnail: './reinvent.png'
+image: './reinvent.png'
 playlists:
   - { name: alexa, id: PL2yQDdvlhXf8d-EXLaKIt-naTcllN5Gzt }
   - { name: analytics, id: PL2yQDdvlhXf8xDhf0MLJbercENCI6s_8y }

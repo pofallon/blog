@@ -19,6 +19,13 @@ module.exports = {
         apiKey: process.env.YT_KEY
       }
     },
+    `gatsby-plugin-postcss`,
+    {
+      resolve: `gatsby-plugin-purgecss`,
+      options: {
+        tailwind: true,
+      },
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -56,12 +63,6 @@ module.exports = {
     },
     `gatsby-plugin-react-helmet`,
     {
-      resolve: `gatsby-plugin-typography`,
-      options: {
-        pathToConfigModule: `src/utils/typography`,
-      },
-    },
-    {
       resolve: `gatsby-plugin-mdx`,
       options: {
         extensions: [".md", ".mdx"],
@@ -83,7 +84,7 @@ module.exports = {
           },
           `gatsby-remark-prismjs`,
           `gatsby-remark-copy-linked-files`,
-          `gatsby-remark-smartypants`,
+          `gatsby-remark-smartypants`
         ]
       }
     }

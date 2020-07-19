@@ -1,7 +1,5 @@
 const path = require(`path`)
 const { createFilePath } = require(`gatsby-source-filesystem`)
-const PlaylistSummary = require('youtube-playlist-summary')
-const ps = new PlaylistSummary({ GOOGLE_API_KEY: process.env.YT_KEY })
 
 exports.createPages = async (props) => {
 
@@ -64,8 +62,8 @@ createBlogPosts = async ({ graphql, actions }) => {
 
 }
 
-exports.onCreateNode = async ({ node, actions, getNode, createNodeId, createContentDigest }) => {
-  const { createNode, createNodeField, createParentChildLink } = actions
+exports.onCreateNode = async ({ node, actions, getNode }) => {
+  const { createNodeField } = actions
 
   if (node.internal.type === `Mdx`) {
     const value = createFilePath({ node, getNode })
