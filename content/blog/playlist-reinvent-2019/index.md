@@ -1,5 +1,5 @@
 ---
-title: '2019 re:Invent Videos'
+title: 'Playlist: re:Invent 2019'
 date: 2020-05-02
 description: "Bringing together the 2019 re:Invent videos in one place!"
 image: './reinvent.png'
