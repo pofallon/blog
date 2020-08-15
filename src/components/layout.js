@@ -25,18 +25,13 @@ const Layout = ({ location, title, children }) => {
     )
   }
   return (
-    <div class="flex flex-col px-6 max-w-4xl">
+    <div class="px-6 max-w-3xl">
       <header>{header}</header>
       <MDXProvider components={components}>
         <main className="">{children}</main>
       </MDXProvider>
       <div class="lg:flex justify-between items-end mt-4">
         <Bio />
-        <nav>
-          © {new Date().getFullYear()}, Built with{` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>{` `}
-          and deployed with <a href="https://aws.amazon.com/amplify/">Amplify</a>
-        </nav>
       </div>
     </div>
   )

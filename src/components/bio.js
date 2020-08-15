@@ -42,10 +42,13 @@ const Bio = () => {
         alt={author.name}
       />
       <span class="pl-2">
-        Written &amp; curated with <span role="img" aria-label="heart">❤</span> and <span role="img" aria-label="coffee">☕</span> by <strong>{author.name}</strong>
-        <div class="flex-none">
-          You can find him on <a href={`https://twitter.com/${social.twitter}`}>Twitter</a> and <a href={`https://github.com/${social.github}`}>Github</a>
-        </div>
+        Brought to you with <span role="img" aria-label="heart">❤</span> and <span role="img" aria-label="coffee">☕</span> by <strong>{author.name}</strong>
+        <nav>
+          © {new Date().getFullYear()}, Built with{` `}
+          <a href="https://www.gatsbyjs.org">Gatsby</a>,{` `}
+          <a href="">TailwindCSS</a>, and deployed with{` `}
+          <a href="https://aws.amazon.com/amplify/">Amplify</a>
+        </nav>
       </span>
     </div>
   )
