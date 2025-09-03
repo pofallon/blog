@@ -20,13 +20,15 @@ module.exports = {
         apiKey: process.env.YT_KEY
       }
     }] : []),
-    `gatsby-plugin-postcss`,
-    {
-      resolve: `gatsby-plugin-purgecss`,
-      options: {
-        tailwind: true,
-      },
-    },
+    // `gatsby-plugin-postcss`,
+    // {
+    //   resolve: `gatsby-plugin-purgecss`,
+    //   options: {
+    //     tailwind: true,
+    //     develop: false,
+    //     purgeOnly: [`src/styles/`, `/home/runner/work/blog/blog/src/styles/global.css`]
+    //   },
+    // },
     {
       resolve: `gatsby-source-filesystem`,
       options: {

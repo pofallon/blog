@@ -65,13 +65,7 @@ export const pageQuery = graphql`
         description
         image {
           childImageSharp {
-<<<<<<< HEAD
             gatsbyImageData(width: 500)
-=======
-            fluid(maxWidth: 500) {
-              ...GatsbyImageSharpFluid
-            }
->>>>>>> master
           }
         }
       }
