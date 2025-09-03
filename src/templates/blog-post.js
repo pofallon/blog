@@ -12,16 +12,19 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
   const image = getImage(post.frontmatter.image)
   // const image = post.frontmatter.image
 
-  // const playlists = { }
+  const playlists = { }
 
-  // if (post.children) {
-  //   post.children.forEach(p => {
-  //     playlists[p.name] = {
-  //       title: p.title,
-  //       videos: p.children
-  //     }
-  //   })
-  // }
+  // Only process playlists if they exist (when YT_KEY is available)
+  if (post.children) {
+    post.children.forEach(p => {
+      if (p.name && p.title && p.children) {
+        playlists[p.name] = {
+          title: p.title,
+          videos: p.children
+        }
+      }
+    })
+  }
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -62,7 +65,13 @@ export const pageQuery = graphql`
         description
         image {
           childImageSharp {
+<<<<<<< HEAD
             gatsbyImageData(width: 500)
+=======
+            fluid(maxWidth: 500) {
+              ...GatsbyImageSharpFluid
+            }
+>>>>>>> master
           }
         }
       }
