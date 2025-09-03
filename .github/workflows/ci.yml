@@ -1,0 +1,62 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '16'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Build site
+      run: npm run build
+      env:
+        # Use YouTube API key if available, otherwise build without it
+        YT_KEY: ${{ secrets.YT_KEY }}
+        # Fix for Node 17+ OpenSSL issue with older webpack
+        NODE_OPTIONS: --openssl-legacy-provider
+        
+    - name: Serve site and test pages
+      run: |
+        # Kill any existing servers
+        pkill -f "gatsby serve" || true
+        sleep 2
+        
+        # Start the server in background
+        npm run serve &
+        SERVER_PID=$!
+        
+        # Wait for server to start
+        sleep 15
+        
+        # Test that key pages load successfully
+        echo "Testing homepage..."
+        curl -f http://localhost:9000/ > /dev/null || exit 1
+        
+        echo "Testing that no 404 pages are returned..."
+        RESPONSE=$(curl -s http://localhost:9000/)
+        if echo "$RESPONSE" | grep -i "page not found\|404 error\|not found" | grep -v "component---src-pages-404-js" > /dev/null; then
+          echo "Error: Found error indicators on homepage"
+          exit 1
+        fi
+        
+        echo "All page tests passed!"
+        
+        # Clean up
+        kill $SERVER_PID || true
+      timeout-minutes: 5

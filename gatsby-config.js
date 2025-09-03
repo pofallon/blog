@@ -13,12 +13,13 @@ module.exports = {
     },
   },
   plugins: [
-    {
+    // Only include YouTube playlist transformer if API key is available and not a dummy
+    ...(process.env.YT_KEY && process.env.YT_KEY !== 'dummy-key-for-ci' ? [{
       resolve: `gatsby-transformer-playlists`,
       options: {
         apiKey: process.env.YT_KEY
       }
-    },
+    }] : []),
     `gatsby-plugin-postcss`,
     {
       resolve: `gatsby-plugin-purgecss`,

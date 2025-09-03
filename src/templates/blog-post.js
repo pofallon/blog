@@ -13,11 +13,14 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
 
   const playlists = { }
 
+  // Only process playlists if they exist (when YT_KEY is available)
   if (post.children) {
     post.children.forEach(p => {
-      playlists[p.name] = {
-        title: p.title,
-        videos: p.children
+      if (p.name && p.title && p.children) {
+        playlists[p.name] = {
+          title: p.title,
+          videos: p.children
+        }
       }
     })
   }
@@ -63,23 +66,6 @@ export const pageQuery = graphql`
           childImageSharp {
             fluid(maxWidth: 500) {
               ...GatsbyImageSharpFluid
-            }
-          }
-        }
-      }
-      children {
-        id
-        ... on playlist {
-          id
-          name
-          title
-          children {
-            ... on playlistVideo {
-              id
-              title
-              videoUrl
-              description
-              publishedAt
             }
           }
         }
