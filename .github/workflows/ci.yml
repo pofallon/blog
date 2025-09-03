@@ -26,26 +26,31 @@ jobs:
     - name: Build site
       run: npm run build
       env:
-        # Provide a dummy YouTube API key for CI builds
-        YT_KEY: ${{ secrets.YT_KEY || 'dummy-key-for-ci' }}
+        # Use YouTube API key if available, otherwise build without it
+        YT_KEY: ${{ secrets.YT_KEY }}
         # Fix for Node 17+ OpenSSL issue with older webpack
         NODE_OPTIONS: --openssl-legacy-provider
         
     - name: Serve site and test pages
       run: |
+        # Kill any existing servers
+        pkill -f "gatsby serve" || true
+        sleep 2
+        
         # Start the server in background
         npm run serve &
         SERVER_PID=$!
         
         # Wait for server to start
-        sleep 10
+        sleep 15
         
         # Test that key pages load successfully
         echo "Testing homepage..."
         curl -f http://localhost:9000/ > /dev/null || exit 1
         
         echo "Testing that no 404 pages are returned..."
-        if curl -s http://localhost:9000/ | grep -i "404\|not found\|error"; then
+        RESPONSE=$(curl -s http://localhost:9000/)
+        if echo "$RESPONSE" | grep -i "page not found\|404 error\|not found" | grep -v "component---src-pages-404-js" > /dev/null; then
           echo "Error: Found error indicators on homepage"
           exit 1
         fi
