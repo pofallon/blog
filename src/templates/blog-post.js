@@ -1,7 +1,7 @@
 import React from "react"
 import { graphql } from "gatsby"
 import { MDXRenderer } from "gatsby-plugin-mdx"
-import Image from "gatsby-image"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -9,18 +9,19 @@ import SEO from "../components/seo"
 const BlogPostTemplate = ({ data, pageContext, location }) => {
   const post = data.mdx
   const siteTitle = data.site.siteMetadata.title
+  const image = getImage(post.frontmatter.image)
   // const image = post.frontmatter.image
 
-  const playlists = { }
+  // const playlists = { }
 
-  if (post.children) {
-    post.children.forEach(p => {
-      playlists[p.name] = {
-        title: p.title,
-        videos: p.children
-      }
-    })
-  }
+  // if (post.children) {
+  //   post.children.forEach(p => {
+  //     playlists[p.name] = {
+  //       title: p.title,
+  //       videos: p.children
+  //     }
+  //   })
+  // }
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -31,11 +32,11 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
       />
       <article class="prose md:prose-lg">
         <header class="flex flex-col items-center">
-          <Image className="w-full h-32 sm:h-48 object-cover" fluid={post.frontmatter.image.childImageSharp.fluid} />
+          <GatsbyImage className="w-full h-32 sm:h-48 object-cover" image={image} alt={post.frontmatter.title} />
           <h1 class="pt-4">{post.frontmatter.title}</h1>
           <span>{post.frontmatter.date}</span>
         </header>
-        <MDXRenderer playlists={playlists}>{post.body}</MDXRenderer>
+        <MDXRenderer>{post.body}</MDXRenderer>
       </article>
       <hr />
     </Layout>
@@ -61,26 +62,7 @@ export const pageQuery = graphql`
         description
         image {
           childImageSharp {
-            fluid(maxWidth: 500) {
-              ...GatsbyImageSharpFluid
-            }
-          }
-        }
-      }
-      children {
-        id
-        ... on playlist {
-          id
-          name
-          title
-          children {
-            ... on playlistVideo {
-              id
-              title
-              videoUrl
-              description
-              publishedAt
-            }
+            gatsbyImageData(width: 500)
           }
         }
       }
