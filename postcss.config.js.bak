@@ -1,5 +1,5 @@
 module.exports = {
-  plugins: [
-    require("tailwindcss")
-  ]
+  plugins: {
+    // Basic CSS processing only
+  }
 }
