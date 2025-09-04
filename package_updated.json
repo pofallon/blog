@@ -8,18 +8,18 @@
     "url": "https://github.com/pofallon/blog/issues"
   },
   "dependencies": {
-    "@babel/core": "^7.28.3",
     "@blocks/kit": "0.0.28",
-    "@mdx-js/mdx": "^1.6.16",
-    "@mdx-js/react": "^1.6.16",
-    "gatsby": "^4.25.9",
-    "gatsby-plugin-google-analytics": "^4.25.0",
+    "@mdx-js/mdx": "^2.3.0",
+    "@mdx-js/react": "^2.3.0",
+    "gatsby": "^4.25.7",
     "gatsby-plugin-image": "^2.25.0",
+    "gatsby-plugin-feed": "^4.25.0",
+    "gatsby-plugin-google-analytics": "^4.25.0",
     "gatsby-plugin-manifest": "^4.25.0",
     "gatsby-plugin-mdx": "^3.20.0",
     "gatsby-plugin-offline": "^5.25.0",
     "gatsby-plugin-postcss": "^5.25.0",
-    "gatsby-plugin-purgecss": "^5.0.0",
+    "gatsby-plugin-purgecss": "^6.2.1",
     "gatsby-plugin-react-helmet": "^5.25.0",
     "gatsby-plugin-sharp": "^4.25.1",
     "gatsby-remark-copy-linked-files": "^5.25.0",
@@ -32,17 +32,17 @@
     "gatsby-transformer-remark": "^5.25.1",
     "gatsby-transformer-sharp": "^4.25.0",
     "prismjs": "^1.30.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
-    "typeface-merriweather": "^1.1.13",
-    "typeface-montserrat": "^1.1.13",
-    "youtube-playlist-summary": "^2.1.4"
+    "typeface-merriweather": "1.1.13",
+    "typeface-montserrat": "1.1.13",
+    "youtube-playlist-summary": "^2.1.6"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.16",
     "prettier": "^3.6.2",
-    "tailwindcss": "^3.4.17"
+    "tailwindcss": "^3.4.3"
   },
   "homepage": "https://github.com/pofallon/blog#readme",
   "keywords": [

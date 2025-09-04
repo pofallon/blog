@@ -1,6 +1,6 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
-import Image from "gatsby-image"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -15,10 +15,11 @@ const BlogIndex = ({ data, location }) => {
       <div class="grid lg:grid-cols-3 gap-6">
         {posts.map(({ node }) => {
           const title = node.frontmatter.title || node.fields.slug
+          const image = getImage(node.frontmatter.image)
           return (
             <Link className="no-underline text-black" to={node.fields.slug} key={node.fields.slug}>
               <div class="bg-white rounded overflow-hidden shadow" >
-                <Image className="w-full h-32 sm:h-48 object-cover" fluid={node.frontmatter.image.childImageSharp.fluid} />
+                <GatsbyImage className="w-full h-32 sm:h-48 object-cover" image={image} alt={title} />
                 <span class="font-bold pl-2">{title}</span>
                 {/* <small class="block">{node.frontmatter.date}</small> */}
                 <p class="text-sm pl-2 pb-2"
@@ -44,7 +45,7 @@ export const pageQuery = graphql`
         title
       }
     }
-    allMdx(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMdx(sort: {order: DESC, fields: [frontmatter___date]}) {
       edges {
         node {
           excerpt
@@ -57,9 +58,7 @@ export const pageQuery = graphql`
             description
             image {
               childImageSharp {
-                fluid(maxWidth: 500) {
-                  ...GatsbyImageSharpFluid
-                }
+                gatsbyImageData(width: 500)
               }
             }
           }

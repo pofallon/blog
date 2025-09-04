@@ -1,14 +1,18 @@
 import React from "react"
 import { graphql } from "gatsby"
 import { MDXRenderer } from "gatsby-plugin-mdx"
-import Image from "gatsby-image"
+import { MDXProvider } from "@mdx-js/react"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import Playlist from "../components/playlist"
+import { ReinventProcessor } from "../components/processors"
 
 const BlogPostTemplate = ({ data, pageContext, location }) => {
   const post = data.mdx
   const siteTitle = data.site.siteMetadata.title
+  const image = getImage(post.frontmatter.image)
   // const image = post.frontmatter.image
 
   const playlists = { }
@@ -25,6 +29,12 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
     })
   }
 
+  // Components to make available in MDX
+  const components = {
+    Playlist,
+    ReinventProcessor,
+  }
+
   return (
     <Layout location={location} title={siteTitle}>
       <SEO
@@ -34,11 +44,13 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
       />
       <article class="prose md:prose-lg">
         <header class="flex flex-col items-center">
-          <Image className="w-full h-32 sm:h-48 object-cover" fluid={post.frontmatter.image.childImageSharp.fluid} />
+          <GatsbyImage className="w-full h-32 sm:h-48 object-cover" image={image} alt={post.frontmatter.title} />
           <h1 class="pt-4">{post.frontmatter.title}</h1>
           <span>{post.frontmatter.date}</span>
         </header>
-        <MDXRenderer playlists={playlists}>{post.body}</MDXRenderer>
+        <MDXProvider components={components}>
+          <MDXRenderer playlists={playlists}>{post.body}</MDXRenderer>
+        </MDXProvider>
       </article>
       <hr />
     </Layout>
@@ -58,15 +70,19 @@ export const pageQuery = graphql`
       id
       excerpt(pruneLength: 160)
       body
+      children {
+        id
+        internal {
+          type
+        }
+      }
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
         description
         image {
           childImageSharp {
-            fluid(maxWidth: 500) {
-              ...GatsbyImageSharpFluid
-            }
+            gatsbyImageData(width: 500)
           }
         }
       }

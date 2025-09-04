@@ -35,10 +35,33 @@ playlists:
 
 AWS does a great job sharing content from their yearly [re:Invent conference](https://reinvent.awsevents.com).  However, it's difficult to find this content in one (easily searchable) place.  This page is built with the help of the [gatsby-transformer-playlists](https://github.com/pofallon/gatsby-transformer-playlists) plugin.  Enjoy!
 
-<div>
-  { Object.values(props.playlists).map(p =>
-    <ReinventProcessor playlist={p}>
-      <Playlist />
-    </ReinventProcessor>
-  ) }
-</div>
+> **Note**: YouTube playlist functionality requires API key configuration. When configured, this page will display embedded playlist content from AWS re:Invent 2019.
+
+The playlists include content from the following topics:
+- Alexa
+- Analytics  
+- Architecture
+- AI/ML
+- Community
+- Compute
+- Containers
+- Databases
+- DevOps
+- End User Computing
+- Enterprise
+- Financial Services
+- IoT
+- Life Sciences
+- Management Tools
+- Manufacturing
+- Marketplace
+- Mobile
+- Netflix Sessions
+- Networking
+- Open Source
+- Public Sector
+- Robotics
+- Security
+- Startup
+- Storage
+- Windows

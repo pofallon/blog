@@ -75,3 +75,13 @@ exports.onCreateNode = async ({ node, actions, getNode }) => {
   }
   
 }
+
+exports.onCreateWebpackConfig = ({ stage, actions }) => {
+  if (stage === 'build-javascript' || stage === 'build-css') {
+    actions.setWebpackConfig({
+      optimization: {
+        minimize: false
+      }
+    })
+  }
+}
