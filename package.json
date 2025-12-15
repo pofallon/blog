@@ -1,6 +1,9 @@
 {
   "name": "blog",
   "private": true,
+  "workspaces": [
+    "apps/site-shell"
+  ],
   "description": "Paul's get2know.io blog",
   "version": "0.1.0",
   "author": "Paul O'Fallon <paul@ofallonfamily.com>",
