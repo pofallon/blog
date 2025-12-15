@@ -17,9 +17,9 @@ description: "Task list for pausing AWS Amplify builds"
 
 **Purpose**: Establish documentation structure, prerequisites, and environment scaffolding.
 
-- [ ] T001 Create runbook directory skeleton (`specs/001-pause-amplify-builds/runbooks/README.md`) that links pause/resume/verification artifacts.
-- [ ] T002 Capture Amplify CLI / AWS CLI / IAM prerequisite matrix under **Technical Context** in `specs/001-pause-amplify-builds/plan.md`.
-- [ ] T003 Add environment variable export snippet for `APP_ID`, `PROD_BRANCH`, `PLACEHOLDER_BRANCH` at the top of `specs/001-pause-amplify-builds/quickstart.md`.
+- [X] T001 Create runbook directory skeleton (`specs/001-pause-amplify-builds/runbooks/README.md`) that links pause/resume/verification artifacts.
+- [X] T002 Capture Amplify CLI / AWS CLI / IAM prerequisite matrix under **Technical Context** in `specs/001-pause-amplify-builds/plan.md`.
+- [X] T003 Add environment variable export snippet for `APP_ID`, `PROD_BRANCH`, `PLACEHOLDER_BRANCH` at the top of `specs/001-pause-amplify-builds/quickstart.md`.
 
 ---
 
@@ -27,9 +27,9 @@ description: "Task list for pausing AWS Amplify builds"
 
 **Purpose**: Core governance artifacts that every user story depends on.
 
-- [ ] T004 Map Amplify App, Production Branch, Placeholder Branch, Verification Checklist, and Communication Packet entities to user stories inside `specs/001-pause-amplify-builds/data-model.md`.
-- [ ] T005 Document `/amplify/pause` and `/amplify/resume` request/response field mappings plus story ownership in `specs/001-pause-amplify-builds/contracts/README.md`.
-- [ ] T006 Add freeze/resume stakeholder communication templates (initiate + lift) to `specs/001-pause-amplify-builds/plan.md#Communication`.
+- [X] T004 Map Amplify App, Production Branch, Placeholder Branch, Verification Checklist, and Communication Packet entities to user stories inside `specs/001-pause-amplify-builds/data-model.md`.
+- [X] T005 Document `/amplify/pause` and `/amplify/resume` request/response field mappings plus story ownership in `specs/001-pause-amplify-builds/contracts/README.md`.
+- [X] T006 Add freeze/resume stakeholder communication templates (initiate + lift) to `specs/001-pause-amplify-builds/plan.md#Communication`.
 
 **Checkpoint**: Governance artifacts approved; proceed to user stories.
 
@@ -42,14 +42,14 @@ description: "Task list for pausing AWS Amplify builds"
 
 ### Tests for User Story 1
 
-- [ ] T007 [US1] Document sandbox rehearsal validation (list-branches + list-jobs outputs) under **Phase A – Pause builds** in `specs/001-pause-amplify-builds/quickstart.md`.
+- [X] T007 [US1] Document sandbox rehearsal validation (list-branches + list-jobs outputs) under **Phase A – Pause builds** in `specs/001-pause-amplify-builds/quickstart.md`.
 
 ### Implementation for User Story 1
 
-- [ ] T008 [P] [US1] Write CLI branch-switch procedure (disable `main`, create/attach `amplify-paused`) with guardrail notes in `specs/001-pause-amplify-builds/runbooks/pause-builds-cli.md`.
-- [ ] T009 [P] [US1] Capture Amplify Console navigation steps with screenshot callouts in `specs/001-pause-amplify-builds/runbooks/pause-builds-console.md`.
-- [ ] T010 [US1] Synthesize CLI + console flows and placeholder branch governance inside `specs/001-pause-amplify-builds/runbooks/pause-builds.md`.
-- [ ] T011 [US1] Embed notification + evidence capture workflow (FR-004, FR-006) referencing Communication Packet fields inside `specs/001-pause-amplify-builds/runbooks/pause-builds.md`.
+- [X] T008 [P] [US1] Write CLI branch-switch procedure (disable `main`, create/attach `amplify-paused`) with guardrail notes in `specs/001-pause-amplify-builds/runbooks/pause-builds-cli.md`.
+- [X] T009 [P] [US1] Capture Amplify Console navigation steps with screenshot callouts in `specs/001-pause-amplify-builds/runbooks/pause-builds-console.md`.
+- [X] T010 [US1] Synthesize CLI + console flows and placeholder branch governance inside `specs/001-pause-amplify-builds/runbooks/pause-builds.md`.
+- [X] T011 [US1] Embed notification + evidence capture workflow (FR-004, FR-006) referencing Communication Packet fields inside `specs/001-pause-amplify-builds/runbooks/pause-builds.md`.
 
 #### Parallel Execution Example (US1)
 
@@ -65,14 +65,14 @@ description: "Task list for pausing AWS Amplify builds"
 
 ### Tests for User Story 2
 
-- [ ] T012 [US2] Add dry-run validation (resume + commit trigger) steps to **Phase C – Resume builds** in `specs/001-pause-amplify-builds/quickstart.md`.
+- [X] T012 [US2] Add dry-run validation (resume + commit trigger) steps to **Phase C – Resume builds** in `specs/001-pause-amplify-builds/quickstart.md`.
 
 ### Implementation for User Story 2
 
-- [ ] T013 [P] [US2] Author CLI resume procedure (update-branch commands + `/amplify/resume` contract fields) in `specs/001-pause-amplify-builds/runbooks/resume-builds-cli.md`.
-- [ ] T014 [P] [US2] Detail Amplify Console resume steps (toggle auto-build on `main`, disable placeholder monitoring) in `specs/001-pause-amplify-builds/runbooks/resume-builds-console.md`.
-- [ ] T015 [US2] Document placeholder branch retirement safeguards and alerts inside `specs/001-pause-amplify-builds/runbooks/resume-builds.md`.
-- [ ] T016 [US2] Add `resumeAck` approval gate instructions (link checklist IDs + approval timestamps) to the decision checkpoint section of `specs/001-pause-amplify-builds/runbooks/resume-builds.md`.
+- [X] T013 [P] [US2] Author CLI resume procedure (update-branch commands + `/amplify/resume` contract fields) in `specs/001-pause-amplify-builds/runbooks/resume-builds-cli.md`.
+- [X] T014 [P] [US2] Detail Amplify Console resume steps (toggle auto-build on `main`, disable placeholder monitoring) in `specs/001-pause-amplify-builds/runbooks/resume-builds-console.md`.
+- [X] T015 [US2] Document placeholder branch retirement safeguards and alerts inside `specs/001-pause-amplify-builds/runbooks/resume-builds.md`.
+- [X] T016 [US2] Add `resumeAck` approval gate instructions (link checklist IDs + approval timestamps) to the decision checkpoint section of `specs/001-pause-amplify-builds/runbooks/resume-builds.md`.
 
 #### Parallel Execution Example (US2)
 
@@ -88,13 +88,13 @@ description: "Task list for pausing AWS Amplify builds"
 
 ### Tests for User Story 3
 
-- [ ] T017 [P] [US3] Create `specs/001-pause-amplify-builds/verification-checklist.md` template with fields for build snapshots, curl hash, Playwright evidence, hourly follow-up, and resumeAck.
+- [X] T017 [P] [US3] Create `specs/001-pause-amplify-builds/verification-checklist.md` template with fields for build snapshots, curl hash, Playwright evidence, hourly follow-up, and resumeAck.
 
 ### Implementation for User Story 3
 
-- [ ] T018 [US3] Embed build-history + hosting-status capture commands and evidence storage instructions in **Phase B – Verification checklist** of `specs/001-pause-amplify-builds/quickstart.md`.
-- [ ] T019 [US3] Add curl + SHA hash procedure plus sample output snippets to `specs/001-pause-amplify-builds/quickstart.md`.
-- [ ] T020 [P] [US3] Scaffold `specs/001-pause-amplify-builds/scripts/verify-pause.spec.ts` with Playwright DOM snapshot steps referenced by the checklist.
+- [X] T018 [US3] Embed build-history + hosting-status capture commands and evidence storage instructions in **Phase B – Verification checklist** of `specs/001-pause-amplify-builds/quickstart.md`.
+- [X] T019 [US3] Add curl + SHA hash procedure plus sample output snippets to `specs/001-pause-amplify-builds/quickstart.md`.
+- [X] T020 [P] [US3] Scaffold `specs/001-pause-amplify-builds/scripts/verify-pause.spec.ts` with Playwright DOM snapshot steps referenced by the checklist.
 
 #### Parallel Execution Example (US3)
 
@@ -107,8 +107,8 @@ description: "Task list for pausing AWS Amplify builds"
 
 **Purpose**: Tighten documentation cohesion and audit readiness.
 
-- [ ] T021 Cross-link plan.md, runbooks, quickstart, data-model, and contracts via a documentation index in `specs/001-pause-amplify-builds/plan.md`.
-- [ ] T022 Record end-to-end dry-run results (timestamps, approvers, evidence links) in `specs/001-pause-amplify-builds/runbooks/dry-run-log.md` and surface summary bullets in `specs/001-pause-amplify-builds/plan.md`.
+- [X] T021 Cross-link plan.md, runbooks, quickstart, data-model, and contracts via a documentation index in `specs/001-pause-amplify-builds/plan.md`.
+- [X] T022 Record end-to-end dry-run results (timestamps, approvers, evidence links) in `specs/001-pause-amplify-builds/runbooks/dry-run-log.md` and surface summary bullets in `specs/001-pause-amplify-builds/plan.md`.
 
 ---
 
