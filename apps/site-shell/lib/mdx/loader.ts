@@ -6,7 +6,7 @@
 import fs from 'fs';
 import path from 'path';
 import { parseFrontmatter } from './parser';
-import type { MDXEntry, MDXBuildSummary, ValidationResult } from './types';
+import type { MDXEntry, MDXBuildSummary, ValidationResult, BlogIndexEntry, BlogIndexOptions } from './types';
 
 // Content directory path (relative to monorepo root)
 function getContentDir(): string {
@@ -178,4 +178,107 @@ export function getPostBySlug(slug: string): MDXEntry | null {
     content,
     filePath,
   };
+}
+
+/**
+ * Generate an excerpt from MDX content when description is missing
+ * Strips MDX/Markdown syntax and truncates to maxLength
+ */
+function generateExcerpt(content: string, maxLength = 160): string {
+  const plainText = content
+    .replace(/^#+\s+.*/gm, '')           // Remove headers
+    .replace(/```[\s\S]*?```/g, '')      // Remove code blocks
+    .replace(/<[^>]+>/g, '')             // Remove JSX/HTML tags
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Links → text only
+    .replace(/[*_`~]/g, '')              // Remove formatting chars
+    .replace(/\n+/g, ' ')                // Normalize whitespace
+    .trim();
+
+  if (plainText.length <= maxLength) {
+    return plainText;
+  }
+
+  // Truncate at word boundary
+  const truncated = plainText.substring(0, maxLength);
+  const lastSpace = truncated.lastIndexOf(' ');
+
+  return (lastSpace > 0 ? truncated.substring(0, lastSpace) : truncated) + '…';
+}
+
+/**
+ * Transform an MDXEntry to a BlogIndexEntry for display
+ * @see /specs/005-build-blog-index/data-model.md
+ */
+export function transformToBlogIndexEntry(entry: MDXEntry): BlogIndexEntry {
+  const title = entry.metadata.title || 'Untitled Post';
+  // Parse date as UTC to avoid timezone-related off-by-one errors
+  const dateParts = entry.metadata.date.split('-').map(Number);
+  const year = dateParts[0] ?? 1970;
+  const month = dateParts[1] ?? 1;
+  const day = dateParts[2] ?? 1;
+  const date = new Date(Date.UTC(year, month - 1, day));
+
+  const formattedDate = date.toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
+
+  const summary = entry.metadata.description || generateExcerpt(entry.content);
+
+  return {
+    slug: entry.slug,
+    title,
+    formattedDate,
+    rawDate: entry.metadata.date,
+    summary,
+    url: `/posts/${entry.slug}`,
+  };
+}
+
+/**
+ * Get all posts sorted and filtered for index display
+ * @param options Configuration for filtering/limiting posts
+ * @returns Array of BlogIndexEntry sorted newest-first
+ * @see /specs/005-build-blog-index/data-model.md
+ */
+export function getAllPostsForIndex(
+  options: BlogIndexOptions = {}
+): BlogIndexEntry[] {
+  const { includeFuture = false, limit } = options;
+  const { posts } = getAllPosts();
+
+  // Filter future-dated posts using UTC comparison
+  let filteredPosts = posts;
+  if (!includeFuture) {
+    const nowUTC = new Date();
+    filteredPosts = posts.filter(post => {
+      const dateParts = post.metadata.date.split('-').map(Number);
+      const year = dateParts[0] ?? 1970;
+      const month = dateParts[1] ?? 1;
+      const day = dateParts[2] ?? 1;
+      const postDate = new Date(Date.UTC(year, month - 1, day));
+      return postDate <= nowUTC;
+    });
+  }
+
+  // Sort by date descending, then title ascending (A→Z tiebreaker)
+  const sortedPosts = filteredPosts.sort((a, b) => {
+    // Compare dates as strings (YYYY-MM-DD format sorts correctly)
+    if (a.metadata.date !== b.metadata.date) {
+      return b.metadata.date.localeCompare(a.metadata.date); // Newest first
+    }
+
+    // Tiebreaker: alphabetical by title (handle missing titles)
+    const titleA = a.metadata.title || 'Untitled Post';
+    const titleB = b.metadata.title || 'Untitled Post';
+    return titleA.localeCompare(titleB);
+  });
+
+  // Apply limit if specified
+  const limitedPosts = limit ? sortedPosts.slice(0, limit) : sortedPosts;
+
+  // Transform to view model
+  return limitedPosts.map(transformToBlogIndexEntry);
 }
