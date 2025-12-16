@@ -9,6 +9,7 @@ import {
   VerificationReport,
   VerificationDetail,
   VerificationStatus,
+  VerifySlugsFn,
 } from './types';
 import { enumerateContentFiles } from './enumerate';
 import { loadManifest } from './manifest';
@@ -54,12 +55,12 @@ export function verifySlug(
  * @returns VerificationReport with all results
  * @throws SlugCollisionError if duplicate slugs detected
  */
-export async function generateVerificationReport(
+export const generateVerificationReport: VerifySlugsFn = async (
   contentDir: string,
   manifestPath: string
-): Promise<VerificationReport> {
+): Promise<VerificationReport> => {
   const files = await enumerateContentFiles(contentDir);
-  const manifest = loadManifest(manifestPath);
+  const manifest = await loadManifest(manifestPath);
 
   // Build a map of manifest entries for lookup
   const manifestEntries = new Map<string, string>();
@@ -69,16 +70,18 @@ export async function generateVerificationReport(
     }
   }
 
-  // Generate slugs and verify each file
-  const details: VerificationDetail[] = [];
+  // Generate slugs once and reuse for both collision detection and verification
   const slugResults = files.map((file) => generateSlug(file.relativePath));
 
   // Check for collisions first
   detectCollisions(slugResults);
 
-  // Verify each file
-  for (const file of files) {
-    const result = generateSlug(file.relativePath);
+  // Verify each file using pre-computed slug results
+  const details: VerificationDetail[] = [];
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    const result = slugResults[i];
+    
     if (!result.isValid) {
       // Should not happen if enumeration passed, but handle gracefully
       details.push({
@@ -129,4 +132,4 @@ export async function generateVerificationReport(
     details: details.filter((d) => d.status !== 'match'), // Only include non-matches
     exitCode,
   };
-}
+};

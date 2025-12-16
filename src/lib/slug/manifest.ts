@@ -5,8 +5,8 @@
  * Load, save, and update slug manifest file.
  */
 
-import * as fs from 'fs';
-import { SlugManifest, SlugManifestEntry } from './types';
+import { promises as fs } from 'fs';
+import { SlugManifest, SlugManifestEntry, UpdateManifestFn } from './types';
 import { enumerateContentFiles } from './enumerate';
 import { generateSlug } from './index';
 
@@ -16,13 +16,13 @@ import { generateSlug } from './index';
  * @param manifestPath - Path to slug-manifest.json
  * @returns SlugManifest object or null if file doesn't exist
  */
-export function loadManifest(manifestPath: string): SlugManifest | null {
-  if (!fs.existsSync(manifestPath)) {
+export async function loadManifest(manifestPath: string): Promise<SlugManifest | null> {
+  try {
+    const content = await fs.readFile(manifestPath, 'utf-8');
+    return JSON.parse(content) as SlugManifest;
+  } catch {
     return null;
   }
-
-  const content = fs.readFileSync(manifestPath, 'utf-8');
-  return JSON.parse(content) as SlugManifest;
 }
 
 /**
@@ -31,12 +31,12 @@ export function loadManifest(manifestPath: string): SlugManifest | null {
  * @param manifestPath - Path to slug-manifest.json
  * @param manifest - SlugManifest object to save
  */
-export function saveManifest(
+export async function saveManifest(
   manifestPath: string,
   manifest: SlugManifest
-): void {
+): Promise<void> {
   const content = JSON.stringify(manifest, null, 2) + '\n';
-  fs.writeFileSync(manifestPath, content, 'utf-8');
+  await fs.writeFile(manifestPath, content, 'utf-8');
 }
 
 /**
@@ -47,10 +47,10 @@ export function saveManifest(
  * @param manifestPath - Path to slug-manifest.json
  * @returns Updated SlugManifest
  */
-export async function updateManifest(
+export const updateManifest: UpdateManifestFn = async (
   contentDir: string,
   manifestPath: string
-): Promise<SlugManifest> {
+): Promise<SlugManifest> => {
   const files = await enumerateContentFiles(contentDir);
 
   const entries: SlugManifestEntry[] = files.map((file) => {
@@ -70,6 +70,6 @@ export async function updateManifest(
     entries,
   };
 
-  saveManifest(manifestPath, manifest);
+  await saveManifest(manifestPath, manifest);
   return manifest;
-}
+};

@@ -6,7 +6,7 @@
  */
 
 import { normalizeForSlug } from './normalize';
-import { SlugResult, SlugCollisionError } from './types';
+import { SlugResult, SlugCollisionError, GenerateSlugFn } from './types';
 
 // Re-export types and errors
 export {
@@ -34,7 +34,7 @@ export { verifySlug, generateVerificationReport } from './verify';
  * @param relativePath - Path relative to content/blog/, e.g., "my-post/index.md"
  * @returns SlugResult with generated slug or error
  */
-export function generateSlug(relativePath: string): SlugResult {
+export const generateSlug: GenerateSlugFn = (relativePath: string): SlugResult => {
   // Normalize path separators
   const normalizedPath = relativePath.replace(/\\/g, '/');
 
@@ -81,7 +81,7 @@ export function generateSlug(relativePath: string): SlugResult {
     sourcePath: relativePath,
     isValid: true,
   };
-}
+};
 
 /**
  * Detect slug collisions in a set of slug results.

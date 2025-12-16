@@ -5,9 +5,9 @@
  * Scans content/blog/ directory for valid content files.
  */
 
-import * as fs from 'fs';
+import { promises as fs } from 'fs';
 import * as path from 'path';
-import { ContentSourceFile, ContentStructureError } from './types';
+import { ContentSourceFile, ContentStructureError, EnumerateContentFilesFn } from './types';
 
 /**
  * Enumerate all valid content source files under content/blog/.
@@ -16,18 +16,20 @@ import { ContentSourceFile, ContentStructureError } from './types';
  * @param contentDir - Path to content/blog/ directory
  * @returns Array of ContentSourceFile objects
  */
-export async function enumerateContentFiles(
+export const enumerateContentFiles: EnumerateContentFilesFn = async (
   contentDir: string
-): Promise<ContentSourceFile[]> {
+): Promise<ContentSourceFile[]> => {
   const results: ContentSourceFile[] = [];
 
   // Check if directory exists
-  if (!fs.existsSync(contentDir)) {
+  try {
+    await fs.access(contentDir);
+  } catch {
     return results;
   }
 
   // Read all entries in the content directory
-  const entries = fs.readdirSync(contentDir, { withFileTypes: true });
+  const entries = await fs.readdir(contentDir, { withFileTypes: true });
 
   for (const entry of entries) {
     // Only process directories (collection folders)
@@ -39,7 +41,9 @@ export async function enumerateContentFiles(
     const indexPath = path.join(collectionPath, 'index.md');
 
     // Check if index.md exists
-    if (!fs.existsSync(indexPath)) {
+    try {
+      await fs.access(indexPath);
+    } catch {
       throw new ContentStructureError(
         `Missing index.md in collection folder: ${entry.name}`,
         entry.name,
@@ -48,7 +52,7 @@ export async function enumerateContentFiles(
     }
 
     // Check for multiple markdown files
-    const files = fs.readdirSync(collectionPath);
+    const files = await fs.readdir(collectionPath);
     const mdFiles = files.filter(
       (f) => f.endsWith('.md') || f.endsWith('.mdx')
     );
@@ -61,20 +65,26 @@ export async function enumerateContentFiles(
     }
 
     // Check for nested directories (wrong depth)
-    const subdirs = fs
-      .readdirSync(collectionPath, { withFileTypes: true })
-      .filter((d) => d.isDirectory());
+    const dirEntries = await fs.readdir(collectionPath, { withFileTypes: true });
+    const subdirs = dirEntries.filter((d) => d.isDirectory());
+    
     // Allow asset directories but not nested content
-    const nestedContent = subdirs.filter((d) => {
-      const subPath = path.join(collectionPath, d.name, 'index.md');
-      return fs.existsSync(subPath);
-    });
-    if (nestedContent.length > 0) {
-      throw new ContentStructureError(
-        `Nested content structure not allowed: ${entry.name}`,
-        entry.name,
-        'depth'
-      );
+    for (const subdir of subdirs) {
+      const subPath = path.join(collectionPath, subdir.name, 'index.md');
+      try {
+        await fs.access(subPath);
+        throw new ContentStructureError(
+          `Nested content structure not allowed: ${entry.name}`,
+          entry.name,
+          'depth'
+        );
+      } catch (e) {
+        // If it's our ContentStructureError, rethrow it
+        if (e instanceof ContentStructureError) {
+          throw e;
+        }
+        // Otherwise, file doesn't exist which is fine
+      }
     }
 
     results.push({
@@ -86,4 +96,4 @@ export async function enumerateContentFiles(
   }
 
   return results;
-}
+};

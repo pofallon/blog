@@ -6,6 +6,7 @@
  */
 
 import slugify from 'slugify';
+import { NormalizeForSlugFn } from './types';
 
 /**
  * Normalize a string for use in URLs.
@@ -14,7 +15,7 @@ import slugify from 'slugify';
  * @param input - Raw string (e.g., folder name)
  * @returns Normalized string (lowercase, hyphenated, ASCII-safe)
  */
-export function normalizeForSlug(input: string): string {
+export const normalizeForSlug: NormalizeForSlugFn = (input: string): string => {
   // Use slugify with strict mode for ASCII transliteration
   const normalized = slugify(input, {
     lower: true, // Convert to lowercase
@@ -24,4 +25,4 @@ export function normalizeForSlug(input: string): string {
 
   // Collapse consecutive hyphens to single hyphen
   return normalized.replace(/-+/g, '-');
-}
+};
