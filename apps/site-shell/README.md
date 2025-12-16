@@ -83,6 +83,51 @@ Schemas are defined in `specs/002-nextjs-app-shell/contracts/site-shell.openapi.
 
 All placeholder copy is sourced from `lib/placeholders.ts` and rendered via `PlaceholderShowcase`.
 
+## MDX Content
+
+The site supports MDX content at `/posts/[slug]`. Files are placed in `/content/posts/` at the monorepo root.
+
+### Adding MDX Posts
+
+1. Create an `.mdx` file in `content/posts/`:
+   ```
+   content/posts/my-new-post.mdx
+   ```
+
+2. Add required frontmatter:
+   ```yaml
+   ---
+   title: "My Post Title"
+   date: "2025-12-15"
+   description: "Brief description (max 200 chars)"
+   ---
+   ```
+
+3. Write your content in Markdown/MDX after the frontmatter.
+
+4. The file will be available at `/posts/my-new-post` after build.
+
+See [quickstart.md](../../specs/003-add-mdx-support/quickstart.md) for full documentation.
+
+### MDX File Structure
+
+```
+content/posts/           # MDX content directory
+├── demo-mdx.mdx        # Demo entry
+
+apps/site-shell/
+├── lib/mdx/            # MDX utilities
+│   ├── types.ts        # Type definitions
+│   ├── parser.ts       # Frontmatter parsing
+│   ├── loader.ts       # File loading
+│   └── validator.ts    # Zod schema validation
+├── components/mdx/     # MDX components
+│   ├── index.ts        # Component whitelist
+│   └── MDXContent.tsx  # MDX renderer
+└── app/posts/[slug]/   # Dynamic route
+    └── page.tsx        # Post page component
+```
+
 ## Known Warnings
 
 - `next` prints `lockfile missing swc dependencies` in this workspace because the repo mixes Gatsby + Next. SWC binaries are installed, and builds succeed despite the warning.

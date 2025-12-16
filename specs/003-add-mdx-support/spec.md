@@ -55,28 +55,30 @@ A site visitor can open the published demo MDX entry via a predictable route (e.
 ### Edge Cases
 
 - Missing required frontmatter fields (title, date, description) must fail validation with a descriptive error rather than silently skipping the file.
-- Dates that are not valid ISO-8601 strings must be rejected to avoid non-deterministic ordering or formatting downstream.
+- Dates that are not valid `YYYY-MM-DD` strings must be rejected to avoid non-deterministic ordering or formatting downstream.
 - Optional image metadata should gracefully fall back to a text-only layout without throwing runtime errors.
 - The content directory may be empty besides the demo file; the pipeline should still build successfully.
-- MDX files referencing unsupported custom components should warn editors and fall back to plain content so the demo does not break the page shell.
+- MDX files referencing unrecognized custom components MUST render those tags as escaped text with a build-time warning identifying the unknown component name and file path; approved components are defined via an explicit whitelist.
+- Duplicate slugs (multiple MDX files resolving to the same route) must fail the build with an error listing all conflicting file paths.
 
 ## Requirements *(mandatory)*
 
 ### Functional Requirements
 
-- **FR-001**: The system MUST define a single metadata contract for MDX entries that includes title (string), published date (ISO-8601), description (plain-text summary up to ~200 characters), and optional image (URL plus descriptive alt text).
+- **FR-001**: The system MUST define a single metadata contract for MDX entries that includes title (string), published date (`YYYY-MM-DD` format), description (plain-text summary, max 200 characters), and optional image (URL plus descriptive alt text).
 - **FR-002**: The build process MUST parse each MDX file’s frontmatter and validate it against the metadata contract before rendering; invalid files must halt the build with actionable errors.
-- **FR-003**: The application MUST load MDX content exclusively from the designated content directory (e.g., `/content/mdx`) and derive route slugs from the file path.
+- **FR-003**: The application MUST load MDX content exclusively from `/content/posts/` using a flat directory structure (all MDX files in one folder) and derive route slugs from the filename.
 - **FR-004**: The rendering layer MUST expose metadata to page templates so the demo entry displays title, formatted date, description preview, and optional image in the UI.
 - **FR-005**: The pipeline MUST include at least one curated demo MDX file that exercises inline markdown/MDX components and proves end-to-end rendering in the deployed site.
 - **FR-006**: Documentation MUST describe how editors add MDX files, list required fields, and outline validation behavior so non-developers can contribute content confidently.
 - **FR-007**: Existing non-MDX posts MUST remain untouched; MDX support is additive and cannot regress current blog routes or data sources.
+- **FR-008**: The build pipeline MUST produce a summary log listing all MDX files processed, validation pass/fail counts, and any warnings (e.g., unrecognized components).
 
 ### Key Entities *(include if feature involves data)*
 
 - **MDXEntry**: Represents a content file stored under the MDX directory, combining frontmatter metadata with compiled body content and a slug derived from its relative path.
 - **FrontmatterMetadata**: Structured data object containing title, published date, description, and optional image attributes (URL + alt text) that downstream pages consume for rendering and previews.
-- **ContentDirectory**: File-system location that the loader scans for MDX entries; enforces naming conventions and houses the demo entry referenced in tests.
+- **ContentDirectory**: The `/content/posts/` folder that the loader scans for MDX entries using a flat structure; houses the demo entry referenced in tests.
 
 ## Assumptions
 
@@ -84,11 +86,21 @@ A site visitor can open the published demo MDX entry via a predictable route (e.
 2. Build-time validation is sufficient; no runtime editing UI is needed.
 3. Existing design components can already display the metadata fields, so no new visual system work is required beyond wiring up data.
 
+## Clarifications
+
+### Session 2025-12-15
+
+- Q: How should the build handle duplicate slugs (multiple MDX files resolving to the same route)? → A: Fail build on duplicate slugs with error listing conflicting files
+- Q: What directory structure should be used for MDX content files? → A: `/content/posts/` (flat, all MDX files in one folder)
+- Q: How should MDX files referencing unsupported/unrecognized custom components be handled? → A: Whitelist of approved components; unrecognized ones render as text with warning
+- Q: What date format should the frontmatter `date` field accept? → A: Date only (`YYYY-MM-DD`)
+- Q: What level of observability should the build pipeline provide for MDX processing? → A: Summary log (list files processed, validation pass/fail counts, warnings)
+
 ## Success Criteria *(mandatory)*
 
 ### Measurable Outcomes
 
-- **SC-001**: A demo MDX page is accessible via a documented route and loads in under 2 seconds on a cold build, proving the content pipeline works end-to-end.
+- **SC-001**: A demo MDX page is accessible via a documented route and achieves first contentful paint in under 2 seconds on initial page load (cold browser cache), proving the content pipeline works end-to-end.
 - **SC-002**: 100% of MDX files missing required metadata are blocked during build with error messages that include the file path and offending field name.
 - **SC-003**: Content editors can add a new MDX article (file + metadata) and see it rendered in a staging build within 5 minutes without developer assistance.
 - **SC-004**: Deployments that include MDX changes do not increase total build time by more than 10% compared to the current baseline, ensuring the new pipeline remains lightweight.
