@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://get2know.io/schemas/mdx-frontmatter.json",
+  "title": "MDX Frontmatter Schema",
+  "description": "Schema for validating MDX post frontmatter metadata",
+  "type": "object",
+  "required": ["title", "date", "description"],
+  "additionalProperties": false,
+  "properties": {
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Display title for the post"
+    },
+    "date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "Publication date in YYYY-MM-DD format"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "description": "Plain-text summary for previews (max 200 characters)"
+    },
+    "image": {
+      "type": "object",
+      "description": "Optional hero image metadata",
+      "required": ["url", "alt"],
+      "additionalProperties": false,
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Image source URL"
+        },
+        "alt": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Accessibility alt text"
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "title": "Getting Started with MDX",
+      "date": "2025-12-15",
+      "description": "Learn how to create rich content with MDX in your Next.js blog."
+    },
+    {
+      "title": "Advanced MDX Patterns",
+      "date": "2025-12-20",
+      "description": "Explore advanced techniques for MDX content.",
+      "image": {
+        "url": "https://example.com/hero.jpg",
+        "alt": "Hero image for advanced MDX patterns"
+      }
+    }
+  ]
+}
