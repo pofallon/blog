@@ -43,9 +43,20 @@ export function parseFrontmatter(rawContent: string, filePath: string): ParseRes
   }
 
   const warnings: string[] = [];
+  const { title, date, description, image } = parseResult.data;
+
+  // Build metadata object, only including image if defined
+  const metadata: FrontmatterMetadata = {
+    title,
+    date,
+    description,
+  };
+  if (image) {
+    metadata.image = image;
+  }
 
   return {
-    metadata: parseResult.data as FrontmatterMetadata,
+    metadata,
     content,
     validation: {
       valid: true,

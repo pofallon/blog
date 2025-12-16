@@ -8,7 +8,10 @@ import { z } from 'zod';
 const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
 
 export const ImageMetaSchema = z.object({
-  url: z.string().min(1, 'Image URL is required'),
+  url: z.string().min(1, 'Image URL is required').refine(
+    (val) => val.startsWith('/') || val.startsWith('http://') || val.startsWith('https://'),
+    'Image URL must be a valid URL or relative path starting with /'
+  ),
   alt: z.string().min(1, 'Image alt text is required'),
 });
 

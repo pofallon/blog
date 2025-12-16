@@ -9,11 +9,14 @@
 
 import type { ComponentType } from 'react';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- MDX components receive arbitrary props
+type MDXComponentProps = any;
+
 /**
  * Whitelist of approved MDX components.
  * Key becomes the tag name available in MDX files.
  */
-export const mdxComponents: Record<string, ComponentType<Record<string, unknown>>> = {
+export const mdxComponents: Record<string, ComponentType<MDXComponentProps>> = {
   // No custom components for initial demo phase
   // Example future additions:
   // Callout: CalloutComponent,
