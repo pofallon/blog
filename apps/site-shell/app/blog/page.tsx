@@ -1,18 +1,27 @@
-import PlaceholderShowcase from '@/components/PlaceholderShowcase';
-import { getPlaceholderBySlug } from '@/lib/placeholders';
+import { getAllPostsForIndex } from '@/lib/mdx/loader';
+import { BlogPostCard, EmptyState } from '@/components/blog';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Blog',
+  description: 'Latest blog posts and articles',
+};
 
 export default function BlogPage() {
-  const placeholder = getPlaceholderBySlug('blog');
+  const posts = getAllPostsForIndex();
 
   return (
-    <div className="space-y-6">
-      <PlaceholderShowcase placeholder={placeholder} />
-      <section className="rounded-3xl border border-shell-border bg-white px-6 py-5">
-        <p className="text-sm text-shell-muted">
-          Upcoming work: wire the RSS importer and MDX renderer while ensuring existing Gatsby
-          content remains the source of truth.
-        </p>
+    <main className="space-y-6">
+      <h1 className="text-2xl font-bold text-shell-foreground">Blog</h1>
+      <section aria-label="Blog posts" className="space-y-4">
+        {posts.length === 0 ? (
+          <EmptyState />
+        ) : (
+          posts.map((post) => (
+            <BlogPostCard key={post.slug} post={post} />
+          ))
+        )}
       </section>
-    </div>
+    </main>
   );
 }

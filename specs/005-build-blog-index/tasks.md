@@ -28,8 +28,8 @@ Based on plan.md, this is a Next.js monorepo with site-shell:
 
 **Purpose**: Project structure verification and type definitions
 
-- [ ] T001 Add BlogIndexEntry and BlogIndexOptions types to apps/site-shell/lib/mdx/types.ts
-- [ ] T002 [P] Create blog components directory structure at apps/site-shell/components/blog/
+- [X] T001 Add BlogIndexEntry and BlogIndexOptions types to apps/site-shell/lib/mdx/types.ts
+- [X] T002 [P] Create blog components directory structure at apps/site-shell/components/blog/
 
 ---
 
@@ -39,10 +39,10 @@ Based on plan.md, this is a Next.js monorepo with site-shell:
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T003 Implement generateExcerpt utility function in apps/site-shell/lib/mdx/loader.ts
-- [ ] T004 Implement transformToBlogIndexEntry function in apps/site-shell/lib/mdx/loader.ts
-- [ ] T005 Implement getAllPostsForIndex function with sorting and filtering in apps/site-shell/lib/mdx/loader.ts
-- [ ] T006 Export new functions and types from apps/site-shell/lib/mdx/index.ts (if exists)
+- [X] T003 Implement generateExcerpt utility function in apps/site-shell/lib/mdx/loader.ts
+- [X] T004 Implement transformToBlogIndexEntry function in apps/site-shell/lib/mdx/loader.ts
+- [X] T005 Implement getAllPostsForIndex function with sorting and filtering in apps/site-shell/lib/mdx/loader.ts
+- [X] T006 Export new functions and types from apps/site-shell/lib/mdx/index.ts (if exists)
 
 **Checkpoint**: Foundation ready - user story implementation can now begin
 
@@ -56,11 +56,11 @@ Based on plan.md, this is a Next.js monorepo with site-shell:
 
 ### Implementation for User Story 1
 
-- [ ] T007 [US1] Create BlogPostCard component in apps/site-shell/components/blog/BlogPostCard.tsx
-- [ ] T008 [US1] Create EmptyState component for zero posts in apps/site-shell/components/blog/EmptyState.tsx
-- [ ] T009 [US1] Update blog index page to use getAllPostsForIndex in apps/site-shell/app/blog/page.tsx
-- [ ] T010 [US1] Add semantic HTML structure (main, section, article) with accessible markup in apps/site-shell/app/blog/page.tsx
-- [ ] T011 [US1] Add page heading and aria-label for blog posts section in apps/site-shell/app/blog/page.tsx
+- [X] T007 [US1] Create BlogPostCard component in apps/site-shell/components/blog/BlogPostCard.tsx
+- [X] T008 [US1] Create EmptyState component for zero posts in apps/site-shell/components/blog/EmptyState.tsx
+- [X] T009 [US1] Update blog index page to use getAllPostsForIndex in apps/site-shell/app/blog/page.tsx
+- [X] T010 [US1] Add semantic HTML structure (main, section, article) with accessible markup in apps/site-shell/app/blog/page.tsx
+- [X] T011 [US1] Add page heading and aria-label for blog posts section in apps/site-shell/app/blog/page.tsx
 
 **Checkpoint**: At this point, User Story 1 should be fully functional - `/blog` displays posts sorted newest-first with title, formatted date, and summary
 
@@ -74,9 +74,9 @@ Based on plan.md, this is a Next.js monorepo with site-shell:
 
 ### Implementation for User Story 2
 
-- [ ] T012 [US2] Wrap BlogPostCard content in Next.js Link component to post.url in apps/site-shell/components/blog/BlogPostCard.tsx
-- [ ] T013 [US2] Ensure entire card is keyboard-focusable with single interactive target in apps/site-shell/components/blog/BlogPostCard.tsx
-- [ ] T014 [US2] Verify post URLs use /posts/{slug} pattern matching existing routes in apps/site-shell/app/blog/page.tsx
+- [X] T012 [US2] Wrap BlogPostCard content in Next.js Link component to post.url in apps/site-shell/components/blog/BlogPostCard.tsx
+- [X] T013 [US2] Ensure entire card is keyboard-focusable with single interactive target in apps/site-shell/components/blog/BlogPostCard.tsx
+- [X] T014 [US2] Verify post URLs use /posts/{slug} pattern matching existing routes in apps/site-shell/app/blog/page.tsx
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work - visitors can scan posts and click to navigate
 
@@ -90,10 +90,10 @@ Based on plan.md, this is a Next.js monorepo with site-shell:
 
 ### Implementation for User Story 3
 
-- [ ] T015 [US3] Verify getAllPostsForIndex dynamically reads from content/posts/ directory in apps/site-shell/lib/mdx/loader.ts
-- [ ] T016 [US3] Implement title fallback to "Untitled Post" when frontmatter.title missing in apps/site-shell/lib/mdx/loader.ts
-- [ ] T017 [US3] Implement alphabetical secondary sort (A→Z) for same-date posts in apps/site-shell/lib/mdx/loader.ts
-- [ ] T018 [US3] Add build-time console warning for posts with missing optional metadata in apps/site-shell/lib/mdx/loader.ts
+- [X] T015 [US3] Verify getAllPostsForIndex dynamically reads from content/posts/ directory in apps/site-shell/lib/mdx/loader.ts
+- [X] T016 [US3] Implement title fallback to "Untitled Post" when frontmatter.title missing in apps/site-shell/lib/mdx/loader.ts
+- [X] T017 [US3] Implement alphabetical secondary sort (A→Z) for same-date posts in apps/site-shell/lib/mdx/loader.ts
+- [X] T018 [US3] Add build-time console warning for posts with missing optional metadata in apps/site-shell/lib/mdx/loader.ts
 
 **Checkpoint**: All user stories should now be independently functional - new posts auto-surface correctly
 
@@ -103,10 +103,10 @@ Based on plan.md, this is a Next.js monorepo with site-shell:
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T019 [P] Implement future-date filtering to hide scheduled posts in apps/site-shell/lib/mdx/loader.ts
-- [ ] T020 [P] Add empty state display "No posts yet. Check back soon!" in apps/site-shell/app/blog/page.tsx
-- [ ] T021 Verify page load performance meets <1 second target via manual testing
-- [ ] T022 Run quickstart.md validation scenarios manually
+- [X] T019 [P] Implement future-date filtering to hide scheduled posts in apps/site-shell/lib/mdx/loader.ts
+- [X] T020 [P] Add empty state display "No posts yet. Check back soon!" in apps/site-shell/app/blog/page.tsx
+- [X] T021 Verify page load performance meets <1 second target via manual testing
+- [X] T022 Run quickstart.md validation scenarios manually
 
 ---
 

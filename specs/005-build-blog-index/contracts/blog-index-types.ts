@@ -44,16 +44,5 @@ export interface BlogIndexOptions {
   limit?: number;
 }
 
-/**
- * Response structure for blog index data retrieval.
- */
-export interface BlogIndexResponse {
-  /** Array of posts sorted by date (newest first) */
-  posts: BlogIndexEntry[];
-
-  /** Total count of published posts (excluding future-dated) */
-  totalCount: number;
-
-  /** Whether there are more posts beyond the limit */
-  hasMore: boolean;
-}
+// Note: BlogIndexResponse was removed as getAllPostsForIndex returns BlogIndexEntry[]
+// directly. If pagination is added in the future, this type can be re-introduced.
