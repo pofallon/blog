@@ -1,0 +1,11 @@
+node_modules/
+dist/
+build/
+public/
+.cache/
+coverage/
+specs/
+.specify/
+*.log
+.env
+.env.*
