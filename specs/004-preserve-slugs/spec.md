@@ -32,7 +32,7 @@ As a content editor, I need clear folder-structure rules that map deterministica
 
 **Acceptance Scenarios**:
 
-1. **Given** a new post located at `content/blog/{collection}/{post}/index.md`, **When** the slug function runs, **Then** the slug is `/{collection}/{post}/`.
+1. **Given** a new post located at `content/blog/{post-folder}/index.md`, **When** the slug function runs, **Then** the slug is `/{post-folder}/`.
 2. **Given** the published normalization rules for allowable characters, **When** an editor uses spaces, uppercase letters, or special characters in folder names, **Then** the slug output reflects the documented lowercase, hyphenated, ASCII-safe format so the resulting URL is predictable.
 
 ---
@@ -54,27 +54,38 @@ As a release engineer, I need an automated verification command that fails build
 
 ### Edge Cases
 
-- Two posts that share the same slug candidate because of identical folder names in different branches of the hierarchy.
-- Source directories that include uppercase, accented, or non-Latin characters that must be normalized consistently.
-- Nested posts deeper than the documented `{collection}/{post}` depth (e.g., `campaign/year/post`) that should either be rejected or flattened deterministically.
-- Legacy posts missing an `index.md` or containing multiple markdown files per folder.
+- Two posts that share the same slug candidate because of identical folder names in different branches of the hierarchy → **Resolution**: Build fails with explicit error listing conflicting paths; manual rename required before proceeding.
+- Source directories that include uppercase, accented, or non-Latin characters are transliterated to ASCII equivalents (e.g., "café" → "cafe", "naïve" → "naive").
+- Nested posts deeper than the documented `{post-folder}/index.md` depth (e.g., `collection/post/index.md`) → **Resolution**: Build fails with explicit error requiring restructure to flat `{post-folder}/index.md` format.
+- Legacy posts missing an `index.md` or containing multiple markdown files per folder → **Resolution**: Build fails with explicit error requiring exactly one `index.md` per post folder; manual cleanup required before proceeding.
 - Files nested outside `content/blog` that should be ignored by slug tooling.
+
+## Clarifications
+
+### Session 2025-12-16
+
+- Q: How should the system handle slug collisions (two posts resolving to the same slug)? → A: Fail the build with an explicit error requiring manual rename.
+- Q: Where should the canonical slug manifest be stored? → A: JSON file in `specs/` directory.
+- Q: How should accented/non-Latin characters in folder names be handled? → A: Transliterate to ASCII equivalents (e.g., "café" → "cafe").
+- Q: How should nested posts deeper than `{post-folder}/index.md` be handled? → A: Reject with build error requiring restructure to flat `{post-folder}/index.md`.
+- Q: How should legacy posts missing an `index.md` or containing multiple markdown files be handled? → A: Reject with build error requiring exactly one `index.md` per post folder.
 
 ## Requirements *(mandatory)*
 
 ### Functional Requirements
 
 - **FR-001**: The platform MUST expose a single slug generation function that accepts a content file’s relative path and returns the normalized slug string shared by all build and verification flows.
-- **FR-002**: The slug generator MUST derive slugs solely from the documented folder structure beneath `content/blog`, applying the published normalization rules (lowercase, hyphenation, ASCII-safe replacements) so that deterministic formatting is guaranteed.
+- **FR-002**: The slug generator MUST derive slugs solely from the documented folder structure beneath `content/blog`, applying the published normalization rules (lowercase, hyphenation, ASCII-safe replacements via transliteration) so that deterministic formatting is guaranteed.
 - **FR-003**: The slug generator MUST reproduce every currently published blog URL by comparing its output against a canonical `source-path → slug` manifest created from the pre-change repository state.
 - **FR-004**: The system MUST provide an automated verification command or test that enumerates all blog entries, invokes the slug function, compares the results to the canonical manifest, and fails with actionable diffs when mismatches appear.
 - **FR-005**: The team MUST publish documentation that defines the required content folder structure, naming conventions, and steps for previewing a slug before publishing a post.
-- **FR-006**: The workflow MUST document and automate the process for intentionally updating the canonical manifest (e.g., via an explicit “approve slug changes” command) so that every change is reviewed and version-controlled.
+- **FR-006**: The workflow MUST document and automate the process for intentionally updating the canonical manifest via `npm run slug:update-manifest` (see quickstart.md) so that every change is reviewed and version-controlled.
+- **FR-007**: The build process MUST validate that each post folder under `content/blog/{post-folder}/` contains exactly one `index.md` file; folders with zero or multiple markdown files MUST trigger a build failure with an explicit error listing the offending paths.
 
 ### Key Entities *(include if feature involves data)*
 
 - **Content Source File**: Represents a markdown entry under `content/blog`, identified by its relative folder path and optional frontmatter slug metadata; inputs to the slug function.
-- **Slug Manifest Entry**: Records the authoritative mapping of `relative_path`, `slug`, and `status` (match/mismatch) for regression checking.
+- **Slug Manifest Entry**: Records the authoritative mapping of `relative_path`, `slug`, and `status` (match/mismatch) for regression checking. Stored as a JSON file in `specs/` directory (e.g., `specs/004-preserve-slugs/slug-manifest.json`).
 - **Verification Report**: Summarizes scan results, including counts of files processed, mismatches detected, and guidance for remediation, and is consumed by CI/CD and maintainers.
 
 ### Assumptions
@@ -87,7 +98,7 @@ As a release engineer, I need an automated verification command that fails build
 
 ### Measurable Outcomes
 
-- **SC-001**: Verification reports show 0 slug mismatches across 100% of existing blog posts prior to the first deployment of the new slug function.
+- **SC-001**: Verification reports show 0 slug mismatches across 100% of existing blog posts prior to the first deployment of the new slug function. New posts not yet in the manifest are reported with status `new` and do not cause verification failure (they must be added via the manifest update workflow).
 - **SC-002**: Running the automated slug verification command against the full content set completes in under 60 seconds, enabling it to run in every CI pipeline execution.
 - **SC-003**: During the first sprint after launch, at least 95% of new blog posts created with the documented folder template require zero manual slug overrides, as confirmed by editorial review.
 - **SC-004**: The content folder structure documentation is published in the repository and acknowledged by the content lead, and all new editors complete a slug workflow walkthrough during onboarding (tracked via onboarding checklist sign-off).
