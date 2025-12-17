@@ -26,3 +26,13 @@
 4. **Communication Packet**
    - `Prepared` → `Sent`: message delivered to release managers.
    - `Sent` → `Acknowledged`: confirmations captured from recipients.
+
+## User Story Coverage Matrix
+
+| Entity | US1 – Pause Builds | US2 – Resume Builds | US3 – Verification |
+|--------|--------------------|---------------------|--------------------|
+| Amplify App | Provides `APP_ID` guardrail for CLI + console steps to ensure only the production app is paused. | Ensures resume commands target the same app and re-bind monitoring to `main`. | Supplies canonical domain + branch list referenced by the verification checklist. |
+| Amplify Branch (Production) | Auto-build disabled and last successful deployment recorded in evidence log. | Auto-build re-enabled and placeholder monitoring disabled post-`resumeAck`. | Branch state checked hourly to confirm it remains paused until resume approval. |
+| Amplify Branch (Placeholder) | Created/attached with monitoring so Amplify stays pointed at a harmless branch. | Retired or left dormant once production monitoring is restored. | Checklist tracks placeholder health to ensure no accidental deploys. |
+| Verification Checklist | Notified in pause runbook to capture build history + curl hash after freeze. | Provides `resumeAck` approval ID that must be cited before re-enabling builds. | Stores evidence artifacts (curl hash, Playwright snapshot, hourly follow-ups). |
+| Communication Packet | Sends freeze notifications with impact, timeline, and evidence dropbox. | Announces resume status and includes `resumeAck` plus post-mortem reminders. | Links verification evidence so stakeholders can review pause health. |

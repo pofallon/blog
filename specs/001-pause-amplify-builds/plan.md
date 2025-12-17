@@ -27,6 +27,14 @@ Pause AWS Amplify automatic builds for the production GitHub branch by temporari
 **Constraints**: Must be reversible within 10 minutes; commands scoped by `APP_ID` + `stage==PRODUCTION` filters to avoid touching other environments  
 **Scale/Scope**: Single Amplify app + placeholder branch procedure across ops team
 
+### Amplify Control Plane Prerequisite Matrix
+
+| Component | Minimum Version / Scope | Capability Enabled | Configuration Notes | Tasks/Stories Unlocked |
+|-----------|------------------------|--------------------|---------------------|------------------------|
+| AWS CLI | v2.15+ | Provides `aws amplify list-branches`, `update-branch`, `create-branch`, and `list-jobs` calls used in pause/resume validation. | Require `AWS_PROFILE` bound to a role with `amplify:*Branch` permissions scoped to the production `APP_ID`. | T003, T007, T012, T013, T018 |
+| Amplify CLI | ≥ 12.10 (Node.js 18 runtime) | Supplies guardrails for branch creation and placeholder monitoring, plus device-authorization login flow. | Enforce `amplify configure project` before runbooks; store refresh token in AWS SSO session vault. | T008, T013, T020 |
+| IAM Role Matrix | OpsEngineer (pause), ReleaseLead (resume), Auditor (verification) | Segregates duties: ops toggles branches, release lead signs `resumeAck`, auditor reviews evidence. | Map roles to AWS IAM policies + GitHub admin access; documented inside runbooks + quickstart. | T006, T011, T016, T017 |
+
 ## Constitution Check
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
@@ -71,6 +79,57 @@ docs/
 ```
 
 **Structure Decision**: All artifacts stay within `specs/001-pause-amplify-builds/` for planning; no source-code modifications are required, but quickstart content can graduate into `docs/runbooks/` later if reused.
+
+## Communication
+
+### Freeze Initiation Template
+```
+Subject: [ACTION REQUIRED] Amplify build freeze for {{appId}}
+
+Team,
+
+We are pausing Amplify auto-builds on {{productionBranch}} at {{pausedAt}} to address {{reason}}.
+- Monitoring branch will point to {{placeholderBranch}} (no deploys expected).
+- Evidence folder: {{evidenceUrl}} (build history, curl hash, Playwright snapshot).
+- Next update: {{checkInTime}} in #release-ops.
+
+Please hold new deploys until the resumeAck is issued.
+— {{engineer}}
+```
+
+### Freeze Lift Template
+```
+Subject: [RESUME] Amplify builds restored for {{appId}}
+
+Stakeholders,
+
+Prerequisites complete and resumeAck {{resumeAckId}} approved by {{approver}}.
+- Auto-build re-enabled on {{productionBranch}} at {{resumedAt}}.
+- Placeholder branch {{placeholderBranch}} is now {{placeholderAction}}.
+- Trigger validation job: {{validationCommandOrUrl}}.
+
+Resume normal deploy cadence and report anomalies in #release-ops.
+— {{engineer}}
+```
+
+## Documentation Index
+
+| Artifact | Location | Purpose |
+|----------|----------|---------|
+| Plan | `specs/001-pause-amplify-builds/plan.md` | Governance context, prerequisite matrix, communication templates. |
+| Tasks | `specs/001-pause-amplify-builds/tasks.md` | Ordered backlog for this feature. |
+| Quickstart | `specs/001-pause-amplify-builds/quickstart.md` | Phase A–C procedures and validation commands. |
+| Data Model | `specs/001-pause-amplify-builds/data-model.md` | Entity relationships and user story coverage. |
+| Contracts overview | `specs/001-pause-amplify-builds/contracts/README.md` | API field mappings for `/amplify/pause` + `/amplify/resume`. |
+| Runbooks | `specs/001-pause-amplify-builds/runbooks/` | CLI + Console runbooks, playbooks, dry-run log. |
+| Verification checklist | `specs/001-pause-amplify-builds/verification-checklist.md` | Evidence matrix referenced by FR-004/FR-006. |
+| Playwright script | `specs/001-pause-amplify-builds/scripts/verify-pause.spec.ts` | DOM snapshot automation supporting Phase B. |
+
+## Dry-Run Summary
+
+- Latest sandbox rehearsal completed **2025-12-15 04:05–04:45 UTC** (see `runbooks/dry-run-log.md` row `CHK-20251215-01`).
+- `resumeAck` **RA-20251215-01** signed by Riley Release; evidence stored under `specs/001-pause-amplify-builds/evidence/`.
+- Placeholder branch left **Dormant** with alert workflow `actions/amplify-placeholder.yml`.
 
 ## Complexity Tracking
 

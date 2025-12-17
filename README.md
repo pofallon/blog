@@ -97,3 +97,26 @@ Looking for more guidance? Full documentation for Gatsby lives [on the website](
 [![Deploy with ZEIT Now](https://zeit.co/button)](https://zeit.co/import/project?template=https://github.com/gatsbyjs/gatsby-starter-blog)
 
 <!-- AUTO-GENERATED-CONTENT:END -->
+
+## 📝 Content Management
+
+### Adding Blog Posts
+
+Blog posts are stored in `content/blog/` with deterministic URL slugs. See the [Content Structure Documentation](docs/content-structure.md) for:
+
+- Folder naming conventions
+- How slugs are generated from folder names
+- Preview and verification commands
+
+Quick commands:
+
+```bash
+# Preview a slug before publishing
+npm run slug:preview -- "content/blog/my-post/index.md"
+
+# Verify all slugs match the manifest
+npm run verify-slugs
+
+# Update manifest after adding new posts
+npm run slug:update-manifest
+```
