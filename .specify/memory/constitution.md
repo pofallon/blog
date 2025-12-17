@@ -1,26 +1,24 @@
 <!--
-Sync Impact Report (2025-12-15):
+Sync Impact Report (2025-12-17):
 ================================================================================
-VERSION CHANGE: 0.0.0 → 1.0.0
-BUMP RATIONALE: MAJOR - Initial constitution ratification for blog migration project
+VERSION CHANGE: 1.0.0 → 1.1.0
+BUMP RATIONALE: MINOR - Added new section (Architectural Decisions) capturing
+migration learnings; expanded Technology Stack with concrete dependencies
 
-MODIFIED PRINCIPLES:
-- NEW: I. Migration Integrity
-- NEW: II. Type Safety & Modern Standards
-- NEW: III. Content Preservation
-- NEW: IV. Progressive Enhancement
-- NEW: V. Deployment & Operations
+MODIFIED PRINCIPLES: None (principles unchanged)
 
 ADDED SECTIONS:
-- Technology Stack
-- Migration Workflow
+- Architectural Decisions (project structure, MDX integration, routing patterns,
+  content location, testing strategy, key dependencies)
 
-REMOVED SECTIONS: None (initial version)
+REMOVED SECTIONS: None
 
 TEMPLATES REQUIRING UPDATES:
-✅ plan-template.md - Constitution Check section compatible with new principles
-✅ spec-template.md - Requirements format aligns with content and feature requirements
-✅ tasks-template.md - Task structure supports migration and incremental delivery approach
+✅ plan-template.md - No updates needed (Constitution Check references principles)
+✅ spec-template.md - No updates needed (requirements format unchanged)
+✅ tasks-template.md - No updates needed (task structure unchanged)
+✅ agent-file-template.md - No updates needed
+✅ checklist-template.md - No updates needed
 
 FOLLOW-UP TODOS: None
 ================================================================================
@@ -64,10 +62,16 @@ FOLLOW-UP TODOS: None
 
 **Framework**: Next.js 14+ (App Router) with React 18+
 **Language**: TypeScript 5+ with strict mode
-**Content**: MDX with next-mdx-remote or similar
+**Content**: MDX with `next-mdx-remote` (Server Component compatible)
 **Styling**: Tailwind CSS (existing utility classes preserved where practical)
 **Hosting**: AWS Amplify
 **Build**: Node.js 18+ LTS
+**Testing**: Playwright for E2E tests
+
+**Key Dependencies**:
+- `next-mdx-remote` - MDX rendering with Server Components
+- `gray-matter` - Frontmatter parsing from MDX files
+- `reading-time` - Estimated reading time calculation
 
 **Constraints**:
 - Maintain compatibility with existing Gatsby plugins where feasible (e.g., image optimization, syntax highlighting)
@@ -93,6 +97,57 @@ FOLLOW-UP TODOS: None
 
 **Rollback Plan**: Gatsby deployment remains available until Next.js version is fully validated in production.
 
+## Architectural Decisions
+
+Learnings from the GatsbyJS → Next.js migration captured for future reference.
+
+### Project Structure
+
+**Decision**: Monorepo structure with Next.js application at `apps/site-shell/`.
+
+**Rationale**: Separates the web application from content and supporting tooling. Allows for potential future applications (e.g., admin tools) without restructuring.
+
+**Configuration**: `next.config.mjs` requires `transpilePackages: ['next-mdx-remote']` for proper MDX compilation.
+
+### Content Location
+
+**Decision**: Blog content remains at repository root in `content/blog/`.
+
+**Rationale**: Content is independent of the rendering framework. Keeping content at the repository root allows content authors to work without navigating application-specific directories and facilitates potential multi-app content sharing.
+
+### MDX Integration
+
+**Decision**: Use `next-mdx-remote` for MDX rendering.
+
+**Pattern**: Server Component compatible approach with `MDXRemote` component. Content is parsed and compiled on the server, hydrated on the client where needed.
+
+**Dependencies**:
+- `next-mdx-remote` - MDX compilation and rendering
+- `gray-matter` - Frontmatter extraction
+- `reading-time` - Content metrics
+
+### Routing Patterns
+
+**Decision**: URL normalization with strict redirect handling.
+
+**Rules**:
+- Slugs MUST be lowercase (normalized from frontmatter/filenames)
+- 301 redirects for case mismatches (e.g., `/blog/MyPost` → `/blog/mypost`)
+- 308 redirects for trailing slash normalization
+- Custom 404 handling via `app/not-found.tsx`
+
+**Rationale**: Consistent URLs improve SEO and prevent duplicate content indexing. Permanent redirects preserve link equity from external sites.
+
+### Testing Strategy
+
+**Decision**: Playwright for E2E tests located in `apps/site-shell/tests/`.
+
+**Scope**:
+- Content rendering verification
+- Navigation and routing tests
+- 404 and redirect behavior validation
+- Critical user journeys
+
 ## Governance
 
 **Amendment Process**: Constitution changes require documentation of rationale, version bump per semantic versioning, and updates to dependent templates/specifications.
@@ -104,4 +159,4 @@ FOLLOW-UP TODOS: None
 - MINOR: New principle addition, expanded guidance, new mandatory sections
 - PATCH: Clarifications, typo fixes, non-semantic refinements
 
-**Version**: 1.0.0 | **Ratified**: 2025-12-15 | **Last Amended**: 2025-12-15
+**Version**: 1.1.0 | **Ratified**: 2025-12-15 | **Last Amended**: 2025-12-17

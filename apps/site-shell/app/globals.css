@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --shell-bg: #f8fafc;
+  --shell-ink: #0f172a;
+  --shell-muted: #475467;
+  --shell-border: #e2e8f0;
+  --shell-accent: #f97316;
+  --font-sans: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --shell-bg: #020617;
+    --shell-ink: #f8fafc;
+    --shell-muted: #e2e8f0;
+    --shell-border: #1e293b;
+  }
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    color: var(--shell-ink);
+    background-color: var(--shell-bg);
+  }
+
+  body {
+    min-height: 100vh;
+    background-color: var(--shell-bg);
+    color: var(--shell-ink);
+  }
+}
+
+@layer components {
+  .shell-surface {
+    @apply rounded-3xl border border-shell-border bg-white shadow-shell;
+  }
+
+  .shell-link {
+    @apply font-medium text-shell-ink transition-colors hover:text-shell-accent;
+  }
+
+  .nav-trigger {
+    @apply flex w-full items-center justify-between rounded-2xl border border-shell-border bg-white px-4 py-3 text-base font-semibold text-shell-ink shadow-shell transition hover:text-shell-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-shell-accent focus-visible:ring-offset-2 md:hidden;
+  }
+
+  .nav-panel {
+    @apply mt-3 w-full rounded-2xl border border-shell-border bg-white p-4 shadow-shell md:mt-0 md:w-auto md:border-none md:bg-transparent md:p-0 md:shadow-none;
+  }
+}

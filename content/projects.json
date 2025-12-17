@@ -1,0 +1,62 @@
+{
+  "projects": [
+    {
+      "slug": "speckit",
+      "name": "SpecKit",
+      "summary": "A specification-driven development toolkit for AI-assisted software engineering.",
+      "details": "SpecKit provides templates, workflows, and conventions for capturing requirements, generating implementation plans, and tracking development progress. It integrates with AI coding assistants to enable structured, traceable software development.",
+      "tags": ["developer-tools", "ai", "specifications", "typescript"],
+      "links": [
+        {
+          "label": "GitHub",
+          "url": "https://github.com/example/speckit",
+          "type": "primary"
+        },
+        {
+          "label": "Documentation",
+          "url": "https://speckit.example.dev/docs"
+        },
+        {
+          "label": "npm",
+          "url": "https://npmjs.com/package/speckit"
+        }
+      ],
+      "image": {
+        "src": "/images/projects/speckit-logo.png",
+        "alt": "SpecKit logo - a blueprint icon"
+      }
+    },
+    {
+      "slug": "blog-platform",
+      "name": "Blog Platform",
+      "summary": "A modern blog platform built with Next.js, MDX, and Tailwind CSS.",
+      "details": "This open source blog platform demonstrates best practices for building content-driven websites with Next.js App Router, MDX content management, and responsive design using Tailwind CSS.",
+      "tags": ["nextjs", "mdx", "tailwind", "typescript", "react"],
+      "links": [
+        {
+          "label": "GitHub",
+          "url": "https://github.com/example/blog-platform",
+          "type": "primary"
+        },
+        {
+          "label": "Live Demo",
+          "url": "https://demo.blog-platform.example.dev"
+        }
+      ]
+    },
+    {
+      "slug": "cli-toolkit",
+      "name": "CLI Toolkit",
+      "summary": "A collection of utilities for building command-line interfaces in TypeScript.",
+      "details": "CLI Toolkit provides argument parsing, interactive prompts, progress indicators, and colorful output formatting for Node.js command-line applications. Built with TypeScript for type-safe development.",
+      "tags": ["cli", "typescript", "nodejs"],
+      "links": [
+        {
+          "label": "GitHub",
+          "url": "https://github.com/example/cli-toolkit",
+          "type": "primary"
+        }
+      ]
+    }
+  ]
+}

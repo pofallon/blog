@@ -5,6 +5,14 @@
 **Status**: Draft  
 **Input**: User description: "Use spec ID 010. Create a feature specification for building an open source projects section with a /projects index page and /projects/[slug] detail pages driven by a local data source. Requirements: define and document a simple project schema (name, description, links, tags, optional image). Prioritize data model clarity and routing correctness over visual polish."
 
+## Clarifications
+
+### Session 2025-12-17
+
+- Q: What data format should the local data source use? → A: JSON file
+- Q: How should non-existent project slugs be handled? → A: Soft 404 UI component within app
+- Q: What observability approach for tracking user interactions? → A: Analytics events via existing tracking library
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Browse open source catalog (Priority: P1)
@@ -33,7 +41,7 @@ A visitor chooses a project from the catalog to learn its purpose, contribution 
 **Acceptance Scenarios**:
 
 1. **Given** a project slug exists in the data, **When** a visitor opens `/projects/[slug]`, **Then** the page renders the project name, full description, complete tag list, labeled external links, and either the provided image or a placeholder.
-2. **Given** a visitor enters `/projects/unknown-slug`, **When** no matching data is found, **Then** they see a not-found state explaining the issue and offering a CTA back to `/projects`.
+2. **Given** a visitor enters `/projects/unknown-slug`, **When** no matching data is found, **Then** they see a soft 404 UI component within the app (HTTP 200) explaining the issue and offering a CTA back to `/projects`.
 
 ---
 
@@ -65,12 +73,12 @@ A maintainer curates the catalog by editing the local data source and relies on 
 ### Functional Requirements
 
 - **FR-001**: The specification MUST document a canonical `Project` schema containing at minimum `slug`, `name`, `summary` (short description), `details` (long description), `tags[]`, `links[]`, and optional `image` metadata (alt text + source).
-- **FR-002**: Project data MUST live in a version-controlled local source (e.g., JSON or YAML under `content/`) that serves as the only truth for `/projects` and `/projects/[slug]`.
+- **FR-002**: Project data MUST live in a version-controlled JSON file (e.g., `content/projects.json`) that serves as the only truth for `/projects` and `/projects/[slug]`.
 - **FR-003**: The build process MUST validate project entries for required fields, slug uniqueness, and URL format, failing fast when data violates the schema.
 - **FR-004**: `/projects` MUST render all projects sorted alphabetically by `name`, with each card showing the name, summary, up to three tags, and a link to its detail route constructed as `/projects/{slug}`.
 - **FR-005**: `/projects/[slug]` MUST render the full project description, complete tag list, labeled external links (e.g., "Repository", "Docs"), and the project image or fallback placeholder when no image exists.
-- **FR-006**: Detail pages MUST provide at least one primary CTA button that opens the main project link in a new browser tab and logs outbound link intent via accessible text.
-- **FR-007**: When a visitor requests a slug that does not exist, the system MUST return a descriptive not-found state with navigation back to `/projects` and without throwing runtime errors.
+- **FR-006**: Detail pages MUST provide at least one primary CTA button that opens the main project link in a new browser tab and fires an analytics event via the existing tracking library to log outbound link intent.
+- **FR-007**: When a visitor requests a slug that does not exist, the system MUST render a soft 404 UI component within the app (HTTP 200 with not-found content) showing a descriptive message and navigation back to `/projects`, without throwing runtime errors or returning an HTTP 404 status.
 - **FR-008**: Updating the local data source MUST be sufficient to add, remove, or edit projects; no additional code changes should be required for routine catalog maintenance.
 - **FR-009**: The documentation MUST include a sample project entry and field-by-field guidance so contributors can validate their data before opening a PR.
 
@@ -78,6 +86,10 @@ A maintainer curates the catalog by editing the local data source and relies on 
 
 - **Project**: Represents a single open source effort with attributes `slug`, `name`, `summary`, `details`, `tags[]`, `links[]`, and optional `image` (`src`, `alt`). Each project owns zero or more `ProjectLink` records and at least one tag.
 - **ProjectLink**: Child object of a project describing an external resource with attributes `label` (e.g., "GitHub", "Docs"), `url`, and optional `type` (primary/secondary) to support CTA ordering.
+
+### Non-Functional Requirements
+
+- **NFR-001**: User interactions (page views, outbound link clicks) MUST be tracked via the existing site analytics library; no new tracking infrastructure is required.
 
 ## Success Criteria *(mandatory)*
 
@@ -90,7 +102,7 @@ A maintainer curates the catalog by editing the local data source and relies on 
 
 ## Assumptions
 
-- The local data source will be a JSON or YAML file stored under `content/projects.*` and imported at build time.
+- The local data source will be a JSON file stored at `content/projects.json` and imported at build time.
 - Projects will be sorted alphabetically by name to keep navigation predictable without extra UI controls.
 - Tag values are free-form strings maintained via code review; no additional taxonomy service is planned for this iteration.
 - Every project includes at least one external link (typically a GitHub repository) to justify its inclusion in the catalog.
