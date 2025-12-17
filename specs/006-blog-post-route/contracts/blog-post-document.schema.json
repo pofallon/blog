@@ -1,0 +1,92 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://get2know.io/schemas/blog-post-document.json",
+  "title": "BlogPostDocument",
+  "description": "Schema for blog post source document loaded from content directory",
+  "type": "object",
+  "properties": {
+    "slug": {
+      "type": "string",
+      "description": "Canonical slug derived from directory name",
+      "pattern": "^[a-z0-9-]+$",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "content": {
+      "type": "string",
+      "description": "Raw MDX content body (without frontmatter)"
+    },
+    "frontmatter": {
+      "$ref": "#/definitions/BlogPostFrontmatter"
+    },
+    "filePath": {
+      "type": "string",
+      "description": "Absolute filesystem path to source file"
+    }
+  },
+  "required": ["slug", "content", "frontmatter", "filePath"],
+  "definitions": {
+    "BlogPostFrontmatter": {
+      "type": "object",
+      "description": "Frontmatter metadata from MDX file header",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Post display title",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "date": {
+          "type": "string",
+          "description": "Publication date in ISO 8601 format",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "description": {
+          "type": "string",
+          "description": "Short summary for SEO and previews",
+          "maxLength": 300
+        },
+        "image": {
+          "$ref": "#/definitions/ImageMeta"
+        },
+        "playlists": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PlaylistRef"
+          }
+        }
+      },
+      "required": ["title", "date"]
+    },
+    "ImageMeta": {
+      "type": "object",
+      "description": "Hero image metadata",
+      "properties": {
+        "src": {
+          "type": "string",
+          "description": "Relative path to image file"
+        },
+        "alt": {
+          "type": "string",
+          "description": "Alt text for accessibility"
+        }
+      },
+      "required": ["src"]
+    },
+    "PlaylistRef": {
+      "type": "object",
+      "description": "YouTube playlist reference",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Identifier for MDX reference"
+        },
+        "id": {
+          "type": "string",
+          "description": "YouTube playlist ID"
+        }
+      },
+      "required": ["name", "id"]
+    }
+  }
+}
