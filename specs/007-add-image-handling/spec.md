@@ -18,7 +18,7 @@ Blog authors want to highlight new posts with an optional banner image defined a
 **Acceptance Scenarios**:
 
 1. **Given** a post with hero image metadata, **When** the post is rendered, **Then** the hero displays above the body with the supplied alt text and caption.
-2. **Given** a post without hero metadata, **When** it renders, **Then** layout spacing remains intact and a default placeholder style prevents layout shift.
+2. **Given** a post without hero metadata, **When** it renders, **Then** an empty reserved space with CSS background color matching the theme displays, layout spacing remains intact, and a default placeholder style prevents layout shift.
 
 ---
 
@@ -56,8 +56,8 @@ Readers should experience crisp hero and inline images that load quickly on mode
 
 - Post references a hero or inline image file that has not yet been committed or added to source control.
 - Author reuses a file name already linked by another post, causing unintended overwrites or caching conflicts.
-- Supplied hero image exceeds recommended dimensions or file size thresholds, risking layout distortion.
-- MDX content includes external image URLs that bypass the optimization pipeline.
+- Supplied hero image exceeds recommended dimensions or file size thresholds: build pipeline auto-resizes/compresses and logs a warning to author.
+- MDX content includes external image URLs that bypass the optimization pipeline: build logs a warning and renders the image unoptimized.
 - Author provides an image without alt text or with empty captions that should be required for accessibility compliance.
 - Local development paths differ from production asset paths, leading to images that work locally but 404 in deployment.
 
@@ -66,11 +66,11 @@ Readers should experience crisp hero and inline images that load quickly on mode
 ### Functional Requirements
 
 - **FR-001**: Support optional hero metadata in post frontmatter, including file path, alt text, caption, and focal point guidance.
-- **FR-002**: Render a resilient layout when hero metadata is absent, ensuring spacing, typography, and previews remain stable.
+- **FR-002**: Render a resilient layout when hero metadata is absent by displaying an empty reserved space with CSS background color matching the current theme, ensuring spacing, typography, and previews remain stable.
 - **FR-003**: Provide a deterministic directory structure for image assets (e.g., `content/images/<post-slug>/`) and document naming conventions to avoid collisions.
 - **FR-004**: Allow MDX authors to embed inline images using local asset references, with automatic resolution to optimized image output.
-- **FR-005**: Validate at build time that every referenced image exists, includes alt text, and declares width/height so layout shifts are prevented.
-- **FR-006**: Optimize all hero and inline images for web performance (responsive breakpoints, compression, lazy loading) without requiring authors to manage variants manually.
+- **FR-005**: Validate at build time that every referenced image exists and declares width/height so layout shifts are prevented; warn if alt text is missing but allow rendering with empty alt attribute.
+- **FR-006**: Optimize all hero and inline images for web performance using 4 responsive breakpoints (480, 768, 1200, 1920px), compression, and lazy loading (viewport threshold 200px) without requiring authors to manage variants manually.
 - **FR-007**: Ensure the local development environment uses the same image pipeline as production so authors can confirm results before publishing.
 - **FR-008**: Publish an author workflow guide describing how to add, organize, and reference hero plus inline images, including troubleshooting for common errors.
 
@@ -88,6 +88,16 @@ Readers should experience crisp hero and inline images that load quickly on mode
 - **SC-002**: Inline images in at least three representative posts load within 1 second on broadband and do not increase total page weight by more than 20% compared to the text-only baseline.
 - **SC-003**: Accessibility review confirms alt text coverage for 100% of hero and inline images across sampled posts and reports zero contrast or layout-shift regressions.
 - **SC-004**: Author workflow guide reduces image-related support questions to fewer than one per release cycle, verified over the first month after launch.
+
+## Clarifications
+
+### Session 2025-12-17
+
+- Q: When author uploads image exceeding size/dimension thresholds, should the build (A) fail with an error, (B) auto-resize/compress and warn, or (C) accept silently? → A: Build auto-resizes/compresses and logs a warning.
+- Q: How should the build handle external image URLs in MDX content? → A: Build warns but renders external images unoptimized.
+- Q: When an image is missing alt text, should the build (A) fail, (B) warn and render with empty alt, or (C) auto-generate placeholder? → A: Warn at build time but allow image to render with empty alt attribute.
+- Q: Responsive image breakpoints and lazy-load threshold? → A: 4 breakpoints (480, 768, 1200, 1920px) + lazy-load viewport threshold 200px.
+- Q: What should display when a post has no hero metadata? → A: Empty reserved space with CSS background color matching theme.
 
 ## Assumptions & Dependencies
 
