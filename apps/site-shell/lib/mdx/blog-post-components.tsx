@@ -2,9 +2,11 @@
  * Blog Post MDX Component Mappings
  * Custom components for rendering MDX content in blog posts
  * @see /specs/006-blog-post-route/research.md RQ-8
+ * @see /specs/007-add-image-handling/tasks.md T016
  */
 
 import React, { type ComponentPropsWithoutRef, type ReactNode } from 'react';
+import { OptimizedImage } from '@/components/blog/OptimizedImage';
 
 /**
  * Custom image component with lazy loading
@@ -111,6 +113,8 @@ export const blogPostMDXComponents = {
   a: BlogAnchor,
   pre: BlogPre,
   code: BlogCode,
+  // Custom Image component for MDX (T016)
+  Image: OptimizedImage,
   // Legacy Gatsby component placeholders
   ReinventProcessor: PlaceholderComponent,
   Playlist: PlaceholderComponent,

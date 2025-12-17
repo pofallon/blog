@@ -12,7 +12,10 @@ import type {
   BlogPostFrontmatter,
   BlogPostPageModel,
   ProcessedImage,
+  HeroImageMeta,
 } from './blog-post-types';
+import { loadHeroImage, validatePostImages } from './image-loader';
+import type { ProcessedHeroImage } from './image-types';
 
 // Content directory path for blog posts (relative to monorepo root)
 function getBlogContentDir(): string {
@@ -98,6 +101,9 @@ export function getPostBySlug(slug: string): BlogPostDocument | null {
   }
   if (data.image) {
     frontmatter.image = data.image as BlogPostFrontmatter['image'];
+  }
+  if (data.hero) {
+    frontmatter.hero = data.hero as HeroImageMeta;
   }
   if (data.playlists) {
     frontmatter.playlists = data.playlists as BlogPostFrontmatter['playlists'];
@@ -253,8 +259,41 @@ export async function transformToPageModel(
   // Compile MDX content with scope
   const compiledContent = await serialize(content, { scope });
 
-  // Process hero image
-  const heroImage = processHeroImage(frontmatter.image, filePath);
+  // Validate images if hero is present (T008)
+  if (frontmatter.hero) {
+    const validation = validatePostImages(slug, frontmatter, content);
+    // Log warnings but don't fail
+    for (const warning of validation.warnings) {
+      console.warn(`[007] ${warning}`);
+    }
+    // Log errors (these indicate missing files)
+    for (const error of validation.errors) {
+      console.error(`[007] ${error}`);
+    }
+  }
+
+  // Process hero image - prefer new hero field, fallback to legacy image field
+  let heroImage: ProcessedImage | null = null;
+
+  if (frontmatter.hero) {
+    // Use new hero format with enhanced features
+    const processedHero: ProcessedHeroImage | null = loadHeroImage(slug, frontmatter.hero);
+    if (processedHero) {
+      const result: ProcessedImage = {
+        src: processedHero.src,
+        width: processedHero.width,
+        height: processedHero.height,
+        alt: processedHero.alt,
+      };
+      if (processedHero.blurDataURL) {
+        result.blurDataURL = processedHero.blurDataURL;
+      }
+      heroImage = result;
+    }
+  } else {
+    // Fallback to legacy image format
+    heroImage = processHeroImage(frontmatter.image, filePath);
+  }
 
   return {
     slug,

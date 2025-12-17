@@ -21,6 +21,21 @@ export interface ImageMeta {
 }
 
 /**
+ * Enhanced hero image metadata with caption and focal point support
+ * @see /specs/007-add-image-handling/data-model.md
+ */
+export interface HeroImageMeta {
+  /** Relative path within content/images/<slug>/ */
+  src: string;
+  /** Accessibility description (required, warn if empty) */
+  alt: string;
+  /** Optional display caption or credit */
+  caption?: string;
+  /** CSS object-position value for responsive cropping */
+  focalPoint?: string;
+}
+
+/**
  * YouTube playlist reference in frontmatter
  */
 export interface PlaylistRef {
@@ -40,8 +55,10 @@ export interface BlogPostFrontmatter {
   date: string;
   /** Short summary for SEO and previews (~160 chars recommended) */
   description?: string | undefined;
-  /** Hero image for post header */
+  /** Hero image for post header (legacy format) */
   image?: ImageMeta | string | undefined;
+  /** Enhanced hero image with caption and focal point support */
+  hero?: HeroImageMeta | undefined;
   /** YouTube playlist references for embedded video content */
   playlists?: PlaylistRef[] | undefined;
 }

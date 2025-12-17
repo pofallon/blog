@@ -2,10 +2,12 @@
  * Blog Post Header Component
  * Displays title, formatted date, description, and optional hero image
  * @see /specs/006-blog-post-route/tasks.md T010
+ * @see /specs/007-add-image-handling/tasks.md T011
  */
 
-import Image from 'next/image';
+import { HeroImage } from '@/components/blog/HeroImage';
 import type { ProcessedImage } from '@/lib/mdx/blog-post-types';
+import type { ProcessedHeroImage } from '@/lib/mdx/image-types';
 
 export interface BlogPostHeaderProps {
   title: string;
@@ -13,6 +15,23 @@ export interface BlogPostHeaderProps {
   rawDate: string;
   description: string;
   heroImage: ProcessedImage | null;
+}
+
+/**
+ * Convert ProcessedImage to ProcessedHeroImage format
+ */
+function toHeroImage(image: ProcessedImage | null, _title: string): ProcessedHeroImage | null {
+  if (!image) return null;
+  const result: ProcessedHeroImage = {
+    src: image.src,
+    width: image.width,
+    height: image.height,
+    alt: image.alt,
+  };
+  if (image.blurDataURL) {
+    result.blurDataURL = image.blurDataURL;
+  }
+  return result;
 }
 
 export function BlogPostHeader({
@@ -42,19 +61,12 @@ export function BlogPostHeader({
         </p>
       </div>
 
-      {/* Hero image if present */}
-      {heroImage && (
-        <div className="relative w-full aspect-video rounded-lg overflow-hidden mb-6">
-          <Image
-            src={heroImage.src}
-            alt={heroImage.alt}
-            width={heroImage.width}
-            height={heroImage.height}
-            className="object-cover"
-            priority
-          />
-        </div>
-      )}
+      {/* Hero image using enhanced HeroImage component (T011) */}
+      <HeroImage
+        image={toHeroImage(heroImage, title)}
+        postTitle={title}
+        className="mb-6"
+      />
     </header>
   );
 }

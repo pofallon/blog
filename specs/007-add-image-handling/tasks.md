@@ -26,10 +26,10 @@
 
 **Purpose**: Project initialization and image directory structure
 
-- [ ] T001 Create image content directory structure at `content/images/`
-- [ ] T002 [P] Create image types file at `apps/site-shell/lib/mdx/image-types.ts`
-- [ ] T003 [P] Create image schemas file at `apps/site-shell/lib/mdx/image-schemas.ts`
-- [ ] T004 [P] Create image config file at `apps/site-shell/lib/mdx/image-config.ts`
+- [X] T001 Create image content directory structure at `content/images/`
+- [X] T002 [P] Create image types file at `apps/site-shell/lib/mdx/image-types.ts`
+- [X] T003 [P] Create image schemas file at `apps/site-shell/lib/mdx/image-schemas.ts`
+- [X] T004 [P] Create image config file at `apps/site-shell/lib/mdx/image-config.ts`
 
 ---
 
@@ -39,10 +39,10 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T005 Implement image dimension loader utility in `apps/site-shell/lib/mdx/image-loader.ts`
-- [ ] T006 Implement image validation function `validatePostImages` in `apps/site-shell/lib/mdx/image-loader.ts`
-- [ ] T007 Extend existing frontmatter schema to support optional hero field in `apps/site-shell/lib/mdx/blog-post-types.ts`
-- [ ] T008 Update blog post loader to validate hero images in `apps/site-shell/lib/mdx/blog-post-loader.ts`
+- [X] T005 Implement image dimension loader utility in `apps/site-shell/lib/mdx/image-loader.ts`
+- [X] T006 Implement image validation function `validatePostImages` in `apps/site-shell/lib/mdx/image-loader.ts`
+- [X] T007 Extend existing frontmatter schema to support optional hero field in `apps/site-shell/lib/mdx/blog-post-types.ts`
+- [X] T008 Update blog post loader to validate hero images in `apps/site-shell/lib/mdx/blog-post-loader.ts`
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -56,12 +56,12 @@
 
 ### Implementation for User Story 1
 
-- [ ] T009 [US1] Create HeroImage component in `apps/site-shell/components/blog/HeroImage.tsx`
-- [ ] T010 [US1] Implement `loadHeroImage` function in `apps/site-shell/lib/mdx/image-loader.ts`
-- [ ] T011 [US1] Integrate HeroImage component into blog post page at `apps/site-shell/app/blog/[slug]/page.tsx`
-- [ ] T012 [US1] Implement empty state with theme-aware reserved space in HeroImage component
-- [ ] T013 [US1] Add caption rendering support to HeroImage component
-- [ ] T014 [US1] Add focalPoint (object-position) support to HeroImage component
+- [X] T009 [US1] Create HeroImage component in `apps/site-shell/components/blog/HeroImage.tsx`
+- [X] T010 [US1] Implement `loadHeroImage` function in `apps/site-shell/lib/mdx/image-loader.ts`
+- [X] T011 [US1] Integrate HeroImage component into blog post page at `apps/site-shell/app/blog/[slug]/page.tsx`
+- [X] T012 [US1] Implement empty state with theme-aware reserved space in HeroImage component
+- [X] T013 [US1] Add caption rendering support to HeroImage component
+- [X] T014 [US1] Add focalPoint (object-position) support to HeroImage component
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 
@@ -75,11 +75,11 @@
 
 ### Implementation for User Story 2
 
-- [ ] T015 [US2] Create OptimizedImage component in `apps/site-shell/components/blog/OptimizedImage.tsx`
-- [ ] T016 [US2] Register OptimizedImage as `Image` MDX component in `apps/site-shell/lib/mdx/blog-post-components.tsx`
-- [ ] T017 [US2] Implement MDX content scanning for `<Image>` references in `apps/site-shell/lib/mdx/image-loader.ts`
-- [ ] T018 [US2] Add caption rendering with figcaption in OptimizedImage component
-- [ ] T019 [US2] Add build-time validation for missing inline images in `apps/site-shell/lib/mdx/image-loader.ts`
+- [X] T015 [US2] Create OptimizedImage component in `apps/site-shell/components/blog/OptimizedImage.tsx`
+- [X] T016 [US2] Register OptimizedImage as `Image` MDX component in `apps/site-shell/lib/mdx/blog-post-components.tsx`
+- [X] T017 [US2] Implement MDX content scanning for `<Image>` references in `apps/site-shell/lib/mdx/image-loader.ts`
+- [X] T018 [US2] Add caption rendering with figcaption in OptimizedImage component
+- [X] T019 [US2] Add build-time validation for missing inline images in `apps/site-shell/lib/mdx/image-loader.ts`
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
 
@@ -93,13 +93,13 @@
 
 ### Implementation for User Story 3
 
-- [ ] T020 [US3] Configure responsive breakpoints (480/768/1200/1920px) in HeroImage component
-- [ ] T021 [P] [US3] Configure responsive breakpoints (480/768/1200/1920px) in OptimizedImage component
-- [ ] T022 [US3] Implement lazy loading with 200px viewport threshold in HeroImage component
-- [ ] T023 [P] [US3] Implement lazy loading with 200px viewport threshold in OptimizedImage component
-- [ ] T024 [US3] Add blur placeholder (blurDataURL) generation to `apps/site-shell/lib/mdx/image-loader.ts`
-- [ ] T025 [US3] Add alt text warning during build in `apps/site-shell/lib/mdx/image-loader.ts`
-- [ ] T026 [US3] Add external URL detection and warning in `apps/site-shell/lib/mdx/image-loader.ts`
+- [X] T020 [US3] Configure responsive breakpoints (480/768/1200/1920px) in HeroImage component
+- [X] T021 [P] [US3] Configure responsive breakpoints (480/768/1200/1920px) in OptimizedImage component
+- [X] T022 [US3] Implement lazy loading with 200px viewport threshold in HeroImage component
+- [X] T023 [P] [US3] Implement lazy loading with 200px viewport threshold in OptimizedImage component
+- [X] T024 [US3] Add blur placeholder (blurDataURL) generation to `apps/site-shell/lib/mdx/image-loader.ts`
+- [X] T025 [US3] Add alt text warning during build in `apps/site-shell/lib/mdx/image-loader.ts`
+- [X] T026 [US3] Add external URL detection and warning in `apps/site-shell/lib/mdx/image-loader.ts`
 
 **Checkpoint**: All user stories should now be independently functional
 
@@ -109,11 +109,11 @@
 
 **Purpose**: Documentation, validation, and edge case handling
 
-- [ ] T027 [P] Create sample post with hero image in `content/images/` for validation
-- [ ] T028 [P] Add oversized image warning (>500KB, >2000px) in `apps/site-shell/lib/mdx/image-loader.ts`
-- [ ] T029 [FR-008] Create author workflow guide at `docs/authoring-images.md` covering: image organization, frontmatter syntax, inline image MDX usage, and troubleshooting common errors
-- [ ] T030 Run quickstart.md validation scenarios manually. **Done when**: All 3 user story acceptance scenarios pass in local dev
-- [ ] T031 Verify all edge cases from spec.md are handled. **Done when**: Checklist of 6 edge cases (spec.md L57-62) verified with test posts
+- [X] T027 [P] Create sample post with hero image in `content/images/` for validation
+- [X] T028 [P] Add oversized image warning (>500KB, >2000px) in `apps/site-shell/lib/mdx/image-loader.ts`
+- [X] T029 [FR-008] Create author workflow guide at `docs/authoring-images.md` covering: image organization, frontmatter syntax, inline image MDX usage, and troubleshooting common errors
+- [X] T030 Run quickstart.md validation scenarios manually. **Done when**: All 3 user story acceptance scenarios pass in local dev
+- [X] T031 Verify all edge cases from spec.md are handled. **Done when**: Checklist of 6 edge cases (spec.md L57-62) verified with test posts
 
 ---
 
