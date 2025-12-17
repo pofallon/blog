@@ -3,10 +3,12 @@
  * Custom components for rendering MDX content in blog posts
  * @see /specs/006-blog-post-route/research.md RQ-8
  * @see /specs/007-add-image-handling/tasks.md T016
+ * @see /specs/008-mdx-component-registry/data-model.md
  */
 
 import React, { type ComponentPropsWithoutRef, type ReactNode } from 'react';
 import { OptimizedImage } from '@/components/blog/OptimizedImage';
+import { getRegisteredComponents } from '@/components/mdx/index';
 
 /**
  * Custom image component with lazy loading
@@ -104,6 +106,7 @@ function PlaceholderComponent({ children }: { children?: ReactNode }) {
  * MDX component mappings for blog post rendering
  * Override default HTML elements with custom styled components
  * Include placeholders for legacy Gatsby components
+ * Merge with registered components from the registry
  */
 export const blogPostMDXComponents = {
   // HTML element overrides
@@ -117,5 +120,8 @@ export const blogPostMDXComponents = {
   Image: OptimizedImage,
   // Legacy Gatsby component placeholders
   ReinventProcessor: PlaceholderComponent,
-  Playlist: PlaceholderComponent,
+  // Merge registered components from the registry (includes PlaylistEmbed)
+  ...getRegisteredComponents(),
+  // Alias legacy Playlist to PlaylistEmbed from registry (with fallback to placeholder)
+  Playlist: getRegisteredComponents().PlaylistEmbed ?? PlaceholderComponent,
 };

@@ -5,9 +5,23 @@
  * Unrecognized components will render as text with a warning.
  *
  * @see /specs/003-add-mdx-support/data-model.md
+ * @see /specs/008-mdx-component-registry/data-model.md
  */
 
 import type { ComponentType } from 'react';
+
+// Re-export registry utilities for external use
+export {
+  registry,
+  getComponent,
+  getRegisteredComponents,
+  registeredComponents,
+  hasComponent,
+  getRegisteredComponentNames,
+  registerComponent,
+} from './registry/registry';
+
+export type { RegistryEntry, RegistryExample, ComponentRegistry } from './registry/types';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- MDX components receive arbitrary props
 type MDXComponentProps = any;
