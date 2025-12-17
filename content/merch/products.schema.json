@@ -1,0 +1,112 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://get2know.io/schemas/merch/products.schema.json",
+  "title": "Product Catalog",
+  "description": "Schema for merch section placeholder product data",
+  "type": "object",
+  "required": ["products"],
+  "properties": {
+    "products": {
+      "type": "array",
+      "description": "Array of product items",
+      "items": {
+        "$ref": "#/definitions/Product"
+      }
+    }
+  },
+  "definitions": {
+    "Product": {
+      "type": "object",
+      "required": [
+        "name",
+        "slug",
+        "shortDescription",
+        "longDescription",
+        "priceDisplay",
+        "heroImage",
+        "status"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "description": "Product display name"
+        },
+        "slug": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 50,
+          "pattern": "^[a-z0-9-]+$",
+          "description": "URL-safe identifier, lowercase alphanumeric with hyphens"
+        },
+        "shortDescription": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "description": "Teaser text for list view"
+        },
+        "longDescription": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000,
+          "description": "Full description for detail page"
+        },
+        "priceDisplay": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 50,
+          "description": "Formatted price text"
+        },
+        "heroImage": {
+          "$ref": "#/definitions/ProductImage",
+          "description": "Primary image for list and detail hero"
+        },
+        "galleryImages": {
+          "type": "array",
+          "maxItems": 4,
+          "items": {
+            "$ref": "#/definitions/ProductImage"
+          },
+          "default": [],
+          "description": "Additional images (0-4 items)"
+        },
+        "status": {
+          "$ref": "#/definitions/ProductStatus",
+          "description": "Product availability status"
+        },
+        "sortOrder": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0,
+          "description": "Display order (lower = first)"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ProductImage": {
+      "type": "object",
+      "required": ["url", "alt"],
+      "properties": {
+        "url": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500,
+          "description": "Image URL or relative path"
+        },
+        "alt": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 150,
+          "description": "Alt text for accessibility"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ProductStatus": {
+      "type": "string",
+      "enum": ["Available", "Coming Soon", "Sold Out"],
+      "description": "Product availability status"
+    }
+  }
+}

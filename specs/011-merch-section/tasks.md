@@ -27,11 +27,11 @@
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Create directory structure for `apps/site-shell/components/merch/`
-- [ ] T002 [P] Create directory structure for `apps/site-shell/lib/merch/`
-- [ ] T003 [P] Create directory structure for `apps/site-shell/app/merch/[slug]/`
-- [ ] T004 [P] Create directory structure for `content/merch/`
-- [ ] T005 [P] Create directory structure for `public/images/merch/`
+- [X] T001 Create directory structure for `apps/site-shell/components/merch/`
+- [X] T002 [P] Create directory structure for `apps/site-shell/lib/merch/`
+- [X] T003 [P] Create directory structure for `apps/site-shell/app/merch/[slug]/`
+- [X] T004 [P] Create directory structure for `content/merch/`
+- [X] T005 [P] Create directory structure for `public/images/merch/`
 
 ---
 
@@ -41,13 +41,13 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T006 Create Zod schema with ProductStatus, ProductImage, Product, and ProductCatalog in `apps/site-shell/lib/merch/schema.ts`
-- [ ] T007 Create TypeScript types exported from Zod inference in `apps/site-shell/lib/merch/types.ts`
-- [ ] T008 [P] Copy JSON Schema to `content/merch/products.schema.json`
-- [ ] T009 Create product loader with validation (loadProductCatalog, loadProductBySlug) in `apps/site-shell/lib/merch/loader.ts`
-- [ ] T010 Create analytics event helpers (merch_index_view, merch_product_view) in `apps/site-shell/lib/merch/analytics.ts`
-- [ ] T011 Create placeholder product data with 4 products (varied statuses) in `content/merch/products.json`
-- [ ] T012 [P] Add placeholder hero images to `public/images/merch/` (4 product images)
+- [X] T006 Create Zod schema with ProductStatus, ProductImage, Product, and ProductCatalog in `apps/site-shell/lib/merch/schema.ts`
+- [X] T007 Create TypeScript types exported from Zod inference in `apps/site-shell/lib/merch/types.ts`
+- [X] T008 [P] Copy JSON Schema to `content/merch/products.schema.json`
+- [X] T009 Create product loader with validation (loadProductCatalog, loadProductBySlug) in `apps/site-shell/lib/merch/loader.ts`
+- [X] T010 Create analytics event helpers (merch_index_view, merch_product_view) in `apps/site-shell/lib/merch/analytics.ts`
+- [X] T011 Create placeholder product data with 4 products (varied statuses) in `content/merch/products.json`
+- [X] T012 [P] Add placeholder hero images to `public/images/merch/` (4 product images)
 
 **Checkpoint**: Foundation ready - user story implementation can now begin
 
@@ -61,13 +61,13 @@
 
 ### Implementation for User Story 1
 
-- [ ] T013 [P] [US1] Create StatusBadge component with status-to-style mapping in `apps/site-shell/components/merch/StatusBadge.tsx`
-- [ ] T014 [P] [US1] Create ProductCard component with hero image, name, price, badge in `apps/site-shell/components/merch/ProductCard.tsx`
-- [ ] T015 [P] [US1] Create MerchEmptyState component with friendly messaging in `apps/site-shell/components/merch/MerchEmptyState.tsx`
-- [ ] T016 [P] [US1] Create CommerceInfoBlock component (index variant) in `apps/site-shell/components/merch/CommerceInfoBlock.tsx`
-- [ ] T017 [US1] Create merch index page with hero, product grid, commerce info in `apps/site-shell/app/merch/page.tsx`
-- [ ] T018 [US1] Add merch_index_view analytics event to index page in `apps/site-shell/app/merch/page.tsx`
-- [ ] T019 [US1] Add "Merch" navigation link in site navigation config
+- [X] T013 [P] [US1] Create StatusBadge component with status-to-style mapping in `apps/site-shell/components/merch/StatusBadge.tsx`
+- [X] T014 [P] [US1] Create ProductCard component with hero image, name, price, badge in `apps/site-shell/components/merch/ProductCard.tsx`
+- [X] T015 [P] [US1] Create MerchEmptyState component with friendly messaging in `apps/site-shell/components/merch/MerchEmptyState.tsx`
+- [X] T016 [P] [US1] Create CommerceInfoBlock component (index variant) in `apps/site-shell/components/merch/CommerceInfoBlock.tsx`
+- [X] T017 [US1] Create merch index page with hero, product grid, commerce info in `apps/site-shell/app/merch/page.tsx`
+- [X] T018 [US1] Add merch_index_view analytics event to index page in `apps/site-shell/app/merch/page.tsx`
+- [X] T019 [US1] Add "Merch" navigation link in site navigation config
 
 **Checkpoint**: User Story 1 complete - `/merch` index page fully functional and testable
 
@@ -81,12 +81,12 @@
 
 ### Implementation for User Story 2
 
-- [ ] T020 [P] [US2] Create ProductGallery component with hero and lazy-loaded thumbnails in `apps/site-shell/components/merch/ProductGallery.tsx`
-- [ ] T021 [P] [US2] Create StatusCTA component with status-based actions in `apps/site-shell/components/merch/StatusCTA.tsx`
-- [ ] T022 [US2] Create product detail page with breadcrumb, gallery, details, CTA in `apps/site-shell/app/merch/[slug]/page.tsx`
-- [ ] T023 [US2] Implement generateStaticParams for SSG in `apps/site-shell/app/merch/[slug]/page.tsx`
-- [ ] T024 [US2] Add merch_product_view analytics event to detail page in `apps/site-shell/app/merch/[slug]/page.tsx`
-- [ ] T025 [US2] Add 404 handling for invalid slugs in `apps/site-shell/app/merch/[slug]/page.tsx`
+- [X] T020 [P] [US2] Create ProductGallery component with hero and lazy-loaded thumbnails in `apps/site-shell/components/merch/ProductGallery.tsx`
+- [X] T021 [P] [US2] Create StatusCTA component with status-based actions in `apps/site-shell/components/merch/StatusCTA.tsx`
+- [X] T022 [US2] Create product detail page with breadcrumb, gallery, details, CTA in `apps/site-shell/app/merch/[slug]/page.tsx`
+- [X] T023 [US2] Implement generateStaticParams for SSG in `apps/site-shell/app/merch/[slug]/page.tsx`
+- [X] T024 [US2] Add merch_product_view analytics event to detail page in `apps/site-shell/app/merch/[slug]/page.tsx`
+- [X] T025 [US2] Add 404 handling for invalid slugs in `apps/site-shell/app/merch/[slug]/page.tsx`
 
 **Checkpoint**: User Story 2 complete - `/merch/[slug]` detail pages fully functional
 
@@ -100,10 +100,10 @@
 
 ### Implementation for User Story 3
 
-- [ ] T026 [US3] Add build-time validation script for products.json in `apps/site-shell/scripts/validate-merch.ts`. MUST test: missing required fields, invalid status enum (e.g., "Unavailable"), malformed JSON structure, duplicate slugs
-- [ ] T027 [US3] Add validate:merch npm script to package.json prebuild hook
-- [ ] T028 [US3] Add clear validation error messaging with field-level details in `apps/site-shell/scripts/validate-merch.ts`
-- [ ] T029 [US3] Document schema editing workflow in `specs/011-merch-section/quickstart.md` (verify complete)
+- [X] T026 [US3] Add build-time validation script for products.json in `apps/site-shell/scripts/validate-merch.ts`. MUST test: missing required fields, invalid status enum (e.g., "Unavailable"), malformed JSON structure, duplicate slugs
+- [X] T027 [US3] Add validate:merch npm script to package.json prebuild hook
+- [X] T028 [US3] Add clear validation error messaging with field-level details in `apps/site-shell/scripts/validate-merch.ts`
+- [X] T029 [US3] Document schema editing workflow in `specs/011-merch-section/quickstart.md` (verify complete)
 
 **Checkpoint**: User Story 3 complete - content managers can safely edit products.json
 
@@ -113,11 +113,11 @@
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T030 [P] Verify WCAG 2.1 AA compliance: keyboard navigation on all merch components
-- [ ] T031 [P] Verify Core Web Vitals: LCP < 2.5s, FID < 100ms, CLS < 0.1 on merch pages
-- [ ] T032 [P] Add aria-labels and role attributes per component contracts
-- [ ] T033 Run quickstart.md validation scenarios manually
-- [ ] T034 Code cleanup and remove any console.log debugging statements
+- [X] T030 [P] Verify WCAG 2.1 AA compliance: keyboard navigation on all merch components
+- [X] T031 [P] Verify Core Web Vitals: LCP < 2.5s, FID < 100ms, CLS < 0.1 on merch pages
+- [X] T032 [P] Add aria-labels and role attributes per component contracts
+- [X] T033 Run quickstart.md validation scenarios manually
+- [X] T034 Code cleanup and remove any console.log debugging statements
 
 ---
 
