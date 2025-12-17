@@ -48,22 +48,22 @@ As a content editor adding new MDX files, I want new posts to surface automatica
 **Acceptance Scenarios**:
 
 1. **Given** a newly added MDX file committed to the repository, **When** the site rebuilds, **Then** the `/blog` list includes it without editing the index by hand.
-2. **Given** posts sharing the same publish date, **When** the page renders, **Then** a deterministic secondary sort (e.g., alphabetical by title) keeps ordering stable between builds.
+2. **Given** posts sharing the same publish date, **When** the page renders, **Then** alphabetical ordering by title (A→Z) keeps the list stable between builds.
 
 ---
 
 ### Edge Cases
 
-- Empty state when no MDX posts qualify (show a friendly message instead of an endless spinner).
-- Posts missing optional metadata (e.g., description) should fall back to a safe excerpt without breaking layout.
-- Future-dated posts should either be excluded or clearly flagged so unpublished content is not accidentally surfaced.
+- Empty state when no MDX posts qualify displays static text: "No posts yet. Check back soon!" instead of a spinner or blank page.
+- Posts missing optional metadata (e.g., description) should fall back to an auto-generated excerpt from the first ~160 characters of post body without breaking layout.
+- Future-dated posts should be excluded entirely from the index until their publish date is reached (posts hidden until date arrives).
 - Slug mismatch between a frontmatter override and the canonical slug derived from file paths should fail a build-time check before deployment.
 
 ## Requirements *(mandatory)*
 
 ### Functional Requirements
 
-- **FR-001**: The `/blog` route MUST display a reverse-chronological list of MDX blog posts using `frontmatter.date` to determine order, with a deterministic tiebreaker for identical dates.
+- **FR-001**: The `/blog` route MUST display a reverse-chronological list of MDX blog posts using `frontmatter.date` to determine order, with alphabetical sorting by title (A→Z) as a deterministic tiebreaker when multiple posts share the same date.
 - **FR-002**: Each list item MUST render the post title, a human-friendly date (e.g., “May 2, 2020”), and a short summary sourced from `frontmatter.description` or, if absent, the first ~160 characters of body content.
 - **FR-003**: Each list item MUST be wrapped in a single interactive target that routes to the post’s canonical slug defined by the current slug-generation rules, ensuring legacy URLs remain unchanged.
 - **FR-004**: Data fetching MUST rely on the centralized MDX content source that already powers individual post pages so that adding or editing MDX files automatically updates the index without hand-maintaining content arrays.
@@ -76,10 +76,20 @@ As a content editor adding new MDX files, I want new posts to surface automatica
 - **BlogPost**: Represents a single MDX node with frontmatter fields (`title`, `date`, `description`, optional `image`) and its canonical slug. Serves as the source of truth for metadata presented on the index.
 - **BlogIndexEntry**: View-model combining the BlogPost metadata plus derived display properties (formatted date string, truncated summary, link target) used by the UI layer.
 
+## Clarifications
+
+### Session 2025-12-16
+
+- Q: How should future-dated posts be handled on the /blog index? → A: Exclude future-dated posts entirely (hidden until date is reached)
+- Q: What deterministic secondary sort should be used when posts share the same publish date? → A: Alphabetical by title (A→Z)
+- Q: What message should display when no posts are available (empty state)? → A: Static text: "No posts yet. Check back soon!"
+- Q: What should the fallback summary strategy be when `frontmatter.description` is absent? → A: Auto-excerpt from first ~160 characters of post body
+- Q: How should slug mismatches between frontmatter override and canonical file-path slug be handled? → A: Hard failure: block deployment until resolved
+
 ## Assumptions
 
 - All blog content lives in MDX (or MD with MDX processing) under the existing content directories and already has canonical slugs generated from their directory structure.
-- Frontmatter dates are ISO-formatted and represent publish intent; future dates indicate scheduled posts that should stay hidden until the date is reached.
+- Frontmatter dates are ISO-formatted and represent publish intent; future-dated posts are excluded from the index until their date is reached (build-time filtering).
 - There is no pagination requirement for the first iteration; showing the entire list is acceptable until volume necessitates pagination or filtering.
 - Images referenced in frontmatter are optional for the index and can be introduced later without blocking this work.
 

@@ -1,0 +1,39 @@
+---
+title: "Welcome to MDX"
+date: "2025-12-15"
+description: "This is a demo post proving the MDX pipeline works end-to-end."
+---
+
+## Hello, MDX!
+
+This is the demo entry for the MDX content pipeline. If you're seeing this page rendered at `/posts/demo-mdx`, the pipeline is working correctly.
+
+### Features Demonstrated
+
+- ✓ Frontmatter parsing
+- ✓ Markdown rendering
+- ✓ Build-time validation
+
+### Code Example
+
+Here's a TypeScript snippet showing the frontmatter schema:
+
+```typescript
+type FrontmatterMetadata = {
+  title: string;
+  date: string; // YYYY-MM-DD format
+  description: string;
+  image?: ImageMeta;
+};
+```
+
+## How It Works
+
+1. **Content Discovery**: MDX files are scanned from `/content/posts/`
+2. **Frontmatter Validation**: Each file's metadata is validated against a Zod schema
+3. **Slug Generation**: The filename becomes the URL slug (e.g., `demo-mdx.mdx` → `/posts/demo-mdx`)
+4. **Static Generation**: Pages are pre-rendered at build time for optimal performance
+
+## Next Steps
+
+Add your own MDX files to `/content/posts/` and they'll automatically appear as new routes.
