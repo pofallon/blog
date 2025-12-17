@@ -19,10 +19,10 @@
 
 **Purpose**: Project initialization, dependencies, and basic directory structure
 
-- [ ] T001 Install next-mdx-remote and gray-matter dependencies via `npm install next-mdx-remote gray-matter`
-- [ ] T002 Create directory structure `src/app/blog/[slug]/`
-- [ ] T003 [P] Create directory structure `src/components/blog-post/`
-- [ ] T004 [P] Create directory structure `src/lib/mdx/`
+- [x] T001 Install next-mdx-remote and gray-matter dependencies via `npm install next-mdx-remote gray-matter`
+- [x] T002 Create directory structure `src/app/blog/[slug]/`
+- [x] T003 [P] Create directory structure `src/components/blog-post/`
+- [x] T004 [P] Create directory structure `src/lib/mdx/`
 
 ---
 
@@ -32,11 +32,11 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T005 Create type definitions in src/lib/mdx/types.ts (BlogPostDocument, BlogPostFrontmatter, BlogPostPageModel, BlogPostParams, ProcessedImage)
-- [ ] T006 Implement getPostBySlug() function in src/lib/mdx/loader.ts (loads MDX file, parses frontmatter, returns BlogPostDocument or null)
-- [ ] T007 Implement getAllPostSlugs() function in src/lib/mdx/loader.ts (enumerates content/blog directories for generateStaticParams)
-- [ ] T008 Implement transformToPageModel() function in src/lib/mdx/loader.ts (converts BlogPostDocument to BlogPostPageModel with date formatting, MDX compilation, canonicalUrl)
-- [ ] T009 [P] Create MDX component mappings in src/lib/mdx/components.tsx (custom components for quotes, embeds, images with loading="lazy")
+- [x] T005 Create type definitions in src/lib/mdx/types.ts (BlogPostDocument, BlogPostFrontmatter, BlogPostPageModel, BlogPostParams, ProcessedImage)
+- [x] T006 Implement getPostBySlug() function in src/lib/mdx/loader.ts (loads MDX file, parses frontmatter, returns BlogPostDocument or null)
+- [x] T007 Implement getAllPostSlugs() function in src/lib/mdx/loader.ts (enumerates content/blog directories for generateStaticParams)
+- [x] T008 Implement transformToPageModel() function in src/lib/mdx/loader.ts (converts BlogPostDocument to BlogPostPageModel with date formatting, MDX compilation, canonicalUrl)
+- [x] T009 [P] Create MDX component mappings in src/lib/mdx/components.tsx (custom components for quotes, embeds, images with loading="lazy")
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -50,13 +50,13 @@
 
 ### Implementation for User Story 1
 
-- [ ] T010 [P] [US1] Create BlogPostHeader component in src/components/blog-post/BlogPostHeader.tsx (displays title, formatted date, description, optional hero image)
-- [ ] T011 [P] [US1] Create BlogPostBody component in src/components/blog-post/BlogPostBody.tsx (renders MDX content with component mappings using next-mdx-remote)
-- [ ] T012 [P] [US1] Create BlogPostNav component in src/components/blog-post/BlogPostNav.tsx (back link to /blog)
-- [ ] T013 [US1] Implement dynamic route page in src/app/blog/[slug]/page.tsx (async component with getPostBySlug, transformToPageModel, renders Header/Body/Nav)
-- [ ] T014 [US1] Implement generateStaticParams() in src/app/blog/[slug]/page.tsx (uses getAllPostSlugs for SSG pre-rendering)
-- [ ] T015 [US1] Add fallback handling for missing metadata in src/lib/mdx/loader.ts (console.warn for missing title/date, use "Untitled Post"/"Unknown Date" defaults per FR-006)
-- [ ] T016 [US1] Apply Tailwind prose classes for typography in src/app/blog/[slug]/page.tsx and components
+- [x] T010 [P] [US1] Create BlogPostHeader component in src/components/blog-post/BlogPostHeader.tsx (displays title, formatted date, description, optional hero image)
+- [x] T011 [P] [US1] Create BlogPostBody component in src/components/blog-post/BlogPostBody.tsx (renders MDX content with component mappings using next-mdx-remote)
+- [x] T012 [P] [US1] Create BlogPostNav component in src/components/blog-post/BlogPostNav.tsx (back link to /blog)
+- [x] T013 [US1] Implement dynamic route page in src/app/blog/[slug]/page.tsx (async component with getPostBySlug, transformToPageModel, renders Header/Body/Nav)
+- [x] T014 [US1] Implement generateStaticParams() in src/app/blog/[slug]/page.tsx (uses getAllPostSlugs for SSG pre-rendering)
+- [x] T015 [US1] Add fallback handling for missing metadata in src/lib/mdx/loader.ts (console.warn for missing title/date, use "Untitled Post"/"Unknown Date" defaults per FR-006)
+- [x] T016 [US1] Apply Tailwind prose classes for typography in src/app/blog/[slug]/page.tsx and components
 
 **Checkpoint**: User Story 1 complete - blog posts render with full content at /blog/[slug]
 
@@ -70,11 +70,11 @@
 
 ### Implementation for User Story 2
 
-- [ ] T017 [US2] Implement generateMetadata() function in src/app/blog/[slug]/page.tsx (returns title, description, canonical URL from frontmatter)
-- [ ] T018 [US2] Add OpenGraph metadata in generateMetadata() (og:title, og:description, og:type=article, og:url, og:image if hero exists)
-- [ ] T019 [US2] Add Twitter card metadata in generateMetadata() (twitter:card, twitter:title, twitter:description)
-- [ ] T020 [US2] Implement URL normalization middleware in src/middleware.ts (301 redirect uppercase→lowercase and trailing slash removal per edge case spec)
-- [ ] T021 [US2] Configure middleware matcher for /blog/:path* routes in src/middleware.ts
+- [x] T017 [US2] Implement generateMetadata() function in src/app/blog/[slug]/page.tsx (returns title, description, canonical URL from frontmatter)
+- [x] T018 [US2] Add OpenGraph metadata in generateMetadata() (og:title, og:description, og:type=article, og:url, og:image if hero exists)
+- [x] T019 [US2] Add Twitter card metadata in generateMetadata() (twitter:card, twitter:title, twitter:description)
+- [x] T020 [US2] Implement URL normalization middleware in src/middleware.ts (301 redirect uppercase→lowercase and trailing slash removal per edge case spec)
+- [x] T021 [US2] Configure middleware matcher for /blog/:path* routes in src/middleware.ts
 
 **Checkpoint**: User Story 2 complete - SEO metadata accurate, non-canonical URLs redirect to canonical
 
@@ -88,10 +88,10 @@
 
 ### Implementation for User Story 3
 
-- [ ] T022 [US3] Create not-found page in src/app/blog/[slug]/not-found.tsx (404 UI with "Post Not Found" message and Link back to /blog)
-- [ ] T023 [US3] Add notFound() call in src/app/blog/[slug]/page.tsx (trigger 404 when getPostBySlug returns null)
-- [ ] T024 [US3] Ensure 404 response returns proper HTTP status < 500ms (verify notFound() from next/navigation returns 404 status; measure response time with curl or Lighthouse)
-- [ ] T025 [US3] Style not-found page with Tailwind classes matching site design in src/app/blog/[slug]/not-found.tsx
+- [x] T022 [US3] Create not-found page in src/app/blog/[slug]/not-found.tsx (404 UI with "Post Not Found" message and Link back to /blog)
+- [x] T023 [US3] Add notFound() call in src/app/blog/[slug]/page.tsx (trigger 404 when getPostBySlug returns null)
+- [x] T024 [US3] Ensure 404 response returns proper HTTP status < 500ms (verify notFound() from next/navigation returns 404 status; measure response time with curl or Lighthouse)
+- [x] T025 [US3] Style not-found page with Tailwind classes matching site design in src/app/blog/[slug]/not-found.tsx
 
 **Checkpoint**: User Story 3 complete - invalid slugs show friendly 404 with navigation to /blog
 
@@ -101,12 +101,12 @@
 
 **Purpose**: Accessibility, performance, and final validation
 
-- [ ] T026a [P] Implement proper heading hierarchy in BlogPostHeader.tsx (single h1 for title, h2+ for content sections)
-- [ ] T026b [P] Add aria-label to BlogPostNav back link and ensure focus ring visibility in src/components/blog-post/BlogPostNav.tsx
-- [ ] T026c [P] Verify WCAG 2.1 AA compliance using Lighthouse accessibility audit on sample blog post
-- [ ] T027 [P] Add loading="lazy" to images and iframes in MDX component mappings (src/lib/mdx/components.tsx) per edge case spec
-- [ ] T028 [P] Verify LCP < 1.5s goal by testing with Lighthouse on sample blog post
-- [ ] T029 Run quickstart.md validation: build, test valid slug, test 404, test redirect
+- [x] T026a [P] Implement proper heading hierarchy in BlogPostHeader.tsx (single h1 for title, h2+ for content sections)
+- [x] T026b [P] Add aria-label to BlogPostNav back link and ensure focus ring visibility in src/components/blog-post/BlogPostNav.tsx
+- [x] T026c [P] Verify WCAG 2.1 AA compliance using Lighthouse accessibility audit on sample blog post
+- [x] T027 [P] Add loading="lazy" to images and iframes in MDX component mappings (src/lib/mdx/components.tsx) per edge case spec
+- [x] T028 [P] Verify LCP < 1.5s goal by testing with Lighthouse on sample blog post
+- [x] T029 Run quickstart.md validation: build, test valid slug, test 404, test redirect
 
 ---
 

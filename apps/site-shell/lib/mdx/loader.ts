@@ -138,11 +138,11 @@ export function getAllPosts(): {
 
   // Log build summary (FR-008)
   console.log(`\n📄 MDX Build Summary:`);
-  console.log(`   Total files: ${summary.totalFiles}`);
-  console.log(`   Valid: ${summary.validFiles}`);
-  console.log(`   Invalid: ${summary.invalidFiles}`);
+  console.log(`   Total files: ${String(summary.totalFiles)}`);
+  console.log(`   Valid: ${String(summary.validFiles)}`);
+  console.log(`   Invalid: ${String(summary.invalidFiles)}`);
   if (summary.warnings.length > 0) {
-    console.log(`   Warnings: ${summary.warnings.length}`);
+    console.log(`   Warnings: ${String(summary.warnings.length)}`);
   }
 
   return { posts, summary };
@@ -233,7 +233,7 @@ export function transformToBlogIndexEntry(entry: MDXEntry): BlogIndexEntry {
     formattedDate,
     rawDate: entry.metadata.date,
     summary,
-    url: `/posts/${entry.slug}`,
+    url: `/blog/${entry.slug}`,
   };
 }
 

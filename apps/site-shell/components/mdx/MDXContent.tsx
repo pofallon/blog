@@ -3,7 +3,7 @@
  * Uses next-mdx-remote/rsc for server-side MDX compilation
  */
 
-import { MDXRemote } from 'next-mdx-remote/rsc';
+import { MDXRemote, type MDXRemoteProps } from 'next-mdx-remote/rsc';
 import { mdxComponents } from './index';
 
 type MDXContentProps = {
@@ -37,10 +37,15 @@ const componentProxy = new Proxy(mdxComponents, {
 /**
  * Render MDX content with whitelisted components
  */
-export function MDXContent({ content }: MDXContentProps) {
+export async function MDXContent({ content }: MDXContentProps) {
+  const mdxProps: MDXRemoteProps = {
+    source: content,
+    components: componentProxy,
+  };
+
   return (
     <div className="prose prose-lg max-w-none">
-      <MDXRemote source={content} components={componentProxy} />
+      <MDXRemote {...mdxProps} />
     </div>
   );
 }
