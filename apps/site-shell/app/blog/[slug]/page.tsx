@@ -16,6 +16,7 @@ import {
   BlogPostBody,
   BlogPostNav,
 } from '@/components/blog-post';
+import { buildBlogPostMetadata } from '@/lib/seo';
 import type { BlogPostPageProps, BlogPostParams } from '@/lib/mdx/blog-post-types';
 
 /**
@@ -28,7 +29,7 @@ export function generateStaticParams(): BlogPostParams[] {
 }
 
 /**
- * Generate metadata for SEO (User Story 2)
+ * Generate metadata for SEO (FR-004, FR-005)
  * Returns title, description, canonical URL, OpenGraph, and Twitter card metadata
  */
 export async function generateMetadata({
@@ -41,53 +42,7 @@ export async function generateMetadata({
     return { title: 'Post Not Found' };
   }
 
-  const title = doc.frontmatter.title;
-  const description =
-    doc.frontmatter.description || `Read ${title} on get2know.io`;
-  const canonicalUrl = `https://get2know.io/blog/${slug}`;
-
-  // Process hero image for social metadata
-  const heroImage = doc.frontmatter.image;
-  let imageUrl: string | undefined;
-  if (heroImage) {
-    if (typeof heroImage === 'string') {
-      imageUrl = `https://get2know.io/blog-images/${slug}/${heroImage.replace(/^\.\//, '')}`;
-    } else {
-      imageUrl = heroImage.src.startsWith('http') 
-        ? heroImage.src 
-        : `https://get2know.io${heroImage.src}`;
-    }
-  }
-
-  // Base metadata
-  const metadata: Metadata = {
-    title,
-    description,
-    alternates: {
-      canonical: canonicalUrl,
-    },
-    // OpenGraph metadata (T018)
-    openGraph: {
-      title,
-      description,
-      type: 'article',
-      url: canonicalUrl,
-      siteName: 'get2know.io',
-      publishedTime: doc.frontmatter.date,
-      ...(imageUrl && {
-        images: [{ url: imageUrl, width: 1200, height: 630, alt: title }],
-      }),
-    },
-    // Twitter card metadata (T019)
-    twitter: {
-      card: imageUrl ? 'summary_large_image' : 'summary',
-      title,
-      description,
-      ...(imageUrl && { images: [imageUrl] }),
-    },
-  };
-
-  return metadata;
+  return buildBlogPostMetadata(doc.frontmatter, slug);
 }
 
 /**

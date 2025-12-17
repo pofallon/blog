@@ -2,6 +2,7 @@
  * Blog Post Page Type Definitions
  * @see /specs/006-blog-post-route/data-model.md
  * Feature: 006-blog-post-route
+ * SEO: /specs/009-seo-metadata/data-model.md
  */
 
 import type { MDXRemoteSerializeResult } from 'next-mdx-remote';
@@ -23,6 +24,10 @@ export interface ImageMeta {
 /**
  * Enhanced hero image metadata with caption and focal point support
  * @see /specs/007-add-image-handling/data-model.md
+ * 
+ * SEO Usage:
+ * - src: Resolved to absolute URL for og:image and twitter:image
+ * - alt: Used for og:image:alt accessibility
  */
 export interface HeroImageMeta {
   /** Relative path within content/images/<slug>/ */
@@ -47,6 +52,12 @@ export interface PlaylistRef {
 
 /**
  * Raw frontmatter structure parsed from MDX file header
+ * 
+ * SEO Field Mapping (see /specs/009-seo-metadata/data-model.md):
+ * - title → og:title, twitter:title
+ * - description → og:description, twitter:description
+ * - date → og:article:published_time
+ * - hero.src → og:image, twitter:image (resolved to absolute URL)
  */
 export interface BlogPostFrontmatter {
   /** Post display title */

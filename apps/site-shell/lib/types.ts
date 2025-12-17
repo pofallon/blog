@@ -13,6 +13,10 @@ export type SiteMetadata = {
   title: string;
   description: string;
   ogImage: string;
+  /** Canonical host URL for SEO (e.g., 'https://get2know.io') */
+  canonicalHost?: string;
+  /** Site locale for OpenGraph (e.g., 'en_US') */
+  locale?: string;
 };
 
 export type FooterLink = {

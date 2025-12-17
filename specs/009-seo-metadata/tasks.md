@@ -25,9 +25,9 @@
 
 **Purpose**: Project initialization and SEO module scaffolding
 
-- [ ] T001 Create SEO module directory structure at `apps/site-shell/lib/seo/`
-- [ ] T002 [P] Create types file with GlobalSEOConfig, PageMetadataOverride, ShareImageMeta, and validation types in `apps/site-shell/lib/seo/types.ts`
-- [ ] T003 [P] Create public exports barrel file in `apps/site-shell/lib/seo/index.ts`
+- [X] T001 Create SEO module directory structure at `apps/site-shell/lib/seo/`
+- [X] T002 [P] Create types file with GlobalSEOConfig, PageMetadataOverride, ShareImageMeta, and validation types in `apps/site-shell/lib/seo/types.ts`
+- [X] T003 [P] Create public exports barrel file in `apps/site-shell/lib/seo/index.ts`
 
 ---
 
@@ -37,11 +37,11 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T004 Implement GlobalSEOConfig constant with environment variable integration in `apps/site-shell/lib/seo/config.ts`
-- [ ] T005 Implement getGlobalSEOConfig() function in `apps/site-shell/lib/seo/config.ts`
-- [ ] T006 [P] Implement buildCanonicalUrl() function in `apps/site-shell/lib/seo/url-builder.ts`
-- [ ] T007 [P] Implement resolveShareImageUrl() function in `apps/site-shell/lib/seo/url-builder.ts`
-- [ ] T008 Update lib/seo/index.ts exports to include config and url-builder functions
+- [X] T004 Implement GlobalSEOConfig constant with environment variable integration in `apps/site-shell/lib/seo/config.ts`
+- [X] T005 Implement getGlobalSEOConfig() function in `apps/site-shell/lib/seo/config.ts`
+- [X] T006 [P] Implement buildCanonicalUrl() function in `apps/site-shell/lib/seo/url-builder.ts`
+- [X] T007 [P] Implement resolveShareImageUrl() function in `apps/site-shell/lib/seo/url-builder.ts`
+- [X] T008 Update lib/seo/index.ts exports to include config and url-builder functions
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -55,12 +55,12 @@
 
 ### Implementation for User Story 1
 
-- [ ] T009 [US1] Implement buildBlogPostMetadata() function mapping frontmatter to OG/Twitter tags in `apps/site-shell/lib/seo/metadata.ts`
-- [ ] T010 [US1] Add hero image fallback logic to buildBlogPostMetadata() when hero is missing in `apps/site-shell/lib/seo/metadata.ts`
-- [ ] T011 [US1] Update generateMetadata() in `apps/site-shell/app/blog/[slug]/page.tsx` to use buildBlogPostMetadata()
-- [ ] T012 [US1] Update lib/seo/index.ts exports to include metadata.ts functions
-- [ ] T013 [US1] Verify blog post renders with og:title, og:description, og:image, og:url, og:type=article tags
-- [ ] T014 [US1] Verify blog post renders with twitter:card, twitter:title, twitter:description, twitter:image tags
+- [X] T009 [US1] Implement buildBlogPostMetadata() function mapping frontmatter to OG/Twitter tags in `apps/site-shell/lib/seo/metadata.ts`
+- [X] T010 [US1] Add hero image fallback logic to buildBlogPostMetadata() when hero is missing in `apps/site-shell/lib/seo/metadata.ts`
+- [X] T011 [US1] Update generateMetadata() in `apps/site-shell/app/blog/[slug]/page.tsx` to use buildBlogPostMetadata()
+- [X] T012 [US1] Update lib/seo/index.ts exports to include metadata.ts functions
+- [X] T013 [US1] Verify blog post renders with og:title, og:description, og:image, og:url, og:type=article tags
+- [X] T014 [US1] Verify blog post renders with twitter:card, twitter:title, twitter:description, twitter:image tags
 
 **Checkpoint**: User Story 1 complete - blog posts have social-ready metadata independently testable
 
@@ -74,11 +74,11 @@
 
 ### Implementation for User Story 2
 
-- [ ] T015 [US2] Implement buildPageMetadata() function merging globals with overrides in `apps/site-shell/lib/seo/metadata.ts`
-- [ ] T016 [US2] Update root layout metadata to use getGlobalSEOConfig() in `apps/site-shell/app/layout.tsx`
-- [ ] T017 [US2] Add Twitter card tags to root layout metadata in `apps/site-shell/app/layout.tsx`
-- [ ] T018 [US2] Update blog index page metadata to use buildPageMetadata() in `apps/site-shell/app/blog/page.tsx`
-- [ ] T019 [US2] Verify static pages inherit global defaults including description and share image
+- [X] T015 [US2] Implement buildPageMetadata() function merging globals with overrides in `apps/site-shell/lib/seo/metadata.ts`
+- [X] T016 [US2] Update root layout metadata to use getGlobalSEOConfig() in `apps/site-shell/app/layout.tsx`
+- [X] T017 [US2] Add Twitter card tags to root layout metadata in `apps/site-shell/app/layout.tsx`
+- [X] T018 [US2] Update blog index page metadata to use buildPageMetadata() in `apps/site-shell/app/blog/page.tsx`
+- [X] T019 [US2] Verify static pages inherit global defaults including description and share image
 
 **Checkpoint**: User Story 2 complete - global metadata defaults propagate to all pages
 
@@ -92,11 +92,11 @@
 
 ### Implementation for User Story 3
 
-- [ ] T020 [US3] Add support for noIndex option in buildPageMetadata() in `apps/site-shell/lib/seo/metadata.ts`
-- [ ] T021 [US3] Add support for canonicalPath override in buildPageMetadata() in `apps/site-shell/lib/seo/metadata.ts`
-- [ ] T022 [US3] Add support for custom shareImage override in buildPageMetadata() in `apps/site-shell/lib/seo/metadata.ts`
-- [ ] T023 [US3] Verify override mechanism: title/description overrides merge with inherited defaults
-- [ ] T024 [US3] Verify canonical URL reflects route path automatically when not explicitly overridden
+- [X] T020 [US3] Add support for noIndex option in buildPageMetadata() in `apps/site-shell/lib/seo/metadata.ts`
+- [X] T021 [US3] Add support for canonicalPath override in buildPageMetadata() in `apps/site-shell/lib/seo/metadata.ts`
+- [X] T022 [US3] Add support for custom shareImage override in buildPageMetadata() in `apps/site-shell/lib/seo/metadata.ts`
+- [X] T023 [US3] Verify override mechanism: title/description overrides merge with inherited defaults
+- [X] T024 [US3] Verify canonical URL reflects route path automatically when not explicitly overridden
 
 **Checkpoint**: User Story 3 complete - page-level overrides work seamlessly with global defaults
 
@@ -106,13 +106,13 @@
 
 **Purpose**: Build-time validation to catch SEO issues before deployment
 
-- [ ] T025 Implement validateShareImageUrl() with origin check and HTTP HEAD in `apps/site-shell/lib/seo/image-validator.ts`
-- [ ] T026 Implement validateAllShareImages() with 10-concurrent validation limit in `apps/site-shell/lib/seo/image-validator.ts`
-- [ ] T027 Create SEO validation script in `apps/site-shell/scripts/validate-seo.ts`
-- [ ] T028 Add validate:seo npm script to `apps/site-shell/package.json`
-- [ ] T029 Update lib/seo/index.ts exports to include image-validator functions
-- [ ] T030 Verify validation script logs warnings for missing description or hero image
-- [ ] T031 Verify validation script fails build on invalid image origin or unreachable URL
+- [X] T025 Implement validateShareImageUrl() with origin check and HTTP HEAD in `apps/site-shell/lib/seo/image-validator.ts`
+- [X] T026 Implement validateAllShareImages() with 10-concurrent validation limit in `apps/site-shell/lib/seo/image-validator.ts`
+- [X] T027 Create SEO validation script in `apps/site-shell/scripts/validate-seo.ts`
+- [X] T028 Add validate:seo npm script to `apps/site-shell/package.json`
+- [X] T029 Update lib/seo/index.ts exports to include image-validator functions
+- [X] T030 Verify validation script logs warnings for missing description or hero image
+- [X] T031 Verify validation script fails build on invalid image origin or unreachable URL
 
 ---
 
@@ -120,11 +120,11 @@
 
 **Purpose**: Documentation and final refinements
 
-- [ ] T032 [P] Extend SiteMetadata type with SEO fields if needed in `apps/site-shell/lib/types.ts`
-- [ ] T033 [P] Extend BlogPostFrontmatter with explicit SEO field documentation in `apps/site-shell/lib/mdx/blog-post-types.ts`
-- [ ] T034 Run quickstart.md validation (manual verification of documented workflows)
-- [ ] T035 Verify all metadata renders without browser globals (server-side only)
-- [ ] T036 [FR-009] Verify locale field from GlobalSEOConfig propagates to all generated OG/Twitter metadata output
+- [X] T032 [P] Extend SiteMetadata type with SEO fields if needed in `apps/site-shell/lib/types.ts`
+- [X] T033 [P] Extend BlogPostFrontmatter with explicit SEO field documentation in `apps/site-shell/lib/mdx/blog-post-types.ts`
+- [X] T034 Run quickstart.md validation (manual verification of documented workflows)
+- [X] T035 Verify all metadata renders without browser globals (server-side only)
+- [X] T036 [FR-009] Verify locale field from GlobalSEOConfig propagates to all generated OG/Twitter metadata output
 
 ---
 
