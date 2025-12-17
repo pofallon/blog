@@ -23,6 +23,7 @@
 - Every blog post already maintains frontmatter keys for `title`, `description`/`excerpt`, `slug`, `publishedDate`, and `heroImage` (or an equivalent field); missing values fall back to defaults noted here.
 - A site-wide configuration file or environment values can provide canonical host, default title suffix, and fallback social image without additional infrastructure.
 - Social share images are stored in the repository or CDN with publicly accessible URLs at build time.
+- Share image URLs must originate from the canonical host domain or pre-approved CDN origins; external URLs are not permitted.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -70,7 +71,8 @@ A developer building a new campaign landing page needs to override only specific
 ---
 
 ### Edge Cases
-- Blog post missing `heroImage` must fall back to the default share image while logging a build-time warning for authors.
+- Blog post missing `heroImage` must fall back to the default share image while logging a build-time warning (non-blocking) for authors.
+- Blog post with invalid or inaccessible `heroImage` must be treated identically: log warning, substitute default share image, continue build.
 - Draft or future-dated posts should not emit canonical URLs that collide with published posts; the generator must use full slug paths.
 - Relative paths supplied in frontmatter (e.g., `/images/share.png`) must resolve to absolute URLs using the canonical host before insertion.
 - Pages rendered client-side after hydration must not double-append metadata tags; server-rendered head output is the source of truth.
@@ -82,9 +84,9 @@ A developer building a new campaign landing page needs to override only specific
 - **FR-002**: System MUST apply the global defaults to every route during Next.js server-side rendering, ensuring metadata exists even when no overrides are provided.
 - **FR-003**: System MUST allow any page component to supply a structured metadata override object that selectively replaces default fields while inheriting unspecified values.
 - **FR-004**: Blog post pages MUST read frontmatter fields and map them to OpenGraph (`og:title`, `og:description`, `og:image`, `og:url`, `og:type=article`) values.
-- **FR-005**: Blog post pages MUST emit Twitter card tags (`twitter:card`, `twitter:title`, `twitter:description`, `twitter:image`) derived from the same frontmatter values and default fallbacks.
+- **FR-005**: Blog post pages MUST emit Twitter card tags (`twitter:card=summary_large_image`, `twitter:title`, `twitter:description`, `twitter:image`) derived from the same frontmatter values and default fallbacks.
 - **FR-006**: Canonical URLs MUST be generated as absolute URLs using the configured host plus the request path or slug, and the computation MUST execute without referencing browser-only globals (e.g., no `window.location`).
-- **FR-007**: Share-image URLs MUST resolve to absolute, publicly accessible links at build time, validating existence or falling back to the global default image.
+- **FR-007**: Share-image URLs MUST resolve to absolute, publicly accessible links at build time; the build MUST validate URL accessibility (HTTP HEAD/GET) with a 5-second timeout per URL, concurrent validation of up to 10 URLs in parallel, with validation errors displayed in CI logs. URLs MUST originate from the canonical host domain or pre-approved CDN origins only; URLs from other origins MUST be rejected at build time. **Validation severity**: Invalid origin → ERROR (fail build); Unreachable URL → ERROR (fail build); Missing hero image → WARNING (use default, continue build).
 - **FR-008**: The build/deploy process MUST flag (via console warning or CI log) any blog post missing mandatory frontmatter keys used for metadata.
 - **FR-009**: Metadata generation MUST support localization-ready fields (e.g., site locale) by reading the value from the global config for every page.
 - **FR-010**: Documentation MUST describe how authors and developers supply overrides (frontmatter schema, config shape) so stakeholders can self-serve.
@@ -112,10 +114,19 @@ A developer building a new campaign landing page needs to override only specific
 3. Global defaults can be updated in a single configuration location and propagate to all pages on rebuild without manual edits elsewhere.
 4. Documentation clearly explains override mechanisms for both authors (frontmatter) and developers (page-level overrides).
 
+## Clarifications
+
+### Session 2025-12-17
+- Q: Which Twitter card type should blog posts use? → A: `summary_large_image`
+- Q: How should the build handle a missing or invalid heroImage in blog post frontmatter? → A: Log warning at build time, use default share image, continue
+- Q: How should the build validate share image URLs? → A: Validate image URL accessibility at build time; fail build on broken URLs
+- Q: What timeout and concurrency should URL validation use? → A: 5-second timeout per URL, concurrent validation (max 10 parallel)
+- Q: Which URL origins should be allowed for share images? → A: Canonical host domain and pre-approved CDN origins only
+
 ## Success Criteria *(mandatory)*
 
 ### Measurable Outcomes
 - **SC-001**: 100% of published blog posts include valid OpenGraph and Twitter metadata as verified by automated HTML inspection during CI.
 - **SC-002**: 0 pages ship with relative canonical URLs; absolute URLs are confirmed across staging and production smoke tests.
-- **SC-003**: Marketing can update global metadata defaults once and see changes reflected across all static pages within a single deployment cycle (<1 day turnaround).
+- **SC-003**: Marketing can update global metadata defaults once and see changes reflected across all static pages within a single build/deploy cycle.
 - **SC-004**: Social share preview validation (Facebook/Twitter cards) passes for at least 95% of sampled blog posts without manual edits per release.
