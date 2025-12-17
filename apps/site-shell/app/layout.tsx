@@ -3,7 +3,8 @@ import type { ReactNode } from 'react';
 import { Inter, JetBrains_Mono } from 'next/font/google';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { getSiteMetadata, getSiteShellLayout } from '@/lib/site-shell';
+import { getSiteShellLayout } from '@/lib/site-shell';
+import { getGlobalSEOConfig, buildCanonicalUrl, resolveShareImageUrl } from '@/lib/seo';
 import './globals.css';
 
 const inter = Inter({
@@ -18,25 +19,38 @@ const jetBrains = JetBrains_Mono({
   display: 'swap',
 });
 
-const siteMetadata = getSiteMetadata();
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://get2know.io';
+const globalConfig = getGlobalSEOConfig();
 const siteShellLayout = getSiteShellLayout();
 
 export const metadata: Metadata = {
-  title: siteMetadata.title,
-  description: siteMetadata.description,
-  metadataBase: new URL(siteUrl),
+  title: globalConfig.defaultTitle,
+  description: globalConfig.defaultDescription,
+  metadataBase: new URL(globalConfig.canonicalHost),
+  alternates: {
+    canonical: buildCanonicalUrl('/'),
+  },
   openGraph: {
-    title: siteMetadata.title,
-    description: siteMetadata.description,
+    title: globalConfig.defaultTitle,
+    description: globalConfig.defaultDescription,
+    type: 'website',
+    url: buildCanonicalUrl('/'),
+    siteName: globalConfig.siteName,
+    locale: globalConfig.locale,
     images: [
       {
-        url: siteMetadata.ogImage,
+        url: resolveShareImageUrl(globalConfig.defaultShareImage) || globalConfig.defaultShareImage,
         width: 1200,
         height: 630,
-        alt: siteMetadata.title,
+        alt: globalConfig.defaultTitle,
       },
     ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: globalConfig.defaultTitle,
+    description: globalConfig.defaultDescription,
+    images: [resolveShareImageUrl(globalConfig.defaultShareImage) || globalConfig.defaultShareImage],
+    ...(globalConfig.twitterHandle && { site: `@${globalConfig.twitterHandle}` }),
   },
 };
 

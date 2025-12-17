@@ -13,7 +13,8 @@
     "test:e2e": "playwright test",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "postinstall": "node ./scripts/postinstall.js"
+    "postinstall": "node ./scripts/postinstall.js",
+    "validate:seo": "npx tsx scripts/validate-seo.ts"
   },
   "dependencies": {
     "gray-matter": "^4.0.2",
