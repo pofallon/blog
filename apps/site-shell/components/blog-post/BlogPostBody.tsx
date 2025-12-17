@@ -13,7 +13,7 @@ export interface BlogPostBodyProps {
   playlists?: PlaylistRef[] | undefined;
 }
 
-export async function BlogPostBody({ source, playlists = [] }: BlogPostBodyProps) {
+export function BlogPostBody({ source, playlists = [] }: BlogPostBodyProps) {
   const mdxProps: MDXRemoteProps = {
     source,
     components: blogPostMDXComponents,

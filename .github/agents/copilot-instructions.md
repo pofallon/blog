@@ -13,6 +13,8 @@ Auto-generated from all feature plans. Last updated: 2025-12-15
 - File-based MDX content in `/content/posts/` (existing) (005-build-blog-index)
 - TypeScript 5.9+ (strict mode), React 18+, Next.js 14+ (App Router) + next-mdx-remote, existing slug library (`src/lib/slug`), Tailwind CSS (006-blog-post-route)
 - File-based MDX content in `content/blog/` directory (006-blog-post-route)
+- TypeScript 5.6+ with strict mode + Next.js 14.2+, next/image, next-mdx-remote 5.0, gray-matter, zod (007-add-image-handling)
+- Local filesystem in `content/images/<post-slug>/` directories (007-add-image-handling)
 
 - Markdown runbooks + AWS Amplify CLI ≥ 12.10 / AWS CLI v2.15 (Node.js 18 LTS) + AWS Amplify Console, AWS CLI Amplify service commands (`update-branch`, `create-branch`, `list-branches`), GitHub branch protection + Actions alerts (001-pause-amplify-builds)
 
@@ -32,9 +34,9 @@ tests/
 Markdown runbooks + AWS Amplify CLI ≥ 12.10 / AWS CLI v2.15 (Node.js 18 LTS): Follow standard conventions
 
 ## Recent Changes
+- 007-add-image-handling: Added TypeScript 5.6+ with strict mode + Next.js 14.2+, next/image, next-mdx-remote 5.0, gray-matter, zod
 - 006-blog-post-route: Added TypeScript 5.9+ (strict mode), React 18+, Next.js 14+ (App Router) + next-mdx-remote, existing slug library (`src/lib/slug`), Tailwind CSS
 - 005-build-blog-index: Added TypeScript 5.6+, React 18.3, Next.js 14.2 (App Router) + next-mdx-remote, gray-matter, zod (existing from 003-add-mdx-support)
-- 004-preserve-slugs: Added Node.js 18+ / TypeScript 5+ (strict mode per constitution) + gatsby-source-filesystem (existing), transliteration library (e.g., `slugify` or `transliteration`)
 
 
 <!-- MANUAL ADDITIONS START -->

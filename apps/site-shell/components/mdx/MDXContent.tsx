@@ -37,7 +37,7 @@ const componentProxy = new Proxy(mdxComponents, {
 /**
  * Render MDX content with whitelisted components
  */
-export async function MDXContent({ content }: MDXContentProps) {
+export function MDXContent({ content }: MDXContentProps) {
   const mdxProps: MDXRemoteProps = {
     source: content,
     components: componentProxy,
