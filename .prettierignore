@@ -1,4 +1,10 @@
 .cache
+node_modules/
+dist/
+build/
+coverage/
 package.json
 package-lock.json
+yarn.lock
+pnpm-lock.yaml
 public

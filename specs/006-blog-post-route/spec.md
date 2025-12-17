@@ -53,10 +53,10 @@ As a visitor who follows an outdated or mistyped slug, I want to see a clear not
 
 ### Edge Cases
 
-- Slugs that differ only by case or trailing slashes must normalize to a single canonical slug so duplicate content is not exposed.
+- Slugs that differ only by case or trailing slashes MUST redirect via 301 to the canonical lowercase slug without trailing slash, preventing duplicate content exposure and consolidating link equity.
 - Posts missing optional metadata (e.g., description) must still render with sensible fallbacks without crashing the page or omitting the body.
 - Requests served during static generation and on-demand rendering must both honor the same not-found contract to prevent inconsistent behavior between build-time and runtime.
-- Very long MDX bodies with multiple embeds must stream or paginate gracefully so the page does not block rendering or exceed reasonable load times.
+- Very long MDX bodies with multiple embeds MUST render in a single page with lazy-loaded embeds (e.g., `loading="lazy"` for iframes, images) to prevent blocking the initial render while keeping all content accessible without pagination.
 
 ## Requirements *(mandatory)*
 
@@ -67,8 +67,9 @@ As a visitor who follows an outdated or mistyped slug, I want to see a clear not
 - **FR-003**: The route MUST render the complete MDX body with the shared component mappings so any shortcodes, embeds, or custom callouts behave as intended without extra per-post configuration.
 - **FR-004**: If the slug cannot be matched to content, the route MUST return the platform’s standard not-found response (status + page copy) and include guidance back to `/blog`.
 - **FR-005**: The response MUST expose canonical SEO metadata (title, description, canonical url) sourced from the post’s frontmatter so that search engines and social crawlers receive accurate previews.
-- **FR-006**: When required metadata is missing or malformed, the system MUST log or surface a build warning, fall back to safe display values (e.g., “Untitled Post”, “Unknown Date”), and continue rendering the body instead of failing silently.
+- **FR-006**: When required metadata is missing or malformed, the system MUST emit build-time warnings (console logs in dev mode), fall back to safe display values (e.g., "Untitled Post", "Unknown Date"), and continue rendering the body without blocking deployment.
 - **FR-007**: The page MUST provide at least one visible navigation path (e.g., breadcrumb or button) back to the `/blog` index to keep readers moving through content.
+- **FR-008**: The blog post page MUST conform to WCAG 2.1 AA accessibility standards, ensuring proper heading hierarchy, sufficient color contrast, keyboard navigability, and screen reader compatibility for all content including MDX-rendered elements.
 
 ### Key Entities *(include if feature involves data)*
 
@@ -87,11 +88,21 @@ As a visitor who follows an outdated or mistyped slug, I want to see a clear not
 - Depends on **004-preserve-slugs** for canonical slug generation and legacy URL guarantees.
 - Consumes the content source and indexing work from **005-build-blog-index** to ensure consistent metadata between list and detail views.
 
+## Clarifications
+
+### Session 2025-12-17
+
+- Q: How should non-canonical URL variants (case differences, trailing slashes) be handled? → A: Redirect non-canonical variants (e.g., `/blog/My-Post/` → 301 to `/blog/my-post`).
+- Q: How should very long MDX bodies with multiple embeds be handled? → A: Render full content in single page with lazy-loaded embeds.
+- Q: How should the system alert developers when required metadata is missing or malformed? → A: Build-time warnings only for missing metadata, plus console logging in dev mode.
+- Q: Which performance metric should SC-002 measure for "render above-the-fold"? → A: Largest Contentful Paint (LCP).
+- Q: What accessibility conformance level should the blog post page meet? → A: WCAG 2.1 AA (standard conformance).
+
 ## Success Criteria *(mandatory)*
 
 ### Measurable Outcomes
 
 - **SC-001**: 100% of MDX posts present in the repository respond at `/blog/<slug>` with matching metadata compared against the blog index during release certification.
-- **SC-002**: 95% of first-time visits to `/blog/<slug>` render above-the-fold content (title, date, description) in under 1.5 seconds on staging measurements, ensuring the page feels instantaneous.
+- **SC-002**: 95% of first-time visits to `/blog/<slug>` achieve Largest Contentful Paint (LCP) under 1.5 seconds on staging measurements, ensuring the page feels instantaneous.
 - **SC-003**: At least 99% of invalid slug requests return the not-found experience with a visible link to `/blog` within 500 ms, as measured by synthetic monitoring.
 - **SC-004**: Link-check scans across two consecutive releases report zero mismatched or duplicate slugs between `/blog` listings and detail pages, indicating permalink stability.

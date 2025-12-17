@@ -1,0 +1,131 @@
+openapi: 3.0.3
+info:
+  title: Next.js Site Shell Contracts
+  version: 0.1.0
+  description: >
+    Minimal API surface supporting navigation and placeholder copy for the
+    Next.js site shell scaffold. Routes are consumed by App Router server components.
+servers:
+  - url: https://localhost:3000
+paths:
+  /api/navigation:
+    get:
+      summary: Fetch primary navigation links
+      operationId: listNavigationLinks
+      tags: [Navigation]
+      responses:
+        '200':
+          description: Ordered list of navigation entries.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NavigationLinksResponse'
+  /api/placeholders/{slug}:
+    get:
+      summary: Fetch placeholder page content by slug
+      operationId: getPlaceholderPage
+      tags: [Placeholders]
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          description: Route segment (home, blog, projects, merch)
+          schema:
+            type: string
+            enum: [home, blog, projects, merch]
+      responses:
+        '200':
+          description: Placeholder definition for the requested route.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlaceholderPage'
+        '404':
+          description: Slug not registered in the shell.
+  /api/metadata:
+    get:
+      summary: Fetch global site metadata
+      operationId: getSiteMetadata
+      tags: [Layout]
+      responses:
+        '200':
+          description: Default metadata applied to every route.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SiteMetadata'
+components:
+  schemas:
+    NavigationLinksResponse:
+      type: object
+      required: [links]
+      properties:
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/NavigationLink'
+    NavigationLink:
+      type: object
+      required: [label, path, order, isPrimary]
+      properties:
+        label:
+          type: string
+          maxLength: 15
+        path:
+          type: string
+          enum: ['/', '/blog', '/projects', '/merch']
+        description:
+          type: string
+        order:
+          type: integer
+          minimum: 0
+        isPrimary:
+          type: boolean
+    PlaceholderPage:
+      type: object
+      required: [slug, title, description, layoutSlots]
+      properties:
+        slug:
+          type: string
+          enum: [home, blog, projects, merch]
+        title:
+          type: string
+        description:
+          type: string
+        layoutSlots:
+          type: array
+          items:
+            $ref: '#/components/schemas/LayoutSlot'
+        cta:
+          $ref: '#/components/schemas/CallToAction'
+        status:
+          type: string
+          enum: [placeholder, content-ready]
+          default: placeholder
+    LayoutSlot:
+      type: object
+      required: [id, description]
+      properties:
+        id:
+          type: string
+          enum: [hero, body-grid, callout, footer]
+        description:
+          type: string
+    CallToAction:
+      type: object
+      required: [label, href]
+      properties:
+        label:
+          type: string
+        href:
+          type: string
+    SiteMetadata:
+      type: object
+      required: [title, description, ogImage]
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        ogImage:
+          type: string
