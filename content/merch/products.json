@@ -1,0 +1,70 @@
+{
+  "products": [
+    {
+      "name": "Get2Know Logo Tee",
+      "slug": "logo-tee",
+      "shortDescription": "Classic fit cotton tee with embroidered logo.",
+      "longDescription": "Premium 100% organic cotton t-shirt featuring the Get2Know logo embroidered on the chest. Available in multiple colors. Pre-shrunk and ready to wear. Perfect for casual outings or representing your favorite brand.",
+      "priceDisplay": "$35 USD",
+      "heroImage": {
+        "url": "/images/merch/logo-tee-hero.jpg",
+        "alt": "Get2Know logo t-shirt in navy blue"
+      },
+      "galleryImages": [
+        {
+          "url": "/images/merch/logo-tee-detail.jpg",
+          "alt": "Close-up of embroidered logo"
+        }
+      ],
+      "status": "Available",
+      "sortOrder": 1
+    },
+    {
+      "name": "Developer Hoodie",
+      "slug": "dev-hoodie",
+      "shortDescription": "Cozy hoodie for late-night coding sessions.",
+      "longDescription": "Stay warm during those marathon coding sessions with our premium developer hoodie. Features a kangaroo pocket, drawstring hood, and subtle Get2Know branding on the sleeve. Made from a soft cotton-poly blend for ultimate comfort.",
+      "priceDisplay": "$65 USD",
+      "heroImage": {
+        "url": "/images/merch/dev-hoodie-hero.jpg",
+        "alt": "Developer hoodie in charcoal gray"
+      },
+      "galleryImages": [],
+      "status": "Coming Soon",
+      "sortOrder": 2
+    },
+    {
+      "name": "Sticker Pack",
+      "slug": "sticker-pack",
+      "shortDescription": "Set of 5 vinyl die-cut stickers.",
+      "longDescription": "Deck out your laptop, water bottle, or notebook with our premium vinyl sticker pack. Includes 5 unique designs featuring Get2Know branding and developer-themed artwork. Weather-resistant and built to last.",
+      "priceDisplay": "$12 USD",
+      "heroImage": {
+        "url": "/images/merch/sticker-pack-hero.jpg",
+        "alt": "Collection of colorful vinyl stickers"
+      },
+      "galleryImages": [
+        {
+          "url": "/images/merch/sticker-pack-spread.jpg",
+          "alt": "Stickers spread out showing all designs"
+        }
+      ],
+      "status": "Available",
+      "sortOrder": 3
+    },
+    {
+      "name": "Limited Edition Cap",
+      "slug": "limited-cap",
+      "shortDescription": "Exclusive snapback with embroidered patch.",
+      "longDescription": "This limited edition snapback features our exclusive embroidered patch design. Only 100 made, each individually numbered. Adjustable snap closure fits most sizes. A true collector's item for dedicated fans.",
+      "priceDisplay": "$45 USD",
+      "heroImage": {
+        "url": "/images/merch/limited-cap-hero.jpg",
+        "alt": "Limited edition snapback cap with embroidered patch"
+      },
+      "galleryImages": [],
+      "status": "Sold Out",
+      "sortOrder": 4
+    }
+  ]
+}
