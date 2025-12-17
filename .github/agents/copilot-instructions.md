@@ -21,6 +21,8 @@ Auto-generated from all feature plans. Last updated: 2025-12-15
 - File-based (MDX frontmatter in `content/blog/`) (009-seo-metadata)
 - TypeScript 5.6+ with strict mode + Next.js 14.2+, React 18.3, Zod 4+, Tailwind CSS 3.4 (010-projects-section)
 - JSON file (`content/projects.json`) loaded at build time (010-projects-section)
+- TypeScript 5.6+ with strict mode + Next.js 14.2, React 18.3, Tailwind CSS 3.4, Zod 4.x (011-merch-section)
+- JSON file (`content/merch/products.json`) validated via JSON Schema (011-merch-section)
 
 - Markdown runbooks + AWS Amplify CLI ≥ 12.10 / AWS CLI v2.15 (Node.js 18 LTS) + AWS Amplify Console, AWS CLI Amplify service commands (`update-branch`, `create-branch`, `list-branches`), GitHub branch protection + Actions alerts (001-pause-amplify-builds)
 
@@ -40,9 +42,9 @@ tests/
 Markdown runbooks + AWS Amplify CLI ≥ 12.10 / AWS CLI v2.15 (Node.js 18 LTS): Follow standard conventions
 
 ## Recent Changes
+- 011-merch-section: Added TypeScript 5.6+ with strict mode + Next.js 14.2, React 18.3, Tailwind CSS 3.4, Zod 4.x
 - 010-projects-section: Added TypeScript 5.6+ with strict mode + Next.js 14.2+, React 18.3, Zod 4+, Tailwind CSS 3.4
 - 009-seo-metadata: Added TypeScript 5+ with strict mode + Next.js 14+ (App Router), next-mdx-remote, gray-matter
-- 008-mdx-component-registry: Added TypeScript 5.6+, React 18.3, Next.js 14.2 + next-mdx-remote 5.0, gray-matter 4.0, zod 4.2
 
 
 <!-- MANUAL ADDITIONS START -->

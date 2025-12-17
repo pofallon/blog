@@ -13,7 +13,7 @@ Visitors browsing the site can open `/merch` to scan a merch collection that hig
 
 **Why this priority**: The index page is the entry point; without it the merch initiative is invisible and cannot be validated with users.
 
-**Independent Test**: Navigate from the homepage to `/merch` and confirm the catalog renders at least four placeholder products with accurate schema-driven fields and working pagination/scroll.
+**Independent Test**: Navigate from the homepage to `/merch` and confirm the catalog renders at least four placeholder products with accurate schema-driven fields. Pagination is out of scope for MVP (≤8 products); revisit if catalog exceeds 8 items.
 
 **Acceptance Scenarios**:
 
@@ -68,16 +68,32 @@ Marketing or content managers can edit a single structured data source (e.g., JS
 - **FR-003**: Product cards MUST deep-link to `/merch/[productSlug]` pages generated from the same dataset, with URL slugs derived from the product name and guaranteed unique.
 - **FR-004**: `/merch/[productSlug]` MUST display long-form description, image gallery (supporting 1–5 images), price display text (e.g., "$45 USD" or "Bundle pricing"), inventory status explanation, and a contextual CTA aligned to the status (e.g., "Join waitlist" for Coming Soon).
 - **FR-005**: The product schema MUST include the following fields: `name` (string), `slug` (auto or manual), `shortDescription`, `longDescription`, `priceDisplay` (string supporting currency symbols), `images` (array of URLs with alt text), and `status` (enum: Available, Coming Soon, Sold Out). Optional fields MUST have sensible defaults.
-- **FR-006**: Placeholder data MUST live in a single source of truth file (e.g., JSON/YAML/MD collection) that non-developers can edit; validation MUST prevent builds when required fields are missing or status is outside the enum.
+- **FR-006**: Placeholder data MUST live in a single JSON file validated against a JSON Schema that non-developers can edit; the build MUST fail with clear validation messaging when required fields are missing, status is outside the enum, or the JSON structure is malformed.
 - **FR-007**: Both list and detail pages MUST surface a "How to buy later" info block that explains the forthcoming commerce integration path and provides a contact or signup action in the interim; no checkout or payment interactions may be implemented.
 - **FR-008**: Documentation MUST outline how the product schema maps to an eventual commerce provider (data fields, status sync expectations, CTA handoff) so engineers can connect via API or embedded storefront later without reworking the content model.
-- **FR-009**: The system MUST log analytics events (page views and product detail views) so marketing can measure engagement prior to full commerce launch.
+- **FR-009**: The system MUST log analytics events (page views and product detail views) using the existing site analytics provider so marketing can measure engagement prior to full commerce launch; no additional analytics tooling is required.
+
+### Non-Functional Requirements
+
+- **NFR-001**: All merch pages MUST comply with WCAG 2.1 AA standards, including full keyboard navigation, proper ARIA labels for interactive elements, and color contrast ratios meeting minimum thresholds (4.5:1 for normal text, 3:1 for large text).
+- **NFR-002**: All merch pages MUST meet Core Web Vitals targets: Largest Contentful Paint (LCP) < 2.5s, First Input Delay (FID) < 100ms, and Cumulative Layout Shift (CLS) < 0.1.
+- **NFR-003**: Hero/thumbnail images on list pages and primary product images on detail pages MUST load eagerly; gallery images MUST lazy-load on scroll or user interaction to optimize initial page load.
 
 ### Key Entities *(include if feature involves data)*
 
 - **Product**: Represents an item of merchandise with attributes defined in FR-005; owns presentation copy, images, pricing note, and availability status; provides derived slug and CTA messaging.
 - **Product Status**: Controlled vocabulary describing availability (`Available`, `Coming Soon`, `Sold Out`). Each status maps to badge styling, explanatory helper text, and CTA behavior (e.g., "Notify me", "View drop date").
 - **Integration Note**: Content artifact attached to each page that briefly documents how the placeholder experience would connect to external commerce (e.g., link to Shopify product ID). Stored as structured text referencing provider name, linking method, and fulfillment notes.
+
+## Clarifications
+
+### Session 2025-12-17
+
+- Q: What level of accessibility compliance is required for the merch pages? → A: WCAG 2.1 AA compliance (full keyboard navigation, ARIA labels, color contrast)
+- Q: What performance targets should the merch pages meet? → A: Core Web Vitals: LCP < 2.5s, FID < 100ms, CLS < 0.1
+- Q: What image loading strategy should be used for performance? → A: Hero image eager, gallery lazy-loads on scroll/interaction
+- Q: What format should the placeholder product data file use? → A: JSON file with JSON Schema validation
+- Q: How should analytics events (page views, product detail views) be tracked? → A: Reuse existing site analytics provider
 
 ## Assumptions
 
