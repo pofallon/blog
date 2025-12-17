@@ -25,9 +25,9 @@
 
 **Purpose**: Project initialization and basic structure for projects feature
 
-- [ ] T001 Create projects directory structure: `apps/site-shell/lib/projects/`, `apps/site-shell/components/projects/`, `apps/site-shell/app/projects/`
-- [ ] T002 [P] Create TypeScript types in `apps/site-shell/lib/projects/types.ts` with Project, ProjectLink, ProjectImage, ProjectCardModel, ProjectDetailModel interfaces
-- [ ] T003 [P] Create Zod validation schema in `apps/site-shell/lib/projects/schema.ts` with projectLinkSchema, projectImageSchema, projectSchema, projectsDataSchema, and validateUniqueSlugs function
+- [X] T001 Create projects directory structure: `apps/site-shell/lib/projects/`, `apps/site-shell/components/projects/`, `apps/site-shell/app/projects/`
+- [X] T002 [P] Create TypeScript types in `apps/site-shell/lib/projects/types.ts` with Project, ProjectLink, ProjectImage, ProjectCardModel, ProjectDetailModel interfaces
+- [X] T003 [P] Create Zod validation schema in `apps/site-shell/lib/projects/schema.ts` with projectLinkSchema, projectImageSchema, projectSchema, projectsDataSchema, and validateUniqueSlugs function
 
 ---
 
@@ -37,9 +37,9 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T004 Create initial project data file `content/projects.json` with empty projects array structure
-- [ ] T005 Implement project loader in `apps/site-shell/lib/projects/loader.ts` with getAllProjects(), getProjectBySlug(), and getAllProjectSlugs() functions including Zod validation and alphabetical sorting
-- [ ] T006 [P] Create images directory `apps/site-shell/public/images/projects/` with .gitkeep placeholder
+- [X] T004 Create initial project data file `content/projects.json` with empty projects array structure
+- [X] T005 Implement project loader in `apps/site-shell/lib/projects/loader.ts` with getAllProjects(), getProjectBySlug(), and getAllProjectSlugs() functions including Zod validation and alphabetical sorting
+- [X] T006 [P] Create images directory `apps/site-shell/public/images/projects/` with .gitkeep placeholder
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -53,11 +53,11 @@
 
 ### Implementation for User Story 1
 
-- [ ] T007 [P] [US1] Create ProjectCard component in `apps/site-shell/components/projects/ProjectCard.tsx` displaying name, summary, up to 3 tags, and link to detail page
-- [ ] T008 [P] [US1] Create ProjectTags component in `apps/site-shell/components/projects/ProjectTags.tsx` with optional maxDisplay prop for tag limiting
-- [ ] T009 [P] [US1] Create ProjectEmptyState component in `apps/site-shell/components/projects/ProjectEmptyState.tsx` for zero-projects scenario
-- [ ] T010 [US1] Create projects index page in `apps/site-shell/app/projects/page.tsx` with static metadata (title, description, OpenGraph tags per routes.md contract), getAllProjects() call, alphabetical rendering, and empty state handling
-- [ ] T011 [US1] Add sample project to `content/projects.json` for validation and development testing (minimal entry; T018 expands to 2-3 for documentation completeness)
+- [X] T007 [P] [US1] Create ProjectCard component in `apps/site-shell/components/projects/ProjectCard.tsx` displaying name, summary, up to 3 tags, and link to detail page
+- [X] T008 [P] [US1] Create ProjectTags component in `apps/site-shell/components/projects/ProjectTags.tsx` with optional maxDisplay prop for tag limiting
+- [X] T009 [P] [US1] Create ProjectEmptyState component in `apps/site-shell/components/projects/ProjectEmptyState.tsx` for zero-projects scenario
+- [X] T010 [US1] Create projects index page in `apps/site-shell/app/projects/page.tsx` with static metadata (title, description, OpenGraph tags per routes.md contract), getAllProjects() call, alphabetical rendering, and empty state handling
+- [X] T011 [US1] Add sample project to `content/projects.json` for validation and development testing (minimal entry; T018 expands to 2-3 for documentation completeness)
 
 **Checkpoint**: At this point, User Story 1 should be fully functional - `/projects` renders all projects from data source
 
@@ -71,11 +71,11 @@
 
 ### Implementation for User Story 2
 
-- [ ] T012 [P] [US2] Create ProjectDetail component in `apps/site-shell/components/projects/ProjectDetail.tsx` displaying full details, all tags, labeled links, image or placeholder, and primary CTA button
-- [ ] T013 [P] [US2] Create ProjectNotFound component in `apps/site-shell/components/projects/ProjectNotFound.tsx` with friendly message and CTA back to `/projects`
-- [ ] T014 [US2] Create project detail page in `apps/site-shell/app/projects/[slug]/page.tsx` with generateStaticParams(), generateMetadata(), getProjectBySlug() call, and soft 404 handling
-- [ ] T015 [US2] Implement analytics event tracking for primary CTA click in ProjectDetail using existing site analytics library per FR-006 (prerequisite: verify analytics library exists in `apps/site-shell/` before implementing)
-- [ ] T016 [US2] Add image placeholder/fallback styling in ProjectDetail for projects without images
+- [X] T012 [P] [US2] Create ProjectDetail component in `apps/site-shell/components/projects/ProjectDetail.tsx` displaying full details, all tags, labeled links, image or placeholder, and primary CTA button
+- [X] T013 [P] [US2] Create ProjectNotFound component in `apps/site-shell/components/projects/ProjectNotFound.tsx` with friendly message and CTA back to `/projects`
+- [X] T014 [US2] Create project detail page in `apps/site-shell/app/projects/[slug]/page.tsx` with generateStaticParams(), generateMetadata(), getProjectBySlug() call, and soft 404 handling
+- [X] T015 [US2] Implement analytics event tracking for primary CTA click in ProjectDetail using existing site analytics library per FR-006 (prerequisite: verify analytics library exists in `apps/site-shell/` before implementing)
+- [X] T016 [US2] Add image placeholder/fallback styling in ProjectDetail for projects without images
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently - full project browsing and detail viewing functional
 
@@ -89,9 +89,9 @@
 
 ### Implementation for User Story 3
 
-- [ ] T017 [US3] Enhance loader validation in `apps/site-shell/lib/projects/loader.ts` to fail build with clear error messages for missing required fields, duplicate slugs, and invalid URLs
-- [ ] T018 [US3] Add 2-3 sample projects to `content/projects.json` demonstrating all optional and required fields per quickstart.md example format
-- [ ] T019 [US3] Verify quickstart.md documentation accuracy against final implementation - update if needed in `specs/010-projects-section/quickstart.md`
+- [X] T017 [US3] Enhance loader validation in `apps/site-shell/lib/projects/loader.ts` to fail build with clear error messages for missing required fields, duplicate slugs, and invalid URLs
+- [X] T018 [US3] Add 2-3 sample projects to `content/projects.json` demonstrating all optional and required fields per quickstart.md example format
+- [X] T019 [US3] Verify quickstart.md documentation accuracy against final implementation - update if needed in `specs/010-projects-section/quickstart.md`
 
 **Checkpoint**: All user stories should now be independently functional - maintainers can add projects via data file only
 
@@ -101,10 +101,10 @@
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T020 [P] Verify all edge cases: zero projects shows empty state, >5 tags wrap properly, missing image shows placeholder
-- [ ] T021 [P] Run build validation: `npm run build` from `apps/site-shell/` succeeds with all routes generated
-- [ ] T022 Perform manual QA using quickstart.md validation scenarios
-- [ ] T023 [P] Clean up any placeholder/development content from `content/projects.json` if needed
+- [X] T020 [P] Verify all edge cases: zero projects shows empty state, >5 tags wrap properly, missing image shows placeholder
+- [X] T021 [P] Run build validation: `npm run build` from `apps/site-shell/` succeeds with all routes generated
+- [X] T022 Perform manual QA using quickstart.md validation scenarios
+- [X] T023 [P] Clean up any placeholder/development content from `content/projects.json` if needed
 
 ---
 
