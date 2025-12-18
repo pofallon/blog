@@ -10,9 +10,9 @@ import type { GlobalSEOConfig } from './types';
  * Centralized SEO configuration for site-wide defaults (FR-001)
  */
 const globalSEOConfig: GlobalSEOConfig = {
-  siteName: 'Get2Know Labs',
-  titleTemplate: '%s | Get2Know Labs',
-  defaultTitle: 'Get2Know Labs — Site Shell',
+  siteName: 'get2know.io',
+  titleTemplate: '%s | get2know.io',
+  defaultTitle: 'get2know.io — Site Shell',
   defaultDescription:
     'A persistent navigation shell that keeps the migration team aligned across blog, projects, and merch previews.',
   canonicalHost: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://get2know.io',

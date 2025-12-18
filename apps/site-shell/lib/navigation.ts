@@ -9,6 +9,7 @@ const NAVIGATION_LINKS: NavigationLink[] = [
     description: 'Return to the landing experience.',
     order: 0,
     isPrimary: true,
+    iconName: 'house',
   },
   {
     label: 'Blog',
@@ -16,6 +17,7 @@ const NAVIGATION_LINKS: NavigationLink[] = [
     description: 'Read migration notes and long-form updates.',
     order: 1,
     isPrimary: true,
+    iconName: 'book-open',
   },
   {
     label: 'Projects',
@@ -23,6 +25,7 @@ const NAVIGATION_LINKS: NavigationLink[] = [
     description: 'Preview the build backlog for the new site shell.',
     order: 2,
     isPrimary: true,
+    iconName: 'folder-kanban',
   },
   {
     label: 'Merch',
@@ -30,6 +33,7 @@ const NAVIGATION_LINKS: NavigationLink[] = [
     description: 'Future commerce experiences for the brand collective.',
     order: 3,
     isPrimary: false,
+    iconName: 'shopping-bag',
   },
 ];
 

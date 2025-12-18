@@ -6,7 +6,7 @@ import { buildPageMetadata } from '@/lib/seo';
 export const metadata: Metadata = buildPageMetadata(
   {
     title: 'Blog',
-    description: 'Latest blog posts and articles from Get2Know Labs.',
+    description: 'Latest blog posts and articles from get2know.io.',
   },
   '/blog'
 );

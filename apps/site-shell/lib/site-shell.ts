@@ -1,7 +1,7 @@
 import { getNavigationLinks } from './navigation';
 import type { FooterContent, NavigationLink, SiteMetadata, SiteShellLayout } from './types';
 
-const BRAND_NAME = 'Get2Know Labs';
+const BRAND_NAME = 'get2know.io';
 
 const siteMetadata: SiteMetadata = {
   title: `${BRAND_NAME} — Site Shell`,

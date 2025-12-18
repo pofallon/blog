@@ -11,7 +11,13 @@ const asRoute = (href: string) => href as Route;
 
 export default function PlaceholderShowcase({ placeholder }: PlaceholderShowcaseProps) {
   return (
-    <section className="shell-surface space-y-8 rounded-3xl border px-6 py-8">
+    <section 
+      className="shell-surface space-y-8 rounded-3xl border-[1.5px] px-6 py-8 relative"
+    >
+      {/* Decorative corner rivets */}
+      <div className="absolute top-4 left-4 g2k-rivet opacity-50" aria-hidden="true" />
+      <div className="absolute top-4 right-4 g2k-rivet opacity-50" aria-hidden="true" />
+      
       <div className="space-y-3">
         <p className="text-xs uppercase tracking-[0.2em] text-shell-muted">
           {placeholder.slug} placeholder
@@ -23,6 +29,7 @@ export default function PlaceholderShowcase({ placeholder }: PlaceholderShowcase
             <Link
               href={asRoute(placeholder.cta.href)}
               className="inline-flex items-center gap-2 rounded-full bg-shell-ink px-4 py-2 text-sm font-medium text-white transition hover:bg-shell-accent"
+              style={{ boxShadow: 'var(--g2k-shadow-sm), inset 0 1px 0 hsl(0 0% 100% / 0.1)' }}
             >
               {placeholder.cta.label}
               <span aria-hidden>→</span>
@@ -31,6 +38,7 @@ export default function PlaceholderShowcase({ placeholder }: PlaceholderShowcase
             <a
               href={placeholder.cta.href}
               className="inline-flex items-center gap-2 rounded-full bg-shell-ink px-4 py-2 text-sm font-medium text-white transition hover:bg-shell-accent"
+              style={{ boxShadow: 'var(--g2k-shadow-sm), inset 0 1px 0 hsl(0 0% 100% / 0.1)' }}
               target="_blank"
               rel="noreferrer"
             >
@@ -42,7 +50,11 @@ export default function PlaceholderShowcase({ placeholder }: PlaceholderShowcase
 
       <div className="grid gap-4 md:grid-cols-2">
         {placeholder.layoutSlots.map((slot) => (
-          <div key={slot.id} className="rounded-2xl border border-shell-border bg-slate-50 p-4">
+          <div 
+            key={slot.id} 
+            className="rounded-2xl border-[1.5px] border-shell-border bg-slate-50 dark:bg-g2k-bg-sunken p-4"
+            style={{ boxShadow: 'var(--g2k-shadow-inset)' }}
+          >
             <p className="text-xs font-semibold uppercase tracking-wide text-shell-muted">
               {slot.id}
             </p>

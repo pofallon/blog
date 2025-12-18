@@ -1,5 +1,7 @@
 export type NavigationPath = '/' | '/blog' | '/projects' | '/merch';
 
+export type NavigationIconName = 'house' | 'book-open' | 'folder-kanban' | 'shopping-bag';
+
 export type NavigationLink = {
   label: string;
   path: NavigationPath;
@@ -7,6 +9,7 @@ export type NavigationLink = {
   order: number;
   isPrimary: boolean;
   disabled?: boolean;
+  iconName?: NavigationIconName;
 };
 
 export type SiteMetadata = {

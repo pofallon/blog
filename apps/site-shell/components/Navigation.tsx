@@ -3,7 +3,8 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
-import type { NavigationLink } from '@/lib/types';
+import { House, BookOpen, FolderKanban, ShoppingBag } from 'lucide-react';
+import type { NavigationLink, NavigationIconName } from '@/lib/types';
 
 type NavigationProps = {
   links: NavigationLink[];
@@ -11,17 +12,25 @@ type NavigationProps = {
   variant?: 'header' | 'footer';
 };
 
+// Map icon names to actual icon components
+const ICON_MAP: Record<NavigationIconName, typeof House> = {
+  'house': House,
+  'book-open': BookOpen,
+  'folder-kanban': FolderKanban,
+  'shopping-bag': ShoppingBag,
+};
+
 function linkClasses(isActive: boolean, variant: 'header' | 'footer') {
   const base =
-    'text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-shell-accent focus-visible:ring-offset-2';
+    'text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2';
   const palette =
     variant === 'header'
-      ? 'text-shell-muted hover:text-shell-ink'
-      : 'text-shell-muted hover:text-shell-accent';
+      ? 'text-muted-foreground hover:text-foreground'
+      : 'text-muted-foreground hover:text-primary';
   const active =
     variant === 'header'
-      ? 'text-shell-ink'
-      : 'text-shell-accent border-b-2 border-shell-accent pb-0.5';
+      ? 'text-foreground'
+      : 'text-primary border-b-2 border-primary pb-0.5';
 
   return `${base} ${isActive ? active : palette}`;
 }
@@ -62,18 +71,20 @@ export default function Navigation({ links, ariaLabel, variant = 'header' }: Nav
       >
         {links.map((link) => {
           const isActive = pathname === link.path;
+          const Icon = link.iconName ? ICON_MAP[link.iconName] : null;
           return (
             <li key={link.path}>
               <Link
                 href={link.path}
                 aria-current={isActive ? 'page' : undefined}
-                className={linkClasses(isActive, variant)}
+                className={`${linkClasses(isActive, variant)} inline-flex items-center gap-1.5`}
                 onClick={() => {
                   if (variant === 'header') {
                     setIsMenuOpen(false);
                   }
                 }}
               >
+                {Icon && <Icon className="h-4 w-4" aria-hidden="true" />}
                 {link.label}
               </Link>
             </li>

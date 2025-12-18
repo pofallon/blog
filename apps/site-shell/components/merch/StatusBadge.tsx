@@ -1,3 +1,4 @@
+import { Badge } from '@/components/ui/badge';
 import type { ProductStatus } from '@/lib/merch/types';
 
 interface StatusBadgeProps {
@@ -6,27 +7,10 @@ interface StatusBadgeProps {
   showHelperText?: boolean;
 }
 
-const STATUS_STYLES: Record<ProductStatus, { bg: string; text: string; border: string }> = {
-  Available: {
-    bg: 'bg-green-100',
-    text: 'text-green-800',
-    border: 'border-green-200',
-  },
-  'Coming Soon': {
-    bg: 'bg-yellow-100',
-    text: 'text-yellow-800',
-    border: 'border-yellow-200',
-  },
-  'Sold Out': {
-    bg: 'bg-gray-100',
-    text: 'text-gray-600',
-    border: 'border-gray-200',
-  },
-};
-
-const SIZE_CLASSES = {
-  sm: 'px-2 py-0.5 text-xs',
-  md: 'px-3 py-1 text-sm',
+const STATUS_VARIANT: Record<ProductStatus, 'default' | 'secondary' | 'destructive' | 'outline'> = {
+  Available: 'default',
+  'Coming Soon': 'secondary',
+  'Sold Out': 'outline',
 };
 
 const HELPER_TEXT: Record<ProductStatus, string> = {
@@ -36,17 +20,17 @@ const HELPER_TEXT: Record<ProductStatus, string> = {
 };
 
 export default function StatusBadge({ status, size = 'sm', showHelperText = false }: StatusBadgeProps) {
-  const styles = STATUS_STYLES[status];
+  const variant = STATUS_VARIANT[status];
   const helperText = HELPER_TEXT[status];
 
   return (
-    <span
-      role="status"
+    <Badge
+      variant={variant}
+      className={size === 'md' ? 'px-3 py-1' : ''}
       aria-label={`Product status: ${status}${showHelperText ? ` - ${helperText}` : ''}`}
       title={showHelperText ? helperText : undefined}
-      className={`inline-flex items-center rounded-full border font-medium ${styles.bg} ${styles.text} ${styles.border} ${SIZE_CLASSES[size]}`}
     >
       {status}
-    </span>
+    </Badge>
   );
 }

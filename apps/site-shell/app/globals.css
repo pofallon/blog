@@ -2,53 +2,877 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --shell-bg: #f8fafc;
-  --shell-ink: #0f172a;
-  --shell-muted: #475467;
-  --shell-border: #e2e8f0;
-  --shell-accent: #f97316;
-  --font-sans: 'Inter', 'Helvetica Neue', Arial, sans-serif;
-  --font-mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --shell-bg: #020617;
-    --shell-ink: #f8fafc;
-    --shell-muted: #e2e8f0;
-    --shell-border: #1e293b;
-  }
-}
+/* ==========================================================================
+   get2know.io Design System - CSS Custom Properties
+   ========================================================================== */
 
 @layer base {
+  :root {
+    /* ========================================
+       Light Theme (Golden Hour)
+       ======================================== */
+    
+    /* Background layers */
+    --g2k-bg-base: 34 33% 96%;
+    --g2k-bg-raised: 0 0% 100%;
+    --g2k-bg-sunken: 34 20% 92%;
+    
+    /* Foreground / Text */
+    --g2k-fg-primary: 240 27% 14%;
+    --g2k-fg-secondary: 240 12% 32%;
+    --g2k-fg-muted: 30 6% 45%;
+    
+    /* Brand colors */
+    --g2k-brass: 46 70% 47%;
+    --g2k-brass-shine: 49 75% 59%;
+    --g2k-copper: 29 55% 46%;
+    --g2k-teal: 180 49% 33%;
+    --g2k-teal-oxidized: 181 33% 50%;
+    --g2k-coral: 14 67% 63%;
+    --g2k-coral-faded: 14 78% 78%;
+    
+    /* Semantic colors */
+    --g2k-success: 153 42% 30%;
+    --g2k-warning: 30 65% 44%;
+    --g2k-error: 358 65% 37%;
+    --g2k-info: 213 64% 33%;
+    
+    /* Robot accent colors */
+    --g2k-robot-alpha: 180 42% 40%;
+    --g2k-robot-beta: 46 65% 52%;
+    --g2k-robot-gamma: 14 82% 68%;
+    --g2k-robot-delta: 252 76% 70%;
+    
+    /* Border */
+    --g2k-border: 34 13% 85%;
+    --g2k-border-accent: 46 70% 47%;
+    
+    /* Shadows (light mode - subtle) */
+    --g2k-shadow-color: 240 27% 14%;
+    --g2k-shadow-sm: 0 1px 2px hsl(var(--g2k-shadow-color) / 0.05);
+    --g2k-shadow-md: 0 4px 12px hsl(var(--g2k-shadow-color) / 0.08);
+    --g2k-shadow-lg: 0 12px 32px hsl(var(--g2k-shadow-color) / 0.12);
+    --g2k-shadow-glow: 0 0 20px hsl(var(--g2k-brass) / 0.15);
+    --g2k-shadow-teal-glow: 0 0 20px hsl(var(--g2k-teal) / 0.15);
+    
+    /* Workshop tactile shadows */
+    --g2k-shadow-inset: inset 0 2px 4px hsl(var(--g2k-shadow-color) / 0.04);
+    --g2k-shadow-inset-deep: inset 0 4px 8px hsl(var(--g2k-shadow-color) / 0.06);
+    --g2k-shadow-lifted: 0 6px 20px hsl(var(--g2k-shadow-color) / 0.1), 0 2px 4px hsl(var(--g2k-shadow-color) / 0.05);
+    --g2k-border-tactile: 1.5px;
+    
+    /* Spacing */
+    --g2k-space-xs: 0.25rem;
+    --g2k-space-sm: 0.5rem;
+    --g2k-space-md: 1rem;
+    --g2k-space-lg: 1.5rem;
+    --g2k-space-xl: 2rem;
+    --g2k-space-2xl: 3rem;
+    --g2k-space-3xl: 4rem;
+    --g2k-space-4xl: 6rem;
+    
+    /* Radius */
+    --g2k-radius-sm: 0.25rem;
+    --g2k-radius-md: 0.5rem;
+    --g2k-radius-lg: 0.75rem;
+    --g2k-radius-xl: 1rem;
+    --g2k-radius-full: 9999px;
+    
+    /* shadcn compatibility layer */
+    --background: var(--g2k-bg-base);
+    --foreground: var(--g2k-fg-primary);
+    --card: var(--g2k-bg-raised);
+    --card-foreground: var(--g2k-fg-primary);
+    --popover: var(--g2k-bg-raised);
+    --popover-foreground: var(--g2k-fg-primary);
+    --primary: var(--g2k-brass);
+    --primary-foreground: 34 33% 96%;
+    --secondary: var(--g2k-teal);
+    --secondary-foreground: 0 0% 100%;
+    --muted: var(--g2k-bg-sunken);
+    --muted-foreground: var(--g2k-fg-muted);
+    --accent: var(--g2k-bg-sunken);
+    --accent-foreground: var(--g2k-fg-primary);
+    --destructive: var(--g2k-error);
+    --destructive-foreground: 0 0% 100%;
+    --border: var(--g2k-border);
+    --input: var(--g2k-border);
+    --ring: var(--g2k-brass);
+    --radius: 0.5rem;
+    
+    /* Chart colors */
+    --chart-1: var(--g2k-brass);
+    --chart-2: var(--g2k-teal);
+    --chart-3: var(--g2k-copper);
+    --chart-4: var(--g2k-coral);
+    --chart-5: var(--g2k-robot-delta);
+
+    /* Legacy shell tokens (for backwards compatibility) */
+    --shell-bg: hsl(var(--g2k-bg-base));
+    --shell-ink: hsl(var(--g2k-fg-primary));
+    --shell-muted: hsl(var(--g2k-fg-secondary));
+    --shell-border: hsl(var(--g2k-border));
+    --shell-accent: hsl(var(--g2k-brass));
+  }
+
+  .dark {
+    /* ========================================
+       Dark Theme (Moonlit Pier)
+       ======================================== */
+    
+    /* Background layers */
+    --g2k-bg-base: 222 45% 9%;
+    --g2k-bg-raised: 222 35% 13%;
+    --g2k-bg-sunken: 222 50% 6%;
+    
+    /* Foreground / Text */
+    --g2k-fg-primary: 34 20% 95%;
+    --g2k-fg-secondary: 30 5% 65%;
+    --g2k-fg-muted: 220 9% 46%;
+    
+    /* Brand colors (boosted for dark mode) */
+    --g2k-brass: 46 65% 52%;
+    --g2k-brass-shine: 49 80% 64%;
+    --g2k-copper: 29 60% 50%;
+    --g2k-teal: 180 42% 40%;
+    --g2k-teal-oxidized: 181 36% 55%;
+    --g2k-coral: 14 82% 68%;
+    --g2k-coral-faded: 14 75% 82%;
+    
+    /* Semantic colors (boosted for dark mode) */
+    --g2k-success: 152 55% 52%;
+    --g2k-warning: 36 77% 62%;
+    --g2k-error: 354 70% 54%;
+    --g2k-info: 213 74% 58%;
+    
+    /* Border */
+    --g2k-border: 222 30% 20%;
+    --g2k-border-accent: 46 65% 52%;
+    
+    /* Shadows (dark mode - dramatic) */
+    --g2k-shadow-color: 222 50% 3%;
+    --g2k-shadow-sm: 0 1px 2px hsl(var(--g2k-shadow-color) / 0.3);
+    --g2k-shadow-md: 0 4px 12px hsl(var(--g2k-shadow-color) / 0.4);
+    --g2k-shadow-lg: 0 12px 32px hsl(var(--g2k-shadow-color) / 0.5);
+    
+    /* Workshop tactile shadows (dark) */
+    --g2k-shadow-inset: inset 0 2px 6px hsl(var(--g2k-shadow-color) / 0.3);
+    --g2k-shadow-inset-deep: inset 0 4px 12px hsl(var(--g2k-shadow-color) / 0.4);
+    --g2k-shadow-lifted: 0 8px 24px hsl(var(--g2k-shadow-color) / 0.5), 0 2px 6px hsl(var(--g2k-shadow-color) / 0.3);
+    --g2k-border-tactile: 1.5px;
+    --g2k-shadow-glow: 0 0 24px hsl(var(--g2k-brass) / 0.25);
+    --g2k-shadow-teal-glow: 0 0 24px hsl(var(--g2k-teal) / 0.3);
+    
+    /* shadcn compatibility */
+    --primary-foreground: 222 45% 9%;
+    --secondary-foreground: 222 45% 9%;
+
+    /* Legacy shell tokens dark mode */
+    --shell-bg: hsl(var(--g2k-bg-base));
+    --shell-ink: hsl(var(--g2k-fg-primary));
+    --shell-muted: hsl(var(--g2k-fg-secondary));
+    --shell-border: hsl(var(--g2k-border));
+  }
+
+  /* Base styles */
   html {
-    font-family: var(--font-sans);
-    color: var(--shell-ink);
-    background-color: var(--shell-bg);
+    font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+    color: hsl(var(--g2k-fg-primary));
+    background-color: hsl(var(--g2k-bg-base));
+    scroll-behavior: smooth;
   }
 
   body {
     min-height: 100vh;
-    background-color: var(--shell-bg);
-    color: var(--shell-ink);
+    background-color: hsl(var(--g2k-bg-base));
+    color: hsl(var(--g2k-fg-primary));
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  /* Selection colors */
+  ::selection {
+    background-color: hsl(var(--g2k-brass) / 0.3);
+    color: hsl(var(--g2k-fg-primary));
+  }
+
+  /* Focus visible styles */
+  :focus-visible {
+    outline: 2px solid hsl(var(--g2k-brass));
+    outline-offset: 2px;
   }
 }
 
+/* ==========================================================================
+   Typography Utilities
+   ========================================================================== */
+
 @layer components {
+  /* Display text - Irish Grover */
+  .g2k-display {
+    font-family: var(--font-brand, 'Irish Grover', cursive);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+  }
+
+  .g2k-display-hero {
+    @apply g2k-display;
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    line-height: 1.1;
+  }
+
+  .g2k-display-title {
+    @apply g2k-display;
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+    line-height: 1.2;
+  }
+
+  .g2k-display-section {
+    @apply g2k-display;
+    font-size: clamp(1.25rem, 3vw, 1.5rem);
+    line-height: 1.3;
+  }
+
+  /* Body text helpers */
+  .g2k-body-lead {
+    @apply text-lg leading-relaxed;
+    color: hsl(var(--g2k-fg-secondary));
+  }
+
+  .g2k-body {
+    @apply text-base leading-relaxed;
+    color: hsl(var(--g2k-fg-primary));
+  }
+
+  .g2k-body-small {
+    @apply text-sm leading-normal;
+    color: hsl(var(--g2k-fg-secondary));
+  }
+
+  .g2k-caption {
+    @apply text-xs uppercase tracking-wider;
+    color: hsl(var(--g2k-fg-muted));
+  }
+}
+
+/* ==========================================================================
+   Surface & Card Styles
+   ========================================================================== */
+
+@layer components {
+  /* Base surface - workshop tactile feel */
+  .g2k-surface {
+    @apply rounded-lg;
+    background-color: hsl(var(--g2k-bg-raised));
+    border: var(--g2k-border-tactile) solid hsl(var(--g2k-border));
+    box-shadow: var(--g2k-shadow-md);
+  }
+
+  .g2k-surface-raised {
+    @apply g2k-surface;
+    box-shadow: var(--g2k-shadow-lifted);
+  }
+
+  .g2k-surface-sunken {
+    @apply rounded-lg;
+    background-color: hsl(var(--g2k-bg-sunken));
+    border: var(--g2k-border-tactile) solid hsl(var(--g2k-border));
+    box-shadow: var(--g2k-shadow-inset);
+  }
+
+  /* Project card - workshop crafted */
+  .g2k-card-project {
+    @apply rounded-xl p-6 transition-all duration-300 relative overflow-hidden;
+    background-color: hsl(var(--g2k-bg-raised));
+    border: var(--g2k-border-tactile) solid hsl(var(--g2k-border));
+    box-shadow: var(--g2k-shadow-md), var(--g2k-shadow-inset);
+  }
+
+  /* Decorative corner rivet */
+  .g2k-card-project::before {
+    content: '';
+    @apply absolute top-3 right-3 w-2 h-2 rounded-full opacity-40;
+    background: linear-gradient(135deg, hsl(var(--g2k-brass-shine)), hsl(var(--g2k-brass)));
+    box-shadow: inset 0 1px 2px hsl(0 0% 100% / 0.3);
+  }
+
+  .g2k-card-project:hover {
+    border-color: hsl(var(--g2k-brass) / 0.4);
+    box-shadow: var(--g2k-shadow-lifted);
+    transform: translateY(-2px);
+  }
+
+  .g2k-card-project:hover::before {
+    @apply opacity-70;
+  }
+
+  /* Blog card - weathered paper feel */
+  .g2k-card-blog {
+    @apply rounded-lg p-5 transition-all duration-200;
+    background-color: hsl(var(--g2k-bg-raised));
+    border: var(--g2k-border-tactile) solid hsl(var(--g2k-border));
+    box-shadow: var(--g2k-shadow-sm), var(--g2k-shadow-inset);
+  }
+
+  .g2k-card-blog:hover {
+    border-color: hsl(var(--g2k-teal) / 0.5);
+    box-shadow: var(--g2k-shadow-md), 0 0 0 1px hsl(var(--g2k-teal) / 0.1);
+  }
+
+  /* Robot portrait area placeholder */
+  .g2k-robot-portrait {
+    @apply h-48 rounded-lg overflow-hidden flex items-center justify-center;
+    background-color: hsl(var(--g2k-bg-sunken));
+    border: 1px solid hsl(var(--g2k-border) / 0.5);
+    background-image: 
+      radial-gradient(circle at 30% 40%, hsl(var(--g2k-brass) / 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 70% 60%, hsl(var(--g2k-teal) / 0.05) 0%, transparent 50%);
+  }
+
+  .dark .g2k-robot-portrait {
+    border-color: hsl(var(--g2k-border));
+    background-image: 
+      radial-gradient(circle at 30% 40%, hsl(var(--g2k-brass) / 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 70% 60%, hsl(var(--g2k-teal) / 0.08) 0%, transparent 50%);
+  }
+
+  /* Legacy shell components - workshop upgrade */
   .shell-surface {
-    @apply rounded-3xl border border-shell-border bg-white shadow-shell;
+    @apply rounded-3xl;
+    background-color: hsl(var(--g2k-bg-raised));
+    border: var(--g2k-border-tactile) solid hsl(var(--g2k-border));
+    box-shadow: var(--g2k-shadow-lifted), var(--g2k-shadow-inset);
   }
 
   .shell-link {
-    @apply font-medium text-shell-ink transition-colors hover:text-shell-accent;
+    @apply font-medium transition-colors;
+    color: hsl(var(--g2k-fg-primary));
+  }
+
+  .shell-link:hover {
+    color: hsl(var(--g2k-brass));
   }
 
   .nav-trigger {
-    @apply flex w-full items-center justify-between rounded-2xl border border-shell-border bg-white px-4 py-3 text-base font-semibold text-shell-ink shadow-shell transition hover:text-shell-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-shell-accent focus-visible:ring-offset-2 md:hidden;
+    @apply flex w-full items-center justify-between rounded-2xl px-4 py-3 text-base font-semibold transition md:hidden;
+    background-color: hsl(var(--g2k-bg-raised));
+    border: var(--g2k-border-tactile) solid hsl(var(--g2k-border));
+    color: hsl(var(--g2k-fg-primary));
+    box-shadow: var(--g2k-shadow-sm), var(--g2k-shadow-inset);
+  }
+
+  .nav-trigger:hover {
+    color: hsl(var(--g2k-brass));
+  }
+
+  .nav-trigger:focus-visible {
+    @apply outline-none ring-2 ring-offset-2;
+    --tw-ring-color: hsl(var(--g2k-brass));
   }
 
   .nav-panel {
-    @apply mt-3 w-full rounded-2xl border border-shell-border bg-white p-4 shadow-shell md:mt-0 md:w-auto md:border-none md:bg-transparent md:p-0 md:shadow-none;
+    @apply mt-3 w-full rounded-2xl p-4 md:mt-0 md:w-auto md:border-none md:bg-transparent md:p-0 md:shadow-none;
+    background-color: hsl(var(--g2k-bg-raised));
+    border: var(--g2k-border-tactile) solid hsl(var(--g2k-border));
+    box-shadow: var(--g2k-shadow-md), var(--g2k-shadow-inset);
+  }
+
+  @media (min-width: 768px) {
+    .nav-panel {
+      background-color: transparent;
+      border: none;
+    }
+  }
+}
+
+/* ==========================================================================
+   Button Styles
+   ========================================================================== */
+
+@layer components {
+  /* Base button */
+  .g2k-btn {
+    @apply inline-flex items-center justify-center gap-2 font-semibold rounded-md transition-all duration-200;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+    @apply disabled:opacity-50 disabled:pointer-events-none active:scale-[0.98];
+  }
+
+  /* Size variants */
+  .g2k-btn-sm { @apply px-3 py-1.5 text-sm; }
+  .g2k-btn-md { @apply px-5 py-2.5 text-sm; }
+  .g2k-btn-lg { @apply px-6 py-3 text-base; }
+
+  /* Primary (Brass) - workshop crafted */
+  .g2k-btn-primary {
+    @apply g2k-btn g2k-btn-md;
+    background: linear-gradient(180deg, hsl(var(--g2k-brass-shine)) 0%, hsl(var(--g2k-brass)) 100%);
+    color: hsl(var(--g2k-bg-base));
+    box-shadow: var(--g2k-shadow-sm), inset 0 1px 0 hsl(0 0% 100% / 0.15);
+    border: 1px solid hsl(var(--g2k-copper) / 0.3);
+  }
+
+  .g2k-btn-primary:hover {
+    background: linear-gradient(180deg, hsl(var(--g2k-brass-shine)) 20%, hsl(var(--g2k-brass)) 100%);
+    box-shadow: var(--g2k-shadow-glow), inset 0 1px 0 hsl(0 0% 100% / 0.2);
+  }
+
+  .g2k-btn-primary:active {
+    box-shadow: inset 0 2px 4px hsl(var(--g2k-copper) / 0.3);
+  }
+
+  .g2k-btn-primary:focus-visible {
+    --tw-ring-color: hsl(var(--g2k-brass));
+  }
+
+  /* Secondary (Teal) */
+  .g2k-btn-secondary {
+    @apply g2k-btn g2k-btn-md text-white;
+    background-color: hsl(var(--g2k-teal));
+  }
+
+  .g2k-btn-secondary:hover {
+    background-color: hsl(var(--g2k-teal-oxidized));
+  }
+
+  .g2k-btn-secondary:focus-visible {
+    --tw-ring-color: hsl(var(--g2k-teal));
+  }
+
+  /* Outline - hand-drawn feel */
+  .g2k-btn-outline {
+    @apply g2k-btn g2k-btn-md bg-transparent;
+    border: 2px solid hsl(var(--g2k-brass));
+    color: hsl(var(--g2k-brass));
+    box-shadow: inset 0 0 0 1px hsl(var(--g2k-brass) / 0.1);
+  }
+
+  .g2k-btn-outline:hover {
+    background-color: hsl(var(--g2k-brass) / 0.08);
+    box-shadow: 0 0 12px hsl(var(--g2k-brass) / 0.15), inset 0 0 0 1px hsl(var(--g2k-brass) / 0.2);
+  }
+
+  .g2k-btn-outline:focus-visible {
+    --tw-ring-color: hsl(var(--g2k-brass));
+  }
+
+  /* Ghost */
+  .g2k-btn-ghost {
+    @apply g2k-btn g2k-btn-md bg-transparent;
+    color: hsl(var(--g2k-fg-primary));
+  }
+
+  .g2k-btn-ghost:hover {
+    background-color: hsl(var(--g2k-fg-primary) / 0.05);
+  }
+
+  .g2k-btn-ghost:focus-visible {
+    --tw-ring-color: hsl(var(--g2k-brass));
+  }
+
+  /* Destructive */
+  .g2k-btn-destructive {
+    @apply g2k-btn g2k-btn-md text-white;
+    background-color: hsl(var(--g2k-error));
+  }
+
+  .g2k-btn-destructive:hover {
+    background-color: hsl(var(--g2k-error) / 0.9);
+  }
+
+  .g2k-btn-destructive:focus-visible {
+    --tw-ring-color: hsl(var(--g2k-error));
+  }
+}
+
+/* ==========================================================================
+   Badge Styles
+   ========================================================================== */
+
+@layer components {
+  .g2k-badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-sm text-xs font-medium;
+  }
+
+  .g2k-badge-default {
+    @apply g2k-badge;
+    background-color: hsl(var(--g2k-bg-sunken));
+    color: hsl(var(--g2k-fg-secondary));
+    border: 1px solid hsl(var(--g2k-border));
+  }
+
+  .g2k-badge-brass {
+    @apply g2k-badge;
+    background-color: hsl(var(--g2k-brass) / 0.1);
+    color: hsl(var(--g2k-brass));
+    border: 1px solid hsl(var(--g2k-brass) / 0.2);
+  }
+
+  .g2k-badge-teal {
+    @apply g2k-badge;
+    background-color: hsl(var(--g2k-teal) / 0.1);
+    color: hsl(var(--g2k-teal));
+    border: 1px solid hsl(var(--g2k-teal) / 0.2);
+  }
+
+  .g2k-badge-coral {
+    @apply g2k-badge;
+    background-color: hsl(var(--g2k-coral) / 0.1);
+    color: hsl(var(--g2k-coral));
+    border: 1px solid hsl(var(--g2k-coral) / 0.2);
+  }
+
+  /* Tech tag (pill style) */
+  .g2k-tag {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium cursor-pointer transition-colors;
+    background-color: hsl(var(--g2k-teal) / 0.1);
+    color: hsl(var(--g2k-teal));
+  }
+
+  .g2k-tag:hover {
+    background-color: hsl(var(--g2k-teal) / 0.2);
+  }
+}
+
+/* ==========================================================================
+   Navigation Styles
+   ========================================================================== */
+
+@layer components {
+  .g2k-navbar {
+    @apply fixed top-0 w-full z-50 px-4 md:px-8 py-4;
+    background-color: hsl(var(--g2k-bg-base) / 0.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid hsl(var(--g2k-border));
+  }
+
+  .g2k-nav-link {
+    @apply font-medium transition-colors relative;
+    color: hsl(var(--g2k-fg-secondary));
+  }
+
+  .g2k-nav-link:hover {
+    color: hsl(var(--g2k-fg-primary));
+  }
+
+  .g2k-nav-link::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-200;
+    background-color: hsl(var(--g2k-brass));
+  }
+
+  .g2k-nav-link:hover::after {
+    @apply w-full;
+  }
+
+  .g2k-nav-link-active {
+    @apply font-semibold;
+    color: hsl(var(--g2k-fg-primary));
+  }
+
+  .g2k-nav-link-active::after {
+    content: '';
+    @apply w-full;
+    background-color: hsl(var(--g2k-brass));
+  }
+
+  .g2k-mobile-menu-btn {
+    @apply p-2 rounded-md transition-colors;
+    color: hsl(var(--g2k-fg-primary));
+  }
+
+  .g2k-mobile-menu-btn:hover {
+    background-color: hsl(var(--g2k-fg-primary) / 0.05);
+  }
+
+  .g2k-mobile-menu-btn:focus-visible {
+    @apply ring-2;
+    --tw-ring-color: hsl(var(--g2k-brass));
+  }
+}
+
+/* ==========================================================================
+   Hero Styles
+   ========================================================================== */
+
+@layer components {
+  .g2k-hero {
+    @apply relative min-h-[80vh] flex items-center px-4 md:px-8 py-16 md:py-24 overflow-hidden;
+  }
+
+  .g2k-hero-bg {
+    @apply absolute inset-0 -z-10;
+    background: 
+      radial-gradient(ellipse 80% 50% at 50% 100%, hsl(var(--g2k-teal) / 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse 60% 40% at 80% 20%, hsl(var(--g2k-brass) / 0.06) 0%, transparent 40%),
+      hsl(var(--g2k-bg-base));
+  }
+
+  .dark .g2k-hero-bg {
+    background: 
+      radial-gradient(ellipse 80% 50% at 50% 100%, hsl(var(--g2k-teal) / 0.12) 0%, transparent 50%),
+      radial-gradient(ellipse 60% 40% at 80% 20%, hsl(var(--g2k-brass) / 0.1) 0%, transparent 40%),
+      radial-gradient(ellipse 100% 100% at 50% 50%, hsl(222 45% 12%) 0%, hsl(var(--g2k-bg-base)) 70%),
+      hsl(var(--g2k-bg-base));
+  }
+
+  .g2k-hero-title {
+    @apply g2k-display-hero;
+    color: hsl(var(--g2k-fg-primary));
+    text-shadow: 0 2px 4px hsl(var(--g2k-shadow-color) / 0.1);
+    letter-spacing: 0.02em;
+  }
+
+  .dark .g2k-hero-title {
+    text-shadow: 
+      0 0 40px hsl(var(--g2k-brass) / 0.3),
+      0 2px 4px hsl(var(--g2k-shadow-color) / 0.3);
+  }
+
+  .g2k-hero-tagline {
+    @apply text-2xl md:text-3xl mt-3;
+    color: hsl(var(--g2k-brass));
+    letter-spacing: 0.01em;
+  }
+
+  .dark .g2k-hero-tagline {
+    color: hsl(var(--g2k-brass-shine));
+    text-shadow: 0 0 30px hsl(var(--g2k-brass) / 0.2);
+  }
+
+  .g2k-hero-subheading {
+    @apply text-base md:text-lg mt-5 max-w-lg leading-relaxed;
+    color: hsl(var(--g2k-fg-secondary));
+  }
+
+  /* Robot group placeholder - workshop display case */
+  .g2k-hero-robots {
+    @apply relative w-full max-w-2xl rounded-2xl flex items-center justify-center overflow-hidden;
+    aspect-ratio: 16 / 10;
+    background-color: hsl(var(--g2k-bg-sunken) / 0.5);
+    border: var(--g2k-border-tactile) solid hsl(var(--g2k-border) / 0.6);
+    box-shadow: var(--g2k-shadow-inset-deep);
+  }
+
+  .dark .g2k-hero-robots {
+    border-color: hsl(var(--g2k-border));
+    box-shadow: 
+      var(--g2k-shadow-inset-deep),
+      inset 0 0 60px hsl(var(--g2k-brass) / 0.05),
+      var(--g2k-shadow-lg);
+  }
+
+  .g2k-hero-robots::before {
+    content: 'Gang of Four';
+    font-family: var(--font-brand, 'Irish Grover', cursive);
+    font-size: 1.5rem;
+    color: hsl(var(--g2k-fg-muted) / 0.3);
+  }
+}
+
+/* ==========================================================================
+   Footer Styles
+   ========================================================================== */
+
+@layer components {
+  .g2k-footer {
+    @apply px-4 md:px-8 py-12 mt-auto;
+    background-color: hsl(var(--g2k-bg-sunken));
+    border-top: var(--g2k-border-tactile) solid hsl(var(--g2k-border));
+    box-shadow: inset 0 4px 12px hsl(var(--g2k-shadow-color) / 0.04);
+  }
+
+  .g2k-footer-heading {
+    @apply mb-4;
+    font-family: var(--font-brand, 'Irish Grover', cursive);
+    font-size: 1.125rem;
+    color: hsl(var(--g2k-fg-primary));
+  }
+
+  .g2k-footer-link {
+    @apply text-sm transition-colors;
+    color: hsl(var(--g2k-fg-secondary));
+  }
+
+  .g2k-footer-link:hover {
+    color: hsl(var(--g2k-brass));
+  }
+}
+
+/* ==========================================================================
+   Theme Toggle
+   ========================================================================== */
+
+@layer components {
+  .g2k-theme-toggle {
+    @apply relative p-2 rounded-full overflow-hidden transition-all;
+    background-color: hsl(var(--g2k-bg-sunken));
+    border: var(--g2k-border-tactile) solid hsl(var(--g2k-border));
+    box-shadow: var(--g2k-shadow-inset);
+  }
+
+  .g2k-theme-toggle:hover {
+    border-color: hsl(var(--g2k-brass) / 0.5);
+    box-shadow: var(--g2k-shadow-glow), var(--g2k-shadow-inset);
+  }
+
+  .dark .g2k-theme-toggle:hover {
+    box-shadow: var(--g2k-shadow-teal-glow);
+  }
+}
+
+/* ==========================================================================
+   Section Dividers
+   ========================================================================== */
+
+@layer components {
+  .g2k-divider {
+    @apply w-full h-px my-8;
+    background-color: hsl(var(--g2k-border));
+  }
+
+  .g2k-divider-accent {
+    @apply w-24 h-1 rounded-full mx-auto my-8;
+    background: linear-gradient(
+      90deg,
+      hsl(var(--g2k-brass)),
+      hsl(var(--g2k-teal)),
+      hsl(var(--g2k-coral))
+    );
+  }
+}
+
+/* ==========================================================================
+   Texture Utilities (use sparingly)
+   ========================================================================== */
+
+@layer utilities {
+  /* Subtle brushed metal texture */
+  .g2k-texture-metal {
+    background-image: 
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 2px,
+        hsl(var(--g2k-fg-primary) / 0.02) 2px,
+        hsl(var(--g2k-fg-primary) / 0.02) 4px
+      );
+  }
+
+  /* Subtle gradient overlay for depth */
+  .g2k-gradient-fade {
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      hsl(var(--g2k-bg-base) / 0.8) 100%
+    );
+  }
+
+  /* Workshop grain texture - very subtle */
+  .g2k-texture-grain {
+    position: relative;
+  }
+  
+  .g2k-texture-grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  }
+
+  .dark .g2k-texture-grain::after {
+    opacity: 0.05;
+  }
+
+  /* Driftwood edge - subtle organic border */
+  .g2k-edge-organic {
+    border-radius: 0.75rem 0.875rem 0.8rem 0.725rem;
+  }
+
+  /* Brass rivet accent */
+  .g2k-rivet {
+    @apply w-2 h-2 rounded-full;
+    background: linear-gradient(135deg, hsl(var(--g2k-brass-shine)), hsl(var(--g2k-brass)));
+    box-shadow: inset 0 1px 2px hsl(0 0% 100% / 0.3), 0 1px 2px hsl(var(--g2k-shadow-color) / 0.2);
+  }
+
+  /* Teal oxidized accent line */
+  .g2k-accent-line {
+    @apply h-0.5 rounded-full;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      hsl(var(--g2k-teal-oxidized) / 0.4) 20%,
+      hsl(var(--g2k-teal-oxidized) / 0.6) 50%,
+      hsl(var(--g2k-teal-oxidized) / 0.4) 80%,
+      transparent
+    );
+  }
+
+  /* Workshop bevel - subtle 3D edge */
+  .g2k-bevel {
+    box-shadow: 
+      inset 0 1px 0 hsl(0 0% 100% / 0.08),
+      inset 0 -1px 0 hsl(var(--g2k-shadow-color) / 0.08);
+  }
+
+  .dark .g2k-bevel {
+    box-shadow: 
+      inset 0 1px 0 hsl(0 0% 100% / 0.05),
+      inset 0 -1px 0 hsl(var(--g2k-shadow-color) / 0.2);
+  }
+}
+
+/* ==========================================================================
+   Animation Utilities
+   ========================================================================== */
+
+@layer utilities {
+  .g2k-animate-glow {
+    animation: g2k-glow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes g2k-glow {
+    from { box-shadow: var(--g2k-shadow-sm); }
+    to { box-shadow: var(--g2k-shadow-glow); }
+  }
+
+  .g2k-animate-float {
+    animation: g2k-float 3s ease-in-out infinite;
+  }
+
+  @keyframes g2k-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+}
+
+/* ==========================================================================
+   Accessibility
+   ========================================================================== */
+
+@layer base {
+  /* Skip link */
+  .g2k-skip-link {
+    @apply sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100];
+    @apply focus:px-4 focus:py-2 focus:rounded-md focus:font-semibold;
+    background-color: hsl(var(--g2k-brass));
+    color: hsl(var(--g2k-bg-base));
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }

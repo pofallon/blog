@@ -8,7 +8,7 @@ import { getSiteShellLayout } from '@/lib/site-shell';
 describe('Site shell layout', () => {
   it('renders every primary navigation link in the header', () => {
     const links = getNavigationLinks();
-    render(<Header brandName="Get2Know Labs" links={links} />);
+    render(<Header brandName="get2know.io" links={links} />);
 
     links.forEach((link) => {
       const anchor = screen.getByRole('link', { name: link.label });
