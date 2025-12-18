@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Cog, Wrench, Lightbulb, Zap } from 'lucide-react';
+import { Cog } from 'lucide-react';
 
 interface HeroSectionProps {
   siteName?: string;
@@ -20,6 +20,9 @@ export function HeroSection({
 }: HeroSectionProps) {
   return (
     <section className="g2k-hero">
+      {/* Sentinel element for Intersection Observer - triggers header reveal when hero scrolls out */}
+      <div id="hero-sentinel" className="absolute top-0 left-0 h-1 w-full pointer-events-none" aria-hidden="true" />
+      
       {/* Background with gradient effects */}
       <div className="g2k-hero-bg" aria-hidden="true" />
       
@@ -73,90 +76,73 @@ export function HeroSection({
 
 /**
  * Placeholder for the Gang of Four robots
- * Will be replaced with actual illustrations
+ * Designed frame that reserves space for future illustration
  */
 function RobotPlaceholders() {
   const robots = [
-    { 
-      id: 'alpha', 
-      icon: Lightbulb, 
-      color: 'text-g2k-teal',
-      bgColor: 'bg-g2k-teal/10',
-      label: 'α' 
-    },
-    { 
-      id: 'beta', 
-      icon: Cog, 
-      color: 'text-g2k-brass',
-      bgColor: 'bg-g2k-brass/10',
-      label: 'β' 
-    },
-    { 
-      id: 'gamma', 
-      icon: Zap, 
-      color: 'text-g2k-coral',
-      bgColor: 'bg-g2k-coral/10',
-      label: 'γ' 
-    },
-    { 
-      id: 'delta', 
-      icon: Wrench, 
-      color: 'text-g2k-robot-delta',
-      bgColor: 'bg-g2k-robot-delta/10',
-      label: 'δ' 
-    },
+    { id: 'alpha', cssVar: '--g2k-teal', label: 'α', height: 'h-14 md:h-20', width: 'w-8 md:w-11' },
+    { id: 'beta', cssVar: '--g2k-brass', label: 'β', height: 'h-[4.5rem] md:h-[6.5rem]', width: 'w-10 md:w-14' },
+    { id: 'gamma', cssVar: '--g2k-coral', label: 'γ', height: 'h-16 md:h-[5.5rem]', width: 'w-9 md:w-12' },
+    { id: 'delta', cssVar: '--g2k-robot-delta', label: 'δ', height: 'h-12 md:h-[4.5rem]', width: 'w-8 md:w-11' },
   ];
 
   return (
-    <div className="absolute inset-0 flex items-center justify-center p-8">
-      <div className="flex items-end gap-4 md:gap-6">
-        {robots.map((robot, index) => {
-          const Icon = robot.icon;
-          // Stagger heights for visual interest
-          const heights = ['h-20', 'h-28', 'h-24', 'h-26'];
-          
-          return (
-            <div
-              key={robot.id}
-              className={[
-                'relative flex flex-col items-center justify-end',
-                heights[index],
-                'w-12 md:w-16',
-                robot.bgColor,
-                'rounded-lg border border-g2k-border/30',
-                'transition-transform duration-300',
-                'hover:scale-105 hover:-translate-y-1',
-                'group'
-              ].join(' ')}
-            >
-              {/* Robot "eye" glow */}
-              <div 
-                className={`
-                  absolute top-2 w-3 h-3 rounded-full
-                  ${robot.bgColor} ${robot.color}
-                  opacity-60 group-hover:opacity-100
-                  transition-opacity
-                `}
-              >
-                <div className={`w-full h-full rounded-full ${robot.bgColor} animate-pulse`} />
-              </div>
-              
-              {/* Robot body icon */}
-              <Icon className={`w-6 h-6 md:w-8 md:h-8 ${robot.color} mb-2`} />
-              
-              {/* Robot label */}
-              <span className={`text-xs font-mono ${robot.color} opacity-70`}>
-                {robot.label}
-              </span>
-            </div>
-          );
-        })}
+    <div className="absolute inset-0 flex flex-col items-center justify-center p-6">
+      {/* Frame title */}
+      <div className="absolute top-4 left-4 right-4 flex items-center gap-3">
+        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-g2k-border/50 to-transparent" />
+        <span className="text-[10px] uppercase tracking-[0.2em] text-g2k-fg-muted/50 font-medium whitespace-nowrap px-1">
+          Gang of Four
+        </span>
+        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-g2k-border/50 to-transparent" />
       </div>
       
-      {/* Subtitle */}
-      <span className="absolute bottom-4 text-xs text-g2k-fg-muted/50 font-mono">
-        [ robot illustrations coming soon ]
-      </span>
+      {/* Robot silhouette markers */}
+      <div className="flex items-end gap-3 md:gap-5">
+        {robots.map((robot) => (
+          <div
+            key={robot.id}
+            className="flex flex-col items-center gap-2 group"
+          >
+            {/* Robot placeholder shape */}
+            <div
+              className={`
+                ${robot.height} ${robot.width}
+                relative
+                rounded-t-xl rounded-b-md
+                border-2 border-dashed border-g2k-border/30
+                bg-gradient-to-b from-g2k-bg-sunken/40 to-transparent
+                transition-all duration-300
+                hover:border-g2k-border/50
+              `}
+            >
+              {/* Indicator dot at "head" position */}
+              <div 
+                className="absolute top-2 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full opacity-40 group-hover:opacity-70 transition-opacity"
+                style={{ 
+                  background: `radial-gradient(circle, hsl(var(${robot.cssVar}) / 0.6), hsl(var(${robot.cssVar}) / 0.2))` 
+                }}
+              />
+            </div>
+            
+            {/* Robot label */}
+            <span className="text-[11px] font-mono text-g2k-fg-muted/40 group-hover:text-g2k-fg-muted/60 transition-colors">
+              {robot.label}
+            </span>
+          </div>
+        ))}
+      </div>
+      
+      {/* Decorative corner brackets */}
+      <div className="absolute top-2 left-2 w-3 h-3 border-l-[1.5px] border-t-[1.5px] border-g2k-border/25 rounded-tl-sm" aria-hidden="true" />
+      <div className="absolute top-2 right-2 w-3 h-3 border-r-[1.5px] border-t-[1.5px] border-g2k-border/25 rounded-tr-sm" aria-hidden="true" />
+      <div className="absolute bottom-2 left-2 w-3 h-3 border-l-[1.5px] border-b-[1.5px] border-g2k-border/25 rounded-bl-sm" aria-hidden="true" />
+      <div className="absolute bottom-2 right-2 w-3 h-3 border-r-[1.5px] border-b-[1.5px] border-g2k-border/25 rounded-br-sm" aria-hidden="true" />
+      
+      {/* Bottom caption */}
+      <p className="absolute bottom-4 text-[10px] text-g2k-fg-muted/35 tracking-wider italic">
+        illustration in progress
+      </p>
     </div>
   );
 }

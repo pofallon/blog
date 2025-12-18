@@ -7,24 +7,40 @@ type HeaderProps = {
   brandName: string;
   links: NavigationLink[];
   tagline?: string;
+  /** When true, applies enhanced entrance styling (backdrop blur, elevated shadow) */
+  isFirstReveal?: boolean;
 };
 
 export default function Header({
   brandName,
   links,
   tagline = 'Consistent shell for home, blog, projects, and merch.',
+  isFirstReveal = false,
 }: HeaderProps) {
+  // Enhanced styling for first reveal on homepage
+  const firstRevealClasses = isFirstReveal
+    ? 'backdrop-blur-sm border-g2k-brass/30'
+    : '';
+
+  // Dynamic shadow - more pronounced on first reveal
+  const shadowStyle = isFirstReveal
+    ? `
+        var(--g2k-shadow-lifted),
+        var(--g2k-shadow-inset),
+        inset 0 1px 0 hsl(var(--g2k-brass) / 0.12),
+        0 8px 32px -8px hsl(var(--g2k-brass) / 0.15)
+      `.replace(/\s+/g, ' ').trim()
+    : `
+        var(--g2k-shadow-lifted),
+        var(--g2k-shadow-inset),
+        inset 0 1px 0 hsl(var(--g2k-brass) / 0.08)
+      `.replace(/\s+/g, ' ').trim();
+
   return (
     <header
       role="banner"
-      className="relative flex flex-col gap-4 rounded-3xl border-[1.5px] border-border bg-card px-6 py-5 md:flex-row md:items-center md:justify-between overflow-hidden"
-      style={{ 
-        boxShadow: `
-          var(--g2k-shadow-lifted),
-          var(--g2k-shadow-inset),
-          inset 0 1px 0 hsl(var(--g2k-brass) / 0.08)
-        `.replace(/\s+/g, ' ').trim()
-      }}
+      className={`relative flex flex-col gap-4 rounded-3xl border-[1.5px] border-border bg-card px-6 py-5 md:flex-row md:items-center md:justify-between overflow-hidden transition-[border-color,backdrop-filter,box-shadow] duration-300 ${firstRevealClasses}`.trim()}
+      style={{ boxShadow: shadowStyle }}
     >
       {/* Subtle top edge highlight for industrial feel */}
       <div 

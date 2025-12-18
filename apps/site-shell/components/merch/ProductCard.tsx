@@ -16,14 +16,14 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
       aria-label={`View ${product.name} - ${product.priceDisplay} - ${product.status}`}
       className="block group"
     >
-      <Card className="overflow-hidden transition-shadow hover:shadow-md">
+      <Card className="overflow-hidden group-hover:border-g2k-brass/40">
         <div className="relative aspect-[4/3] overflow-hidden bg-muted">
           <Image
             src={product.heroImage.url}
             alt={product.heroImage.alt}
             fill
             priority={priority}
-            className="object-cover transition-transform group-hover:scale-105"
+            className="object-cover transition-transform duration-150 ease-out group-hover:scale-[1.02]"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
           />
           <div className="absolute right-2 top-2">

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { Inter, JetBrains_Mono, Irish_Grover } from 'next/font/google';
-import Header from '@/components/Header';
+import { ConditionalHeader } from '@/components/ConditionalHeader';
 import Footer from '@/components/Footer';
 import { ThemeProvider } from '@/components/theme-provider';
 import { getSiteShellLayout } from '@/lib/site-shell';
@@ -77,7 +77,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             Skip to main content
           </a>
           <div className="mx-auto flex min-h-screen w-full max-w-5xl flex-col gap-8 px-4 py-10 sm:px-6 lg:px-8">
-            <Header brandName={siteShellLayout.brandName} links={siteShellLayout.navigationLinks} />
+            <ConditionalHeader brandName={siteShellLayout.brandName} links={siteShellLayout.navigationLinks} />
             <main id="main-content" role="main" className="flex-1">
               {children}
             </main>

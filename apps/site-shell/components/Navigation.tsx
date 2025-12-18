@@ -22,15 +22,15 @@ const ICON_MAP: Record<NavigationIconName, typeof House> = {
 
 function linkClasses(isActive: boolean, variant: 'header' | 'footer') {
   const base =
-    'text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2';
+    'text-sm font-medium transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-g2k-brass focus-visible:ring-offset-2';
   const palette =
     variant === 'header'
-      ? 'text-muted-foreground hover:text-foreground'
-      : 'text-muted-foreground hover:text-primary';
+      ? 'text-g2k-fg-secondary hover:text-g2k-fg-primary'
+      : 'text-g2k-fg-secondary hover:text-g2k-fg-primary';
   const active =
     variant === 'header'
-      ? 'text-foreground'
-      : 'text-primary border-b-2 border-primary pb-0.5';
+      ? 'text-g2k-brass font-semibold'
+      : 'text-g2k-brass font-semibold border-b-[1.5px] border-g2k-brass pb-0.5';
 
   return `${base} ${isActive ? active : palette}`;
 }

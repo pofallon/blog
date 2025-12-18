@@ -16,6 +16,7 @@
     --g2k-bg-base: 34 33% 96%;
     --g2k-bg-raised: 0 0% 100%;
     --g2k-bg-sunken: 34 20% 92%;
+    --g2k-bg-elevated: 0 0% 100%;
     
     /* Foreground / Text */
     --g2k-fg-primary: 240 27% 14%;
@@ -45,6 +46,7 @@
     
     /* Border */
     --g2k-border: 34 13% 85%;
+    --g2k-border-hover: 34 13% 75%;
     --g2k-border-accent: 46 70% 47%;
     
     /* Shadows (light mode - subtle) */
@@ -117,55 +119,61 @@
 
   .dark {
     /* ========================================
-       Dark Theme (Moonlit Pier)
+       Dark Theme (Moonlit Workshop)
+       The default, intentional experience.
+       Surfaces are layered, accents are rich.
        ======================================== */
     
-    /* Background layers */
-    --g2k-bg-base: 222 45% 9%;
-    --g2k-bg-raised: 222 35% 13%;
-    --g2k-bg-sunken: 222 50% 6%;
+    /* Background layers - true depth */
+    --g2k-bg-base: 220 40% 7%;
+    --g2k-bg-raised: 220 32% 11%;
+    --g2k-bg-sunken: 220 45% 4%;
+    --g2k-bg-elevated: 220 28% 15%;
     
-    /* Foreground / Text */
-    --g2k-fg-primary: 34 20% 95%;
-    --g2k-fg-secondary: 30 5% 65%;
-    --g2k-fg-muted: 220 9% 46%;
+    /* Foreground / Text - warm, readable */
+    --g2k-fg-primary: 35 25% 92%;
+    --g2k-fg-secondary: 30 12% 68%;
+    --g2k-fg-muted: 220 10% 45%;
     
-    /* Brand colors (boosted for dark mode) */
-    --g2k-brass: 46 65% 52%;
-    --g2k-brass-shine: 49 80% 64%;
-    --g2k-copper: 29 60% 50%;
-    --g2k-teal: 180 42% 40%;
-    --g2k-teal-oxidized: 181 36% 55%;
-    --g2k-coral: 14 82% 68%;
-    --g2k-coral-faded: 14 75% 82%;
+    /* Brand colors - rich, not neon */
+    --g2k-brass: 43 55% 50%;
+    --g2k-brass-shine: 45 60% 58%;
+    --g2k-copper: 28 50% 45%;
+    --g2k-teal: 178 35% 38%;
+    --g2k-teal-oxidized: 180 30% 50%;
+    --g2k-coral: 12 65% 60%;
+    --g2k-coral-faded: 12 55% 72%;
     
-    /* Semantic colors (boosted for dark mode) */
-    --g2k-success: 152 55% 52%;
-    --g2k-warning: 36 77% 62%;
-    --g2k-error: 354 70% 54%;
-    --g2k-info: 213 74% 58%;
+    /* Semantic colors - muted for dark */
+    --g2k-success: 150 45% 42%;
+    --g2k-warning: 35 60% 52%;
+    --g2k-error: 355 55% 50%;
+    --g2k-info: 210 55% 50%;
     
-    /* Border */
-    --g2k-border: 222 30% 20%;
-    --g2k-border-accent: 46 65% 52%;
+    /* Border - subtle but defined */
+    --g2k-border: 220 25% 18%;
+    --g2k-border-hover: 220 25% 25%;
+    --g2k-border-accent: 43 55% 50%;
     
-    /* Shadows (dark mode - dramatic) */
-    --g2k-shadow-color: 222 50% 3%;
-    --g2k-shadow-sm: 0 1px 2px hsl(var(--g2k-shadow-color) / 0.3);
-    --g2k-shadow-md: 0 4px 12px hsl(var(--g2k-shadow-color) / 0.4);
-    --g2k-shadow-lg: 0 12px 32px hsl(var(--g2k-shadow-color) / 0.5);
+    /* Shadows - deep, layered */
+    --g2k-shadow-color: 220 50% 2%;
+    --g2k-shadow-sm: 0 1px 3px hsl(var(--g2k-shadow-color) / 0.4);
+    --g2k-shadow-md: 0 4px 16px hsl(var(--g2k-shadow-color) / 0.5);
+    --g2k-shadow-lg: 0 12px 40px hsl(var(--g2k-shadow-color) / 0.6);
     
-    /* Workshop tactile shadows (dark) */
-    --g2k-shadow-inset: inset 0 2px 6px hsl(var(--g2k-shadow-color) / 0.3);
-    --g2k-shadow-inset-deep: inset 0 4px 12px hsl(var(--g2k-shadow-color) / 0.4);
-    --g2k-shadow-lifted: 0 8px 24px hsl(var(--g2k-shadow-color) / 0.5), 0 2px 6px hsl(var(--g2k-shadow-color) / 0.3);
+    /* Workshop tactile shadows - pronounced depth */
+    --g2k-shadow-inset: inset 0 1px 0 hsl(0 0% 100% / 0.02), inset 0 2px 8px hsl(var(--g2k-shadow-color) / 0.4);
+    --g2k-shadow-inset-deep: inset 0 1px 0 hsl(0 0% 100% / 0.02), inset 0 4px 16px hsl(var(--g2k-shadow-color) / 0.5);
+    --g2k-shadow-lifted: 0 8px 32px hsl(var(--g2k-shadow-color) / 0.6), 0 2px 8px hsl(var(--g2k-shadow-color) / 0.4);
     --g2k-border-tactile: 1.5px;
-    --g2k-shadow-glow: 0 0 24px hsl(var(--g2k-brass) / 0.25);
-    --g2k-shadow-teal-glow: 0 0 24px hsl(var(--g2k-teal) / 0.3);
+    
+    /* Subtle glows - for emphasis, not decoration */
+    --g2k-shadow-glow: 0 0 20px hsl(var(--g2k-brass) / 0.15);
+    --g2k-shadow-teal-glow: 0 0 20px hsl(var(--g2k-teal) / 0.2);
     
     /* shadcn compatibility */
-    --primary-foreground: 222 45% 9%;
-    --secondary-foreground: 222 45% 9%;
+    --primary-foreground: 220 40% 7%;
+    --secondary-foreground: 220 40% 7%;
 
     /* Legacy shell tokens dark mode */
     --shell-bg: hsl(var(--g2k-bg-base));
@@ -296,8 +304,7 @@
   .g2k-card-project::before {
     content: '';
     @apply absolute top-3 right-3 w-2 h-2 rounded-full opacity-40;
-    background: linear-gradient(135deg, hsl(var(--g2k-brass-shine)), hsl(var(--g2k-brass)));
-    box-shadow: inset 0 1px 2px hsl(0 0% 100% / 0.3);
+    background-color: hsl(var(--g2k-brass));
   }
 
   .g2k-card-project:hover {
@@ -328,16 +335,10 @@
     @apply h-48 rounded-lg overflow-hidden flex items-center justify-center;
     background-color: hsl(var(--g2k-bg-sunken));
     border: 1px solid hsl(var(--g2k-border) / 0.5);
-    background-image: 
-      radial-gradient(circle at 30% 40%, hsl(var(--g2k-brass) / 0.05) 0%, transparent 50%),
-      radial-gradient(circle at 70% 60%, hsl(var(--g2k-teal) / 0.05) 0%, transparent 50%);
   }
 
   .dark .g2k-robot-portrait {
     border-color: hsl(var(--g2k-border));
-    background-image: 
-      radial-gradient(circle at 30% 40%, hsl(var(--g2k-brass) / 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 70% 60%, hsl(var(--g2k-teal) / 0.08) 0%, transparent 50%);
   }
 
   /* Legacy shell components - workshop upgrade */
@@ -406,22 +407,23 @@
   .g2k-btn-md { @apply px-5 py-2.5 text-sm; }
   .g2k-btn-lg { @apply px-6 py-3 text-base; }
 
-  /* Primary (Brass) - workshop crafted */
+  /* Primary (Brass) - confident, flat */
   .g2k-btn-primary {
     @apply g2k-btn g2k-btn-md;
-    background: linear-gradient(180deg, hsl(var(--g2k-brass-shine)) 0%, hsl(var(--g2k-brass)) 100%);
+    background-color: hsl(var(--g2k-brass));
     color: hsl(var(--g2k-bg-base));
-    box-shadow: var(--g2k-shadow-sm), inset 0 1px 0 hsl(0 0% 100% / 0.15);
-    border: 1px solid hsl(var(--g2k-copper) / 0.3);
+    box-shadow: var(--g2k-shadow-sm);
+    border: 1.5px solid hsl(var(--g2k-brass));
   }
 
   .g2k-btn-primary:hover {
-    background: linear-gradient(180deg, hsl(var(--g2k-brass-shine)) 20%, hsl(var(--g2k-brass)) 100%);
-    box-shadow: var(--g2k-shadow-glow), inset 0 1px 0 hsl(0 0% 100% / 0.2);
+    background-color: hsl(var(--g2k-brass-shine));
+    border-color: hsl(var(--g2k-brass-shine));
+    box-shadow: var(--g2k-shadow-md);
   }
 
   .g2k-btn-primary:active {
-    box-shadow: inset 0 2px 4px hsl(var(--g2k-copper) / 0.3);
+    box-shadow: inset 0 2px 4px hsl(var(--g2k-shadow-color) / 0.2);
   }
 
   .g2k-btn-primary:focus-visible {
@@ -442,17 +444,16 @@
     --tw-ring-color: hsl(var(--g2k-teal));
   }
 
-  /* Outline - hand-drawn feel */
+  /* Outline - clean, minimal */
   .g2k-btn-outline {
     @apply g2k-btn g2k-btn-md bg-transparent;
-    border: 2px solid hsl(var(--g2k-brass));
-    color: hsl(var(--g2k-brass));
-    box-shadow: inset 0 0 0 1px hsl(var(--g2k-brass) / 0.1);
+    border: 1.5px solid hsl(var(--g2k-border));
+    color: hsl(var(--g2k-fg-primary));
   }
 
   .g2k-btn-outline:hover {
-    background-color: hsl(var(--g2k-brass) / 0.08);
-    box-shadow: 0 0 12px hsl(var(--g2k-brass) / 0.15), inset 0 0 0 1px hsl(var(--g2k-brass) / 0.2);
+    border-color: hsl(var(--g2k-border-hover));
+    background-color: hsl(var(--g2k-fg-primary) / 0.03);
   }
 
   .g2k-btn-outline:focus-visible {
@@ -605,31 +606,21 @@
 
   .g2k-hero-bg {
     @apply absolute inset-0 -z-10;
-    background: 
-      radial-gradient(ellipse 80% 50% at 50% 100%, hsl(var(--g2k-teal) / 0.08) 0%, transparent 50%),
-      radial-gradient(ellipse 60% 40% at 80% 20%, hsl(var(--g2k-brass) / 0.06) 0%, transparent 40%),
-      hsl(var(--g2k-bg-base));
+    background: hsl(var(--g2k-bg-base));
   }
 
   .dark .g2k-hero-bg {
-    background: 
-      radial-gradient(ellipse 80% 50% at 50% 100%, hsl(var(--g2k-teal) / 0.12) 0%, transparent 50%),
-      radial-gradient(ellipse 60% 40% at 80% 20%, hsl(var(--g2k-brass) / 0.1) 0%, transparent 40%),
-      radial-gradient(ellipse 100% 100% at 50% 50%, hsl(222 45% 12%) 0%, hsl(var(--g2k-bg-base)) 70%),
-      hsl(var(--g2k-bg-base));
+    background: hsl(var(--g2k-bg-base));
   }
 
   .g2k-hero-title {
     @apply g2k-display-hero;
     color: hsl(var(--g2k-fg-primary));
-    text-shadow: 0 2px 4px hsl(var(--g2k-shadow-color) / 0.1);
     letter-spacing: 0.02em;
   }
 
   .dark .g2k-hero-title {
-    text-shadow: 
-      0 0 40px hsl(var(--g2k-brass) / 0.3),
-      0 2px 4px hsl(var(--g2k-shadow-color) / 0.3);
+    text-shadow: 0 2px 4px hsl(var(--g2k-shadow-color) / 0.3);
   }
 
   .g2k-hero-tagline {
@@ -640,7 +631,6 @@
 
   .dark .g2k-hero-tagline {
     color: hsl(var(--g2k-brass-shine));
-    text-shadow: 0 0 30px hsl(var(--g2k-brass) / 0.2);
   }
 
   .g2k-hero-subheading {
@@ -658,10 +648,11 @@
   }
 
   .dark .g2k-hero-robots {
+    background-color: hsl(var(--g2k-bg-sunken));
     border-color: hsl(var(--g2k-border));
     box-shadow: 
       var(--g2k-shadow-inset-deep),
-      inset 0 0 60px hsl(var(--g2k-brass) / 0.05),
+      0 0 80px hsl(var(--g2k-brass) / 0.04),
       var(--g2k-shadow-lg);
   }
 
@@ -797,21 +788,13 @@
   /* Brass rivet accent */
   .g2k-rivet {
     @apply w-2 h-2 rounded-full;
-    background: linear-gradient(135deg, hsl(var(--g2k-brass-shine)), hsl(var(--g2k-brass)));
-    box-shadow: inset 0 1px 2px hsl(0 0% 100% / 0.3), 0 1px 2px hsl(var(--g2k-shadow-color) / 0.2);
+    background-color: hsl(var(--g2k-brass));
   }
 
-  /* Teal oxidized accent line */
+  /* Brass accent line - simple, confident */
   .g2k-accent-line {
     @apply h-0.5 rounded-full;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      hsl(var(--g2k-teal-oxidized) / 0.4) 20%,
-      hsl(var(--g2k-teal-oxidized) / 0.6) 50%,
-      hsl(var(--g2k-teal-oxidized) / 0.4) 80%,
-      transparent
-    );
+    background-color: hsl(var(--g2k-brass));
   }
 
   /* Workshop bevel - subtle 3D edge */
@@ -823,8 +806,8 @@
 
   .dark .g2k-bevel {
     box-shadow: 
-      inset 0 1px 0 hsl(0 0% 100% / 0.05),
-      inset 0 -1px 0 hsl(var(--g2k-shadow-color) / 0.2);
+      inset 0 1px 0 hsl(0 0% 100% / 0.04),
+      inset 0 -1px 0 hsl(var(--g2k-shadow-color) / 0.3);
   }
 }
 

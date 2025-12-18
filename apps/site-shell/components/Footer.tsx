@@ -135,6 +135,11 @@ export default function Footer({ footer, links }: FooterProps) {
           })}
         </div>
       )}
+
+      {/* Small human moment */}
+      <p className="mt-8 pt-6 border-t border-border/50 text-xs text-g2k-fg-muted text-center">
+        Still building. Still curious.
+      </p>
     </footer>
   );
 }

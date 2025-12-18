@@ -21,9 +21,9 @@ interface ProjectCardProps {
 export default function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Link href={project.href} className="block group">
-      <Card className="h-full transition-colors hover:border-primary">
+      <Card className="h-full group-hover:border-g2k-brass/40">
         <CardHeader className="pb-2">
-          <CardTitle className="text-lg group-hover:text-primary transition-colors">
+          <CardTitle className="text-lg group-hover:text-primary transition-colors duration-150">
             {project.name}
           </CardTitle>
         </CardHeader>

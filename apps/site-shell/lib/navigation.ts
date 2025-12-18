@@ -6,7 +6,7 @@ const NAVIGATION_LINKS: NavigationLink[] = [
   {
     label: 'Home',
     path: '/',
-    description: 'Return to the landing experience.',
+    description: 'Back to where it all begins.',
     order: 0,
     isPrimary: true,
     iconName: 'house',
@@ -14,7 +14,7 @@ const NAVIGATION_LINKS: NavigationLink[] = [
   {
     label: 'Blog',
     path: '/blog',
-    description: 'Read migration notes and long-form updates.',
+    description: 'Field notes, half-formed ideas, and the occasional epiphany.',
     order: 1,
     isPrimary: true,
     iconName: 'book-open',
@@ -22,7 +22,7 @@ const NAVIGATION_LINKS: NavigationLink[] = [
   {
     label: 'Projects',
     path: '/projects',
-    description: 'Preview the build backlog for the new site shell.',
+    description: 'Things being built, things being tinkered with, things that work.',
     order: 2,
     isPrimary: true,
     iconName: 'folder-kanban',
@@ -30,7 +30,7 @@ const NAVIGATION_LINKS: NavigationLink[] = [
   {
     label: 'Merch',
     path: '/merch',
-    description: 'Future commerce experiences for the brand collective.',
+    description: 'Tangible artifacts for fellow curious minds.',
     order: 3,
     isPrimary: false,
     iconName: 'shopping-bag',

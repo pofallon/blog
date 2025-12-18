@@ -9,10 +9,14 @@ const Card = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "rounded-xl border-[1.5px] border-g2k-border bg-g2k-bg-raised text-g2k-fg-primary transition-all duration-300",
+      "rounded-xl border-[1.5px] border-g2k-border bg-g2k-bg-raised text-g2k-fg-primary",
+      "transition-[transform,border-color,box-shadow] duration-150 ease-out",
+      "hover:-translate-y-0.5 hover:border-g2k-border-hover",
+      "[--card-shadow:var(--g2k-shadow-md),var(--g2k-shadow-inset)]",
+      "[--card-shadow-hover:var(--g2k-shadow-lifted),var(--g2k-shadow-inset)]",
+      "shadow-[var(--card-shadow)] hover:shadow-[var(--card-shadow-hover)]",
       className
     )}
-    style={{ boxShadow: 'var(--g2k-shadow-md), var(--g2k-shadow-inset)' }}
     {...props}
   />
 ))
