@@ -12,6 +12,22 @@ export interface ImageMeta {
 }
 
 /**
+ * Processed image ready for optimized display
+ */
+export interface ProcessedImage {
+  /** Optimized image URL or path */
+  src: string;
+  /** Image width in pixels */
+  width: number;
+  /** Image height in pixels */
+  height: number;
+  /** Alt text for accessibility */
+  alt: string;
+  /** Base64 blur placeholder for loading state */
+  blurDataURL?: string | undefined;
+}
+
+/**
  * Frontmatter metadata contract for MDX entries
  * All MDX files must provide these fields (image is optional)
  */
@@ -19,7 +35,13 @@ export interface FrontmatterMetadata {
   title: string;
   date: string; // YYYY-MM-DD format
   description: string;
-  image?: ImageMeta;
+  image?: ImageMeta | undefined;
+  hero?: {
+    src: string;
+    alt: string;
+    caption?: string | undefined;
+    focalPoint?: string | undefined;
+  } | undefined;
 }
 
 /**
@@ -71,6 +93,8 @@ export interface BlogIndexEntry {
   summary: string;
   /** Canonical URL path (e.g., "/posts/demo-mdx") */
   url: string;
+  /** Processed hero image, null if not specified */
+  heroImage: ProcessedImage | null;
 }
 
 /**

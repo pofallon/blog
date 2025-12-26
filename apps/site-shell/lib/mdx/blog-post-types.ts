@@ -6,6 +6,8 @@
  */
 
 import type { MDXRemoteSerializeResult } from 'next-mdx-remote';
+import type { ProcessedImage } from './types';
+export type { ProcessedImage };
 
 // ============================================================================
 // Frontmatter Types
@@ -35,9 +37,9 @@ export interface HeroImageMeta {
   /** Accessibility description (required, warn if empty) */
   alt: string;
   /** Optional display caption or credit */
-  caption?: string;
+  caption?: string | undefined;
   /** CSS object-position value for responsive cropping */
-  focalPoint?: string;
+  focalPoint?: string | undefined;
 }
 
 /**
@@ -96,22 +98,6 @@ export interface BlogPostDocument {
 // ============================================================================
 // View Model Types
 // ============================================================================
-
-/**
- * Processed image ready for optimized display
- */
-export interface ProcessedImage {
-  /** Optimized image URL or path */
-  src: string;
-  /** Image width in pixels */
-  width: number;
-  /** Image height in pixels */
-  height: number;
-  /** Alt text for accessibility */
-  alt: string;
-  /** Base64 blur placeholder for loading state */
-  blurDataURL?: string;
-}
 
 /**
  * View model for rendering the blog post page

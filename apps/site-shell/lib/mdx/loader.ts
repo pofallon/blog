@@ -6,7 +6,8 @@
 import fs from 'fs';
 import path from 'path';
 import { parseFrontmatter } from './parser';
-import type { MDXEntry, MDXBuildSummary, ValidationResult, BlogIndexEntry, BlogIndexOptions } from './types';
+import { loadHeroImage } from './image-loader';
+import type { MDXEntry, MDXBuildSummary, ValidationResult, BlogIndexEntry, BlogIndexOptions, ProcessedImage } from './types';
 
 // Content directory path (relative to monorepo root)
 function getContentDir(): string {
@@ -234,6 +235,29 @@ export function transformToBlogIndexEntry(entry: MDXEntry): BlogIndexEntry {
 
   const summary = entry.metadata.description || generateExcerpt(entry.content);
 
+  // Process hero image - prefer hero field, fallback to image field
+  let heroImage: ProcessedImage | null = null;
+  if (entry.metadata.hero) {
+    const processed = loadHeroImage(entry.slug, entry.metadata.hero);
+    if (processed) {
+      heroImage = {
+        src: processed.src,
+        width: processed.width,
+        height: processed.height,
+        alt: processed.alt,
+        blurDataURL: processed.blurDataURL,
+      };
+    }
+  } else if (entry.metadata.image) {
+    // Basic support for legacy image field
+    heroImage = {
+      src: entry.metadata.image.url,
+      width: 1200,
+      height: 630,
+      alt: entry.metadata.image.alt,
+    };
+  }
+
   return {
     slug: entry.slug,
     title,
@@ -241,6 +265,7 @@ export function transformToBlogIndexEntry(entry: MDXEntry): BlogIndexEntry {
     rawDate: entry.metadata.date,
     summary,
     url: `/blog/${entry.slug}`,
+    heroImage,
   };
 }
 

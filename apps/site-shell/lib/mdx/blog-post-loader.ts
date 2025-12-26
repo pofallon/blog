@@ -11,9 +11,9 @@ import type {
   BlogPostDocument,
   BlogPostFrontmatter,
   BlogPostPageModel,
-  ProcessedImage,
   HeroImageMeta,
 } from './blog-post-types';
+import type { ProcessedImage } from './types';
 import { loadHeroImage, validatePostImages } from './image-loader';
 import type { ProcessedHeroImage } from './image-types';
 
@@ -137,14 +137,14 @@ export function getAllPostSlugs(): string[] {
       if (indexPath) {
         // Check if content uses Gatsby-specific patterns that won't work
         const content = fs.readFileSync(indexPath, 'utf-8');
-        const usesGatsbyPatterns = content.includes('props.playlists') || 
-                                    content.includes('props.pageContext');
-        
+        const usesGatsbyPatterns = content.includes('props.playlists') ||
+          content.includes('props.pageContext');
+
         if (usesGatsbyPatterns) {
           console.warn(`[006] Skipping ${entry.name} - uses Gatsby-specific patterns`);
           continue;
         }
-        
+
         slugs.push(entry.name);
       }
     }

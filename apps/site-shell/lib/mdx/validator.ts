@@ -15,6 +15,13 @@ export const ImageMetaSchema = z.object({
   alt: z.string().min(1, 'Image alt text is required'),
 });
 
+export const HeroImageMetaSchema = z.object({
+  src: z.string().min(1, 'Hero image source is required'),
+  alt: z.string().min(1, 'Hero image alt text is required'),
+  caption: z.string().optional(),
+  focalPoint: z.string().optional(),
+});
+
 export const FrontmatterSchema = z.object({
   title: z
     .string()
@@ -36,6 +43,7 @@ export const FrontmatterSchema = z.object({
     .min(1, 'Description is required')
     .max(200, 'Description should not exceed 200 characters'),
   image: ImageMetaSchema.optional(),
+  hero: HeroImageMetaSchema.optional(),
 });
 
 export type FrontmatterInput = z.input<typeof FrontmatterSchema>;

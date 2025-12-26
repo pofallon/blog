@@ -51,7 +51,7 @@ export async function generateMetadata({
  */
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
-  
+
   // Load the blog post document
   const doc = getPostBySlug(slug);
 
@@ -72,7 +72,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         description={post.description}
         heroImage={post.heroImage}
       />
-      <BlogPostBody source={doc.content} playlists={doc.frontmatter.playlists} />
+      <BlogPostBody source={doc.content} playlists={doc.frontmatter.playlists} slug={slug} />
       <BlogPostNav />
     </article>
   );

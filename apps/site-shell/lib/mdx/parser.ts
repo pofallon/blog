@@ -43,9 +43,9 @@ export function parseFrontmatter(rawContent: string, filePath: string): ParseRes
   }
 
   const warnings: string[] = [];
-  const { title, date, description, image } = parseResult.data;
+  const { title, date, description, image, hero } = parseResult.data;
 
-  // Build metadata object, only including image if defined
+  // Build metadata object
   const metadata: FrontmatterMetadata = {
     title,
     date,
@@ -53,6 +53,9 @@ export function parseFrontmatter(rawContent: string, filePath: string): ParseRes
   };
   if (image) {
     metadata.image = image;
+  }
+  if (hero) {
+    metadata.hero = hero;
   }
 
   return {
