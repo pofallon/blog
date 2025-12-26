@@ -19,7 +19,7 @@ export default function Header({
 }: HeaderProps) {
   // Enhanced styling for first reveal on homepage
   const firstRevealClasses = isFirstReveal
-    ? 'backdrop-blur-sm border-g2k-brass/30'
+    ? 'backdrop-blur-sm'
     : '';
 
   // Dynamic shadow - more pronounced on first reveal
@@ -39,16 +39,15 @@ export default function Header({
   return (
     <header
       role="banner"
-      className={`relative flex flex-col gap-4 rounded-3xl border-[1.5px] border-border bg-card px-6 py-5 md:flex-row md:items-center md:justify-between overflow-hidden transition-[border-color,backdrop-filter,box-shadow] duration-300 ${firstRevealClasses}`.trim()}
-      style={{ boxShadow: shadowStyle }}
+      className={`relative flex flex-col gap-4 rounded-3xl bg-card px-6 py-5 md:flex-row md:items-center md:justify-between overflow-hidden transition-[backdrop-filter] duration-300 ${firstRevealClasses}`.trim()}
     >
       {/* Subtle top edge highlight for industrial feel */}
-      <div 
-        className="absolute inset-x-0 top-0 h-px opacity-60" 
+      <div
+        className="absolute inset-x-0 top-0 h-px opacity-60"
         style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--g2k-brass-shine) / 0.3) 20%, hsl(var(--g2k-brass-shine) / 0.5) 50%, hsl(var(--g2k-brass-shine) / 0.3) 80%, transparent)' }}
         aria-hidden="true"
       />
-      
+
       <div>
         <Link href="/" className="font-brand text-4xl text-foreground hover:text-primary transition-colors">
           {brandName}

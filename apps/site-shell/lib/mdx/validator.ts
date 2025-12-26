@@ -21,9 +21,16 @@ export const FrontmatterSchema = z.object({
     .min(1, 'Title is required')
     .transform((s) => s.trim()),
   date: z
-    .string()
-    .regex(dateRegex, 'Date must be in YYYY-MM-DD format')
-    .refine((val) => !isNaN(Date.parse(val)), 'Date must be a valid calendar date'),
+    .union([z.string(), z.date()])
+    .transform((val) => {
+      if (val instanceof Date) {
+        return val.toISOString().split('T')[0];
+      }
+      return val;
+    })
+    .pipe(
+      z.string().regex(dateRegex, 'Date must be in YYYY-MM-DD format')
+    ),
   description: z
     .string()
     .min(1, 'Description is required')

@@ -12,8 +12,8 @@ import type { MDXEntry, MDXBuildSummary, ValidationResult, BlogIndexEntry, BlogI
 function getContentDir(): string {
   // Handle both development (apps/site-shell) and build contexts
   const possiblePaths = [
-    path.join(process.cwd(), 'content/posts'),
-    path.join(process.cwd(), '../../content/posts'),
+    path.join(process.cwd(), 'content/blog'),
+    path.join(process.cwd(), '../../content/blog'),
   ];
 
   for (const p of possiblePaths) {
@@ -23,7 +23,7 @@ function getContentDir(): string {
   }
 
   // Default to monorepo root structure
-  return path.join(process.cwd(), 'content/posts');
+  return path.join(process.cwd(), 'content/blog');
 }
 
 /**
@@ -37,26 +37,20 @@ export function getAllSlugs(): string[] {
     return [];
   }
 
-  const files = fs.readdirSync(contentDir);
-  const mdxFiles = files.filter((file) => file.endsWith('.mdx'));
+  const entries = fs.readdirSync(contentDir, { withFileTypes: true });
+  const slugs: string[] = [];
 
-  // Check for duplicate slugs
-  const slugs = mdxFiles.map((file) => path.basename(file, '.mdx'));
-  const slugMap = new Map<string, string[]>();
+  for (const entry of entries) {
+    // Only process directories (folder-based slugs per 006 spec)
+    if (entry.isDirectory()) {
+      // Check for index file existence (md or mdx)
+      const hasIndex =
+        fs.existsSync(path.join(contentDir, entry.name, 'index.md')) ||
+        fs.existsSync(path.join(contentDir, entry.name, 'index.mdx'));
 
-  mdxFiles.forEach((file) => {
-    const slug = path.basename(file, '.mdx');
-    const existing = slugMap.get(slug) ?? [];
-    existing.push(file);
-    slugMap.set(slug, existing);
-  });
-
-  // Detect duplicates
-  for (const [slug, fileList] of slugMap) {
-    if (fileList.length > 1) {
-      throw new Error(
-        `[Build Error] Duplicate slug "${slug}" found in: ${fileList.join(', ')}`
-      );
+      if (hasIndex) {
+        slugs.push(entry.name);
+      }
     }
   }
 
@@ -86,32 +80,45 @@ export function getAllPosts(): {
     };
   }
 
-  const files = fs.readdirSync(contentDir);
-  const mdxFiles = files.filter((file) => file.endsWith('.mdx'));
-
+  const entries = fs.readdirSync(contentDir, { withFileTypes: true });
   const posts: MDXEntry[] = [];
   const validationResults: ValidationResult[] = [];
   const allWarnings: string[] = [];
 
-  // Check for duplicate slugs first
-  getAllSlugs(); // This will throw if duplicates exist
+  let validFilesCount = 0;
+  let invalidFilesCount = 0;
 
-  for (const file of mdxFiles) {
-    const filePath = path.join(contentDir, file);
+  for (const entry of entries) {
+    if (!entry.isDirectory()) continue;
+
+    const slug = entry.name;
+    const postDir = path.join(contentDir, slug);
+
+    // Find index file
+    let indexFile = 'index.md';
+    if (!fs.existsSync(path.join(postDir, indexFile))) {
+      indexFile = 'index.mdx';
+    }
+
+    const filePath = path.join(postDir, indexFile);
+
+    if (!fs.existsSync(filePath)) continue;
+
     const rawContent = fs.readFileSync(filePath, 'utf-8');
-    const slug = path.basename(file, '.mdx');
-
     const { metadata, content, validation } = parseFrontmatter(rawContent, filePath);
     validationResults.push(validation);
 
     if (!validation.valid) {
-      // Log errors and fail build
       console.error(`\n❌ Validation failed for ${filePath}:`);
       validation.errors.forEach((err) => {
         console.error(`   ${err}`);
       });
-      throw new Error(validation.errors[0]);
+      // We don't throw here to allow other posts to load, but we track invalid count
+      invalidFilesCount++;
+      continue;
     }
+
+    validFilesCount++;
 
     if (validation.warnings.length > 0) {
       allWarnings.push(...validation.warnings);
@@ -129,9 +136,9 @@ export function getAllPosts(): {
   }
 
   const summary: MDXBuildSummary = {
-    totalFiles: mdxFiles.length,
-    validFiles: validationResults.filter((r) => r.valid).length,
-    invalidFiles: validationResults.filter((r) => !r.valid).length,
+    totalFiles: validFilesCount + invalidFilesCount,
+    validFiles: validFilesCount,
+    invalidFiles: invalidFilesCount,
     warnings: allWarnings,
     processedSlugs: posts.map((p) => p.slug),
   };

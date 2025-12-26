@@ -11,18 +11,18 @@
     /* ========================================
        Light Theme (Golden Hour)
        ======================================== */
-    
+
     /* Background layers */
     --g2k-bg-base: 34 33% 96%;
     --g2k-bg-raised: 0 0% 100%;
     --g2k-bg-sunken: 34 20% 92%;
     --g2k-bg-elevated: 0 0% 100%;
-    
+
     /* Foreground / Text */
     --g2k-fg-primary: 240 27% 14%;
     --g2k-fg-secondary: 240 12% 32%;
     --g2k-fg-muted: 30 6% 45%;
-    
+
     /* Brand colors */
     --g2k-brass: 46 70% 47%;
     --g2k-brass-shine: 49 75% 59%;
@@ -31,24 +31,24 @@
     --g2k-teal-oxidized: 181 33% 50%;
     --g2k-coral: 14 67% 63%;
     --g2k-coral-faded: 14 78% 78%;
-    
+
     /* Semantic colors */
     --g2k-success: 153 42% 30%;
     --g2k-warning: 30 65% 44%;
     --g2k-error: 358 65% 37%;
     --g2k-info: 213 64% 33%;
-    
+
     /* Robot accent colors */
     --g2k-robot-alpha: 180 42% 40%;
     --g2k-robot-beta: 46 65% 52%;
     --g2k-robot-gamma: 14 82% 68%;
     --g2k-robot-delta: 252 76% 70%;
-    
+
     /* Border */
     --g2k-border: 34 13% 85%;
     --g2k-border-hover: 34 13% 75%;
     --g2k-border-accent: 46 70% 47%;
-    
+
     /* Shadows (light mode - subtle) */
     --g2k-shadow-color: 240 27% 14%;
     --g2k-shadow-sm: 0 1px 2px hsl(var(--g2k-shadow-color) / 0.05);
@@ -56,13 +56,13 @@
     --g2k-shadow-lg: 0 12px 32px hsl(var(--g2k-shadow-color) / 0.12);
     --g2k-shadow-glow: 0 0 20px hsl(var(--g2k-brass) / 0.15);
     --g2k-shadow-teal-glow: 0 0 20px hsl(var(--g2k-teal) / 0.15);
-    
+
     /* Workshop tactile shadows */
     --g2k-shadow-inset: inset 0 2px 4px hsl(var(--g2k-shadow-color) / 0.04);
     --g2k-shadow-inset-deep: inset 0 4px 8px hsl(var(--g2k-shadow-color) / 0.06);
     --g2k-shadow-lifted: 0 6px 20px hsl(var(--g2k-shadow-color) / 0.1), 0 2px 4px hsl(var(--g2k-shadow-color) / 0.05);
     --g2k-border-tactile: 1.5px;
-    
+
     /* Spacing */
     --g2k-space-xs: 0.25rem;
     --g2k-space-sm: 0.5rem;
@@ -72,14 +72,14 @@
     --g2k-space-2xl: 3rem;
     --g2k-space-3xl: 4rem;
     --g2k-space-4xl: 6rem;
-    
+
     /* Radius */
     --g2k-radius-sm: 0.25rem;
     --g2k-radius-md: 0.5rem;
     --g2k-radius-lg: 0.75rem;
     --g2k-radius-xl: 1rem;
     --g2k-radius-full: 9999px;
-    
+
     /* shadcn compatibility layer */
     --background: var(--g2k-bg-base);
     --foreground: var(--g2k-fg-primary);
@@ -101,7 +101,7 @@
     --input: var(--g2k-border);
     --ring: var(--g2k-brass);
     --radius: 0.5rem;
-    
+
     /* Chart colors */
     --chart-1: var(--g2k-brass);
     --chart-2: var(--g2k-teal);
@@ -123,18 +123,18 @@
        The default, intentional experience.
        Surfaces are layered, accents are rich.
        ======================================== */
-    
+
     /* Background layers - true depth */
     --g2k-bg-base: 220 40% 7%;
     --g2k-bg-raised: 220 32% 11%;
     --g2k-bg-sunken: 220 45% 4%;
     --g2k-bg-elevated: 220 28% 15%;
-    
+
     /* Foreground / Text - warm, readable */
     --g2k-fg-primary: 35 25% 92%;
     --g2k-fg-secondary: 30 12% 68%;
     --g2k-fg-muted: 220 10% 45%;
-    
+
     /* Brand colors - rich, not neon */
     --g2k-brass: 43 55% 50%;
     --g2k-brass-shine: 45 60% 58%;
@@ -143,34 +143,34 @@
     --g2k-teal-oxidized: 180 30% 50%;
     --g2k-coral: 12 65% 60%;
     --g2k-coral-faded: 12 55% 72%;
-    
+
     /* Semantic colors - muted for dark */
     --g2k-success: 150 45% 42%;
     --g2k-warning: 35 60% 52%;
     --g2k-error: 355 55% 50%;
     --g2k-info: 210 55% 50%;
-    
+
     /* Border - subtle but defined */
     --g2k-border: 220 25% 18%;
     --g2k-border-hover: 220 25% 25%;
     --g2k-border-accent: 43 55% 50%;
-    
+
     /* Shadows - deep, layered */
     --g2k-shadow-color: 220 50% 2%;
     --g2k-shadow-sm: 0 1px 3px hsl(var(--g2k-shadow-color) / 0.4);
     --g2k-shadow-md: 0 4px 16px hsl(var(--g2k-shadow-color) / 0.5);
     --g2k-shadow-lg: 0 12px 40px hsl(var(--g2k-shadow-color) / 0.6);
-    
+
     /* Workshop tactile shadows - pronounced depth */
     --g2k-shadow-inset: inset 0 1px 0 hsl(0 0% 100% / 0.02), inset 0 2px 8px hsl(var(--g2k-shadow-color) / 0.4);
     --g2k-shadow-inset-deep: inset 0 1px 0 hsl(0 0% 100% / 0.02), inset 0 4px 16px hsl(var(--g2k-shadow-color) / 0.5);
     --g2k-shadow-lifted: 0 8px 32px hsl(var(--g2k-shadow-color) / 0.6), 0 2px 8px hsl(var(--g2k-shadow-color) / 0.4);
     --g2k-border-tactile: 1.5px;
-    
+
     /* Subtle glows - for emphasis, not decoration */
     --g2k-shadow-glow: 0 0 20px hsl(var(--g2k-brass) / 0.15);
     --g2k-shadow-teal-glow: 0 0 20px hsl(var(--g2k-teal) / 0.2);
-    
+
     /* shadcn compatibility */
     --primary-foreground: 220 40% 7%;
     --secondary-foreground: 220 40% 7%;
@@ -220,6 +220,7 @@
    ========================================================================== */
 
 @layer components {
+
   /* Display text - Irish Grover */
   .g2k-display {
     font-family: var(--font-brand, 'Irish Grover', cursive);
@@ -272,6 +273,7 @@
    ========================================================================== */
 
 @layer components {
+
   /* Base surface - workshop tactile feel */
   .g2k-surface {
     @apply rounded-lg;
@@ -386,6 +388,7 @@
     .nav-panel {
       background-color: transparent;
       border: none;
+      box-shadow: none;
     }
   }
 }
@@ -395,6 +398,7 @@
    ========================================================================== */
 
 @layer components {
+
   /* Base button */
   .g2k-btn {
     @apply inline-flex items-center justify-center gap-2 font-semibold rounded-md transition-all duration-200;
@@ -403,9 +407,17 @@
   }
 
   /* Size variants */
-  .g2k-btn-sm { @apply px-3 py-1.5 text-sm; }
-  .g2k-btn-md { @apply px-5 py-2.5 text-sm; }
-  .g2k-btn-lg { @apply px-6 py-3 text-base; }
+  .g2k-btn-sm {
+    @apply px-3 py-1.5 text-sm;
+  }
+
+  .g2k-btn-md {
+    @apply px-5 py-2.5 text-sm;
+  }
+
+  .g2k-btn-lg {
+    @apply px-6 py-3 text-base;
+  }
 
   /* Primary (Brass) - confident, flat */
   .g2k-btn-primary {
@@ -650,7 +662,7 @@
   .dark .g2k-hero-robots {
     background-color: hsl(var(--g2k-bg-sunken));
     border-color: hsl(var(--g2k-border));
-    box-shadow: 
+    box-shadow:
       var(--g2k-shadow-inset-deep),
       0 0 80px hsl(var(--g2k-brass) / 0.04),
       var(--g2k-shadow-lg);
@@ -727,12 +739,10 @@
 
   .g2k-divider-accent {
     @apply w-24 h-1 rounded-full mx-auto my-8;
-    background: linear-gradient(
-      90deg,
-      hsl(var(--g2k-brass)),
-      hsl(var(--g2k-teal)),
-      hsl(var(--g2k-coral))
-    );
+    background: linear-gradient(90deg,
+        hsl(var(--g2k-brass)),
+        hsl(var(--g2k-teal)),
+        hsl(var(--g2k-coral)));
   }
 }
 
@@ -741,32 +751,29 @@
    ========================================================================== */
 
 @layer utilities {
+
   /* Subtle brushed metal texture */
   .g2k-texture-metal {
-    background-image: 
-      repeating-linear-gradient(
-        90deg,
+    background-image:
+      repeating-linear-gradient(90deg,
         transparent,
         transparent 2px,
         hsl(var(--g2k-fg-primary) / 0.02) 2px,
-        hsl(var(--g2k-fg-primary) / 0.02) 4px
-      );
+        hsl(var(--g2k-fg-primary) / 0.02) 4px);
   }
 
   /* Subtle gradient overlay for depth */
   .g2k-gradient-fade {
-    background: linear-gradient(
-      180deg,
-      transparent 0%,
-      hsl(var(--g2k-bg-base) / 0.8) 100%
-    );
+    background: linear-gradient(180deg,
+        transparent 0%,
+        hsl(var(--g2k-bg-base) / 0.8) 100%);
   }
 
   /* Workshop grain texture - very subtle */
   .g2k-texture-grain {
     position: relative;
   }
-  
+
   .g2k-texture-grain::after {
     content: '';
     position: absolute;
@@ -799,13 +806,13 @@
 
   /* Workshop bevel - subtle 3D edge */
   .g2k-bevel {
-    box-shadow: 
+    box-shadow:
       inset 0 1px 0 hsl(0 0% 100% / 0.08),
       inset 0 -1px 0 hsl(var(--g2k-shadow-color) / 0.08);
   }
 
   .dark .g2k-bevel {
-    box-shadow: 
+    box-shadow:
       inset 0 1px 0 hsl(0 0% 100% / 0.04),
       inset 0 -1px 0 hsl(var(--g2k-shadow-color) / 0.3);
   }
@@ -821,8 +828,13 @@
   }
 
   @keyframes g2k-glow {
-    from { box-shadow: var(--g2k-shadow-sm); }
-    to { box-shadow: var(--g2k-shadow-glow); }
+    from {
+      box-shadow: var(--g2k-shadow-sm);
+    }
+
+    to {
+      box-shadow: var(--g2k-shadow-glow);
+    }
   }
 
   .g2k-animate-float {
@@ -830,8 +842,15 @@
   }
 
   @keyframes g2k-float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
+
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-8px);
+    }
   }
 }
 
@@ -840,6 +859,7 @@
    ========================================================================== */
 
 @layer base {
+
   /* Skip link */
   .g2k-skip-link {
     @apply sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100];
@@ -850,6 +870,7 @@
 
   /* Reduced motion */
   @media (prefers-reduced-motion: reduce) {
+
     *,
     *::before,
     *::after {
