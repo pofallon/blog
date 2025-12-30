@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { Cog } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 interface HeroSectionProps {
   siteName?: string;
@@ -10,12 +11,23 @@ interface HeroSectionProps {
 }
 
 export function HeroSection({
-  siteName = 'get2know.io',
-  tagline = 'A workshop for the curious.',
-  subheading = 'Open source experiments, half-finished robots, and the occasional thing that actually works. Four projects. One story still being written.',
+  siteName = "Paul O'Fallon",
+  tagline = 'Building open source at get2know.io',
+  subheading = 'Robot mascots. Countless experiments. A workshop where ideas become artifacts.',
 }: HeroSectionProps) {
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <section className="g2k-hero overflow-visible pt-24 pb-32">
+    <section className="g2k-hero overflow-visible pt-8 pb-32 relative">
       {/* Sentinel element for Intersection Observer */}
       <div id="hero-sentinel" className="absolute top-0 left-0 h-1 w-full pointer-events-none" aria-hidden="true" />
 
@@ -32,40 +44,116 @@ export function HeroSection({
         </div>
         {/* Large atmospheric glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[150%] bg-gradient-to-b from-transparent via-g2k-brass/5 to-transparent blur-[120px]" />
+
+        {/* Floating geometric shapes - more visible */}
+        <div
+          className="absolute top-[15%] left-[10%] w-16 h-16 rounded-full floating-shape"
+          style={{
+            border: '2px solid hsl(var(--g2k-brass) / 0.35)',
+            boxShadow: '0 0 20px hsl(var(--g2k-brass) / 0.15)'
+          }}
+        />
+        <div
+          className="absolute top-[60%] left-[5%] w-12 h-12 floating-shape-slow"
+          style={{
+            animationDelay: '-5s',
+            border: '2px solid hsl(var(--g2k-teal) / 0.3)',
+            boxShadow: '0 0 15px hsl(var(--g2k-teal) / 0.1)'
+          }}
+        />
+        <div
+          className="absolute top-[25%] right-[15%] w-20 h-20 rotate-45 floating-shape"
+          style={{
+            animationDelay: '-10s',
+            border: '2px solid hsl(var(--g2k-coral) / 0.3)',
+            boxShadow: '0 0 18px hsl(var(--g2k-coral) / 0.12)'
+          }}
+        />
+        <div
+          className="absolute bottom-[20%] right-[8%] w-14 h-14 rounded-full floating-shape-slow"
+          style={{
+            animationDelay: '-15s',
+            border: '2px solid hsl(var(--g2k-brass) / 0.4)',
+            background: 'hsl(var(--g2k-brass) / 0.05)',
+            boxShadow: '0 0 25px hsl(var(--g2k-brass) / 0.2)'
+          }}
+        />
+        <div
+          className="absolute top-[40%] left-[20%] w-10 h-10 backdrop-blur-sm floating-shape rounded-full"
+          style={{
+            animationDelay: '-3s',
+            background: 'hsl(var(--g2k-teal) / 0.15)',
+            border: '1px solid hsl(var(--g2k-teal) / 0.25)',
+            boxShadow: '0 0 12px hsl(var(--g2k-teal) / 0.15)'
+          }}
+        />
       </div>
 
       <div className="container mx-auto relative px-6 md:px-12">
         <div className="flex flex-col lg:flex-row items-center lg:items-start relative">
 
           {/* Text content - Higher Z-index to partially overlap image or be overlapped */}
-          <div className="w-full lg:w-3/5 text-center lg:text-left z-20 relative lg:pt-12">
+          <div
+            className="w-full lg:w-3/5 text-center lg:text-left z-20 relative lg:pt-12"
+            style={{
+              transform: `translateY(${scrollY * 0.15}px)`,
+              transition: 'transform 0.05s linear'
+            }}
+          >
             {/* Eyebrow */}
-            <p className="text-xs md:text-sm uppercase tracking-[0.3em] text-g2k-fg-muted mb-6 font-medium bg-g2k-bg-base/80 backdrop-blur-sm inline-block px-3 py-1 rounded border border-g2k-border/50">
-              Somewhere between idea and artifact
+            <p
+              className="text-xs md:text-sm uppercase tracking-[0.3em] text-g2k-fg-muted mb-6 font-medium inline-block px-3 py-1 rounded border animate-fadeInUp transition-all duration-300 hover:scale-105 whitespace-nowrap"
+              style={{
+                animationDelay: '0.1s',
+                background: 'rgba(255, 255, 255, 0.05)',
+                backdropFilter: 'blur(10px)',
+                borderColor: 'hsl(var(--g2k-border) / 0.5)',
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+              }}
+            >
+              Agentic Architect & Open Source Maker
             </p>
 
-            <h1 className="g2k-hero-title leading-[0.9] !text-[clamp(3.5rem,12vw,6.5rem)] mb-4 -ml-1 drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
+            <h1
+              className="g2k-hero-title leading-[0.9] !text-[clamp(3.5rem,12vw,6.5rem)] mb-4 -ml-1 drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] animate-fadeInUp whitespace-nowrap"
+              style={{ animationDelay: '0.3s' }}
+            >
               {siteName}
             </h1>
 
             {/* Primary tagline */}
-            <div className="relative inline-block mb-8">
-              <p className="g2k-hero-tagline font-brand text-3xl md:text-4xl lg:text-5xl !mt-0 relative z-10 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] lg:whitespace-nowrap">
+            <div
+              className="relative inline-block mb-8 animate-fadeInUp"
+              style={{ animationDelay: '0.5s', transform: 'rotate(-1.5deg)' }}
+            >
+              <p className="g2k-hero-tagline gradient-text font-brand text-3xl md:text-4xl lg:text-5xl !mt-0 relative z-10 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] lg:whitespace-nowrap">
                 {tagline}
               </p>
             </div>
 
             {/* Subheading */}
-            <p className="g2k-hero-subheading text-lg md:text-xl max-w-[280px] leading-relaxed mb-10 text-g2k-fg-secondary/90 drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)]">
+            <p
+              className="g2k-hero-subheading text-lg md:text-xl max-w-[280px] leading-relaxed mb-10 text-g2k-fg-secondary/90 drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)] animate-fadeInUp"
+              style={{ animationDelay: '0.7s' }}
+            >
               {subheading}
             </p>
 
             {/* CTA buttons */}
-            <div className="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start">
-              <Link href="/projects" className="g2k-btn-primary g2k-btn-lg group">
+            <div
+              className="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start animate-fadeInUp"
+              style={{ animationDelay: '0.9s' }}
+            >
+              <button
+                onClick={() => {
+                  const gangOfFour = document.getElementById('gang-of-four');
+                  gangOfFour?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }}
+                className="g2k-btn-primary g2k-btn-lg group"
+              >
                 <Cog className="w-5 h-5 group-hover:rotate-90 transition-transform duration-500" />
                 Meet the Projects
-              </Link>
+              </button>
               <Link href="/blog" className="g2k-btn-outline g2k-btn-lg bg-g2k-bg-base/60 backdrop-blur-md">
                 Read the Field Notes
               </Link>
@@ -73,7 +161,13 @@ export function HeroSection({
           </div>
 
           {/* Robot gang image - Large and Overlapping */}
-          <div className="w-full lg:w-2/3 mt-12 lg:mt-0 lg:absolute lg:-right-32 lg:top-0 z-10 pointer-events-none select-none">
+          <div
+            className="w-full lg:w-2/3 mt-12 lg:mt-0 lg:absolute lg:-right-32 lg:top-0 z-10 pointer-events-none select-none"
+            style={{
+              transform: `translateY(${scrollY * 0.08}px)`,
+              transition: 'transform 0.05s linear'
+            }}
+          >
             <div className="relative w-full aspect-[4/3] lg:aspect-auto lg:h-[800px] flex items-center justify-center lg:justify-end">
 
               {/* Depth Glow */}
@@ -83,16 +177,13 @@ export function HeroSection({
               <img
                 src="/images/robots/gang_of_four.png"
                 alt="The Gang of Four: Alpha, Beta, Gamma, and Delta robots"
-                className="relative z-10 w-full h-full object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] transform -rotate-2 scale-110 lg:scale-125 hover:rotate-0 transition-transform duration-1000 ease-in-out"
+                className="relative z-10 w-full h-full object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] transform -rotate-2 scale-110 lg:scale-125 hover:rotate-0 transition-transform duration-1000 ease-in-out animate-fadeInScale"
                 style={{
-                  filter: 'drop-shadow(0 0 40px rgba(var(--g2k-brass), 0.2))'
+                  filter: 'drop-shadow(0 0 40px rgba(var(--g2k-brass), 0.2))',
+                  animationDelay: '0.5s',
+                  maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%)',
+                  WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%)'
                 }}
-              />
-
-              {/* Final Fade-out Overlay - Blending robots into the background */}
-              <div
-                className="absolute inset-x-0 bottom-0 h-1/3 z-20 pointer-events-none bg-gradient-to-t from-g2k-bg-base via-g2k-bg-base/60 to-transparent"
-                aria-hidden="true"
               />
 
               {/* Retro Striped Floating Element */}
@@ -104,6 +195,14 @@ export function HeroSection({
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60 hover:opacity-100 transition-opacity animate-fadeInUp" style={{ animationDelay: '1.2s' }}>
+          <span className="text-xs uppercase tracking-wider text-g2k-fg-muted">Scroll</span>
+          <div className="scroll-indicator w-6 h-10 rounded-full border-2 border-g2k-brass/40 flex items-start justify-center p-1">
+            <div className="w-1.5 h-3 bg-g2k-brass rounded-full"></div>
           </div>
         </div>
       </div>

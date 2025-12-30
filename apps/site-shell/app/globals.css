@@ -196,6 +196,32 @@
     color: hsl(var(--g2k-fg-primary));
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    position: relative;
+  }
+
+  /* Enhanced dark mode background with atmospheric gradient */
+  .dark body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(43, 55, 50, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 60%, rgba(29, 35, 45, 0.2) 0%, transparent 50%),
+      radial-gradient(circle at 40% 80%, rgba(35, 40, 50, 0.12) 0%, transparent 50%),
+      linear-gradient(135deg, hsl(220, 40%, 7%) 0%, hsl(220, 45%, 5%) 40%, hsl(218, 38%, 8%) 100%);
+    pointer-events: none;
+  }
+
+  /* Noise texture overlay for depth */
+  .dark body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    opacity: 0.035;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   }
 
   * {
@@ -422,20 +448,40 @@
   /* Primary (Brass) - confident, flat */
   .g2k-btn-primary {
     @apply g2k-btn g2k-btn-md;
-    background-color: hsl(var(--g2k-brass));
+    background: linear-gradient(135deg, hsl(var(--g2k-brass)) 0%, hsl(var(--g2k-brass-shine)) 100%);
     color: hsl(var(--g2k-bg-base));
-    box-shadow: var(--g2k-shadow-sm);
+    box-shadow: var(--g2k-shadow-sm), inset 0 1px 0 rgba(255, 255, 255, 0.2);
     border: 1.5px solid hsl(var(--g2k-brass));
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .g2k-btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .g2k-btn-primary:hover::before {
+    left: 100%;
   }
 
   .g2k-btn-primary:hover {
-    background-color: hsl(var(--g2k-brass-shine));
+    background: linear-gradient(135deg, hsl(var(--g2k-brass-shine)) 0%, hsl(var(--g2k-brass)) 100%);
     border-color: hsl(var(--g2k-brass-shine));
-    box-shadow: var(--g2k-shadow-md);
+    box-shadow: 0 8px 24px hsl(var(--g2k-brass) / 0.35), 0 0 40px hsl(var(--g2k-brass) / 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px) scale(1.02);
   }
 
   .g2k-btn-primary:active {
     box-shadow: inset 0 2px 4px hsl(var(--g2k-shadow-color) / 0.2);
+    transform: translateY(0) scale(1);
   }
 
   .g2k-btn-primary:focus-visible {
@@ -461,11 +507,29 @@
     @apply g2k-btn g2k-btn-md bg-transparent;
     border: 1.5px solid hsl(var(--g2k-border));
     color: hsl(var(--g2k-fg-primary));
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .g2k-btn-outline::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, hsl(var(--g2k-teal) / 0.1), hsl(var(--g2k-brass) / 0.1));
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
 
   .g2k-btn-outline:hover {
-    border-color: hsl(var(--g2k-border-hover));
-    background-color: hsl(var(--g2k-fg-primary) / 0.03);
+    border-color: hsl(var(--g2k-teal) / 0.6);
+    background-color: hsl(var(--g2k-fg-primary) / 0.05);
+    box-shadow: 0 4px 16px hsl(var(--g2k-teal) / 0.15);
+    transform: translateY(-1px);
+  }
+
+  .g2k-btn-outline:hover::before {
+    opacity: 1;
   }
 
   .g2k-btn-outline:focus-visible {
@@ -629,16 +693,27 @@
     @apply g2k-display-hero;
     color: hsl(var(--g2k-fg-primary));
     letter-spacing: 0.02em;
+    transition: transform 0.3s ease, text-shadow 0.3s ease;
+  }
+
+  .g2k-hero-title:hover {
+    transform: scale(1.02);
   }
 
   .dark .g2k-hero-title {
     text-shadow: 0 2px 4px hsl(var(--g2k-shadow-color) / 0.3);
   }
 
+  .dark .g2k-hero-title:hover {
+    text-shadow: 0 4px 12px hsl(var(--g2k-brass) / 0.2), 0 2px 4px hsl(var(--g2k-shadow-color) / 0.3);
+  }
+
   .g2k-hero-tagline {
     @apply text-2xl md:text-3xl mt-3;
+    font-family: var(--font-tagline, 'Lexend', sans-serif);
+    font-weight: 500;
     color: hsl(var(--g2k-brass));
-    letter-spacing: 0.01em;
+    letter-spacing: -0.02em;
   }
 
   .dark .g2k-hero-tagline {
@@ -852,6 +927,150 @@
       transform: translateY(-8px);
     }
   }
+
+  /* Fade in animations for page load */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .animate-fadeInUp {
+    animation: fadeInUp 0.8s ease-out backwards;
+  }
+
+  .animate-fadeInScale {
+    animation: fadeInScale 1s ease-out backwards;
+  }
+
+  /* Custom cursor styles */
+  .custom-cursor-enabled {
+    cursor: none;
+  }
+
+  .custom-cursor {
+    position: fixed;
+    width: 32px;
+    height: 32px;
+    border: 2px solid hsl(var(--g2k-brass) / 0.6);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: difference;
+    transition: transform 0.15s ease-out, width 0.2s ease, height 0.2s ease;
+    transform: translate(-50%, -50%);
+  }
+
+  .custom-cursor-dot {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    background-color: hsl(var(--g2k-brass));
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    transition: transform 0.08s ease-out;
+    transform: translate(-50%, -50%);
+  }
+
+  .custom-cursor-hover {
+    width: 50px;
+    height: 50px;
+    border-color: hsl(var(--g2k-teal) / 0.8);
+  }
+
+  /* Floating geometric shapes */
+  @keyframes floatDrift {
+    0%, 100% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+    33% {
+      transform: translate(20px, -30px) rotate(120deg);
+    }
+    66% {
+      transform: translate(-15px, 25px) rotate(240deg);
+    }
+  }
+
+  @keyframes floatDriftSlow {
+    0%, 100% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+    50% {
+      transform: translate(-25px, 30px) rotate(180deg);
+    }
+  }
+
+  .floating-shape {
+    animation: floatDrift 20s ease-in-out infinite;
+  }
+
+  .floating-shape-slow {
+    animation: floatDriftSlow 25s ease-in-out infinite;
+  }
+
+  /* Scroll indicator animation */
+  @keyframes scrollBounce {
+    0%, 100% {
+      transform: translateY(0);
+      opacity: 0.7;
+    }
+    50% {
+      transform: translateY(8px);
+      opacity: 1;
+    }
+  }
+
+  .scroll-indicator {
+    animation: scrollBounce 2s ease-in-out infinite;
+  }
+
+  /* Gradient text effect */
+  .gradient-text {
+    background: linear-gradient(135deg, hsl(var(--g2k-brass)) 0%, hsl(var(--g2k-brass-shine)) 50%, hsl(var(--g2k-brass)) 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 3s ease infinite;
+    /* Add text shadow for better readability in light mode */
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+  }
+
+  /* Light mode: use darker brass for better contrast */
+  .light .gradient-text {
+    background: linear-gradient(135deg, hsl(38, 70%, 35%) 0%, hsl(38, 80%, 45%) 50%, hsl(38, 70%, 35%) 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2));
+  }
+
+  @keyframes gradientShift {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
 }
 
 /* ==========================================================================
@@ -877,6 +1096,27 @@
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
+    }
+
+    /* Disable parallax for reduced motion users */
+    .parallax-element {
+      transform: none !important;
+    }
+
+    /* Simplify cursor for reduced motion */
+    .custom-cursor,
+    .custom-cursor-dot {
+      display: none !important;
+    }
+
+    body {
+      cursor: auto !important;
+    }
+
+    /* Stop floating shapes */
+    .floating-shape,
+    .floating-shape-slow {
+      animation: none !important;
     }
   }
 }

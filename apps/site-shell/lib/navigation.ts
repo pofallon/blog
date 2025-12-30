@@ -1,6 +1,6 @@
 import type { NavigationLink, NavigationPath } from './types';
 
-const REQUIRED_PATHS: NavigationPath[] = ['/', '/blog', '/projects', '/merch'];
+const REQUIRED_PATHS: NavigationPath[] = ['/', '/blog', '/#gang-of-four', '/merch'];
 
 const NAVIGATION_LINKS: NavigationLink[] = [
   {
@@ -21,7 +21,7 @@ const NAVIGATION_LINKS: NavigationLink[] = [
   },
   {
     label: 'Projects',
-    path: '/projects',
+    path: '/#gang-of-four',
     description: 'Things being built, things being tinkered with, things that work.',
     order: 2,
     isPrimary: true,

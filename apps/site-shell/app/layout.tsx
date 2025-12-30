@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
-import { Inter, JetBrains_Mono, Irish_Grover } from 'next/font/google';
+import { Inter, JetBrains_Mono, Irish_Grover, Lexend } from 'next/font/google';
 import { ConditionalHeader } from '@/components/ConditionalHeader';
-import Footer from '@/components/Footer';
+import AboutFooter from '@/components/AboutFooter';
 import { ThemeProvider } from '@/components/theme-provider';
+import { CustomCursor } from '@/components/CustomCursor';
 import { getSiteShellLayout } from '@/lib/site-shell';
 import { getGlobalSEOConfig, buildCanonicalUrl, resolveShareImageUrl } from '@/lib/seo';
 import './globals.css';
@@ -24,6 +25,12 @@ const irishGrover = Irish_Grover({
   weight: '400',
   subsets: ['latin'],
   variable: '--font-brand',
+  display: 'swap',
+});
+
+const lexend = Lexend({
+  subsets: ['latin'],
+  variable: '--font-tagline',
   display: 'swap',
 });
 
@@ -65,13 +72,14 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${jetBrains.variable} ${irishGrover.variable} bg-background text-foreground`}>
+      <body className={`${inter.variable} ${jetBrains.variable} ${irishGrover.variable} ${lexend.variable} bg-background text-foreground`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
+          <CustomCursor />
           {/* Skip link for accessibility */}
           <a href="#main-content" className="g2k-skip-link">
             Skip to main content
@@ -81,7 +89,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <main id="main-content" role="main" className="flex-1">
               {children}
             </main>
-            <Footer footer={siteShellLayout.footer} links={siteShellLayout.navigationLinks} />
+            <AboutFooter footer={siteShellLayout.footer} links={siteShellLayout.navigationLinks} />
           </div>
         </ThemeProvider>
       </body>

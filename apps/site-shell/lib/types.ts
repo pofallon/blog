@@ -1,4 +1,4 @@
-export type NavigationPath = '/' | '/blog' | '/projects' | '/merch';
+export type NavigationPath = '/' | '/blog' | '/projects' | '/merch' | '/#gang-of-four';
 
 export type NavigationIconName = 'house' | 'book-open' | 'folder-kanban' | 'shopping-bag';
 

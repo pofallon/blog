@@ -10,16 +10,21 @@ interface LatestPostsProps {
 export function LatestPosts({ posts }: LatestPostsProps) {
     return (
         <section
-            className="rounded-3xl border-[1.5px] border-shell-border bg-g2k-bg-raised/50 px-6 py-8"
+            className="rounded-3xl border-[1.5px] border-shell-border bg-g2k-bg-raised/50 px-6 py-8 md:px-8 md:py-10"
             style={{ boxShadow: 'var(--g2k-shadow-sm), var(--g2k-shadow-inset)' }}
             aria-labelledby="latest-posts-heading"
         >
             {/* Section header */}
-            <div className="flex items-center gap-2 mb-6">
-                <Calendar className="w-4 h-4 text-g2k-brass" aria-hidden="true" />
-                <h2 id="latest-posts-heading" className="text-sm font-medium tracking-wide text-g2k-fg-secondary">
-                    Latest Posts
-                </h2>
+            <div className="mb-8 text-center">
+                <div className="flex items-center justify-center gap-2 mb-3">
+                    <Calendar className="w-5 h-5 text-g2k-brass" aria-hidden="true" />
+                    <h2 id="latest-posts-heading" className="font-brand text-3xl md:text-4xl" style={{ color: 'hsl(var(--g2k-fg-primary))' }}>
+                        Notes from the Field
+                    </h2>
+                </div>
+                <p className="text-g2k-fg-secondary max-w-2xl mx-auto">
+                    Experiments, learnings, and the occasional working solution. Written from the workshop floor.
+                </p>
             </div>
 
             {/* Post cards */}
