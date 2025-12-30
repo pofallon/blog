@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
-import { Inter, JetBrains_Mono, Irish_Grover, Lexend } from 'next/font/google';
+import { Inter, JetBrains_Mono, Righteous, Lexend } from 'next/font/google';
 import { ConditionalHeader } from '@/components/ConditionalHeader';
 import AboutFooter from '@/components/AboutFooter';
 import { ThemeProvider } from '@/components/theme-provider';
@@ -21,7 +21,7 @@ const jetBrains = JetBrains_Mono({
   display: 'swap',
 });
 
-const irishGrover = Irish_Grover({
+const righteous = Righteous({
   weight: '400',
   subsets: ['latin'],
   variable: '--font-brand',
@@ -72,7 +72,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${jetBrains.variable} ${irishGrover.variable} ${lexend.variable} bg-background text-foreground`}>
+      <body className={`${inter.variable} ${jetBrains.variable} ${righteous.variable} ${lexend.variable} bg-background text-foreground`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
