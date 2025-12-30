@@ -31,7 +31,7 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover transition-transform duration-300 group-hover:scale-105"
               placeholder={post.heroImage.blurDataURL ? 'blur' : 'empty'}
-              blurDataURL={post.heroImage.blurDataURL}
+              {...(post.heroImage.blurDataURL && { blurDataURL: post.heroImage.blurDataURL })}
             />
           </div>
         )}

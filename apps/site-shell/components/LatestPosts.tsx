@@ -46,7 +46,7 @@ export function LatestPosts({ posts }: LatestPostsProps) {
                                         sizes="(max-width: 768px) 100vw, 50vw"
                                         className="object-cover transition-transform duration-300 group-hover:scale-105"
                                         placeholder={post.heroImage.blurDataURL ? 'blur' : 'empty'}
-                                        blurDataURL={post.heroImage.blurDataURL}
+                                        {...(post.heroImage.blurDataURL && { blurDataURL: post.heroImage.blurDataURL })}
                                     />
                                 </div>
                             ) : (

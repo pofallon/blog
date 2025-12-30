@@ -68,7 +68,7 @@ export function FeaturedProjects() {
           The Gang of Four
         </h2>
         <p className="text-g2k-fg-secondary max-w-2xl mx-auto">
-          Four open source projects, each with their own personality. Click to explore the workshops where ideas become artifacts.
+          Four open source projects, each with their own personality. Click to explore the workshops where ideas come to life.
         </p>
       </div>
 

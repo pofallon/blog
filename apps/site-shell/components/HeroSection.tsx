@@ -12,8 +12,8 @@ interface HeroSectionProps {
 
 export function HeroSection({
   siteName = "Paul O'Fallon",
-  tagline = 'Building open source at get2know.io',
-  subheading = 'Robot mascots. Countless experiments. A workshop where ideas become artifacts.',
+  tagline = 'Learning out loud at get2know.io',
+  subheading = 'Robot mascots. Endless curiosity. A workshop where ideas come to life.',
 }: HeroSectionProps) {
   const [scrollY, setScrollY] = useState(0);
 

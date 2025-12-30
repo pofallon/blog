@@ -2,7 +2,10 @@
 title: 'Playlist: re:Invent 2019'
 date: 2020-05-02
 description: "Bringing together the 2019 re:Invent videos in one place!"
-image: './reinvent.png'
+hero:
+  src: "reinvent.png"
+  alt: "AWS re:Invent 2019 conference"
+  caption: "re:Invent 2019 video playlists"
 playlists:
   - { name: alexa, id: PL2yQDdvlhXf8d-EXLaKIt-naTcllN5Gzt }
   - { name: analytics, id: PL2yQDdvlhXf8xDhf0MLJbercENCI6s_8y }
@@ -33,12 +36,6 @@ playlists:
   - { name: windows, id: PL2yQDdvlhXf-lgTJbecT5VNCGa1aejdU9 }
 ---
 
-AWS does a great job sharing content from their yearly [re:Invent conference](https://reinvent.awsevents.com).  However, it's difficult to find this content in one (easily searchable) place.  This page is built with the help of the [gatsby-transformer-playlists](https://github.com/pofallon/gatsby-transformer-playlists) plugin.  Enjoy!
+AWS does a great job sharing content from their yearly [re:Invent conference](https://reinvent.awsevents.com). However, it's difficult to find this content in one easily searchable place.
 
-<div>
-  { Object.values(props.playlists).map(p =>
-    <ReinventProcessor playlist={p}>
-      <Playlist />
-    </ReinventProcessor>
-  ) }
-</div>
+*Note: This post originally featured embedded YouTube playlists from the 2019 conference. The playlist functionality has been retired.*

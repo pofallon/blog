@@ -73,7 +73,7 @@ export function HeroImage({
           sizes={HERO_SIZES}
           // Blur placeholder for perceived performance
           placeholder={blurDataURL ? 'blur' : 'empty'}
-          blurDataURL={blurDataURL}
+          {...(blurDataURL && { blurDataURL })}
           className="object-cover w-full h-full"
           style={{
             objectPosition: focalPoint || IMAGE_CONFIG.defaultFocalPoint,
