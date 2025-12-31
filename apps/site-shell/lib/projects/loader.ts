@@ -98,6 +98,9 @@ function loadProjects(): Project[] {
         type: l.type,
       })),
     };
+    if (p.status) {
+      project.status = p.status as Project['status'];
+    }
     if (p.image) {
       project.image = p.image;
     }

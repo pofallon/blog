@@ -16,6 +16,8 @@ export const projectImageSchema = z.object({
   alt: z.string().min(1, 'Image alt text is required'),
 });
 
+export const projectStatusSchema = z.enum(['ready', 'in-progress', 'coming-soon']);
+
 export const projectSchema = z.object({
   slug: z
     .string()
@@ -25,6 +27,7 @@ export const projectSchema = z.object({
       'Slug must be lowercase kebab-case (e.g., my-project)'
     ),
   name: z.string().min(1, 'Project name is required'),
+  status: projectStatusSchema.optional(),
   summary: z.string().min(1, 'Summary is required'),
   details: z.string().min(1, 'Details are required'),
   tags: z.array(z.string().min(1)).min(1, 'At least one tag is required'),

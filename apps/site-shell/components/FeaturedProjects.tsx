@@ -3,50 +3,58 @@
 import Link from 'next/link';
 import { Code2, Zap, Settings, Radio } from 'lucide-react';
 
+type ProjectStatus = 'ready' | 'in-progress' | 'coming-soon';
+
+const statusConfig: Record<ProjectStatus, { label: string; opacity: number }> = {
+  'ready': { label: 'Give it a Try!', opacity: 1 },
+  'in-progress': { label: 'In Progress', opacity: 0.85 },
+  'coming-soon': { label: 'Coming Soon', opacity: 0.7 },
+};
+
 const projects = [
   {
     id: 'remo',
     name: 'Remo',
     slug: 'remo',
-    description: 'A distributed task execution framework for building resilient automation pipelines.',
+    description: 'Automated cloud dev server provisioning with DevContainers and persistent sessions.',
     color: 'g2k-teal',
     glowColor: 'rgba(var(--g2k-teal), 0.3)',
     icon: Code2,
-    tags: ['Python', 'Distributed', 'CLI'],
-    // Robot: Alpha (weathered tank-like robot)
+    tags: ['Ansible', 'Hetzner', 'DevContainers'],
+    status: 'ready' as ProjectStatus,
   },
   {
     id: 'maverick',
     name: 'Maverick',
     slug: 'maverick',
-    description: 'Infrastructure automation toolkit designed for pragmatic DevOps workflows.',
+    description: 'AI-powered development workflow orchestration using autonomous Claude agents.',
     color: 'g2k-brass',
     glowColor: 'rgba(var(--g2k-brass), 0.3)',
     icon: Settings,
-    tags: ['Ansible', 'DevOps', 'Automation'],
-    // Robot: Beta (pilot with gear)
+    tags: ['Python', 'Claude AI', 'CLI'],
+    status: 'in-progress' as ProjectStatus,
   },
   {
     id: 'deacon',
     name: 'Deacon',
     slug: 'deacon',
-    description: 'Real-time data streaming platform for event-driven architectures.',
+    description: 'Fast, lightweight Rust implementation of the DevContainer CLI.',
     color: 'g2k-robot-delta',
     glowColor: 'rgba(var(--g2k-robot-delta), 0.3)',
     icon: Zap,
-    tags: ['Streaming', 'Events', 'Real-time'],
-    // Robot: Gamma (sleek blue robot)
+    tags: ['Rust', 'DevContainers', 'CLI'],
+    status: 'in-progress' as ProjectStatus,
   },
   {
     id: 'newcleus',
     name: 'Newcleus',
     slug: 'newcleus',
-    description: 'Modular application framework for building scalable microservices.',
+    description: "It's a wiki wiki wiki wiki...",
     color: 'g2k-coral',
     glowColor: 'rgba(var(--g2k-coral), 0.3)',
     icon: Radio,
-    tags: ['Microservices', 'Framework', 'Node.js'],
-    // Robot: Delta (round robot)
+    tags: ['Node.js', 'TypeScript'],
+    status: 'coming-soon' as ProjectStatus,
   },
 ];
 
@@ -76,16 +84,57 @@ export function FeaturedProjects() {
       <div className="grid gap-5 md:grid-cols-2 lg:gap-6">
         {projects.map((project, index) => {
           const Icon = project.icon;
+          const status = statusConfig[project.status];
           return (
             <Link
               key={project.id}
-              href={`/projects#${project.slug}`}
-              className="group relative block rounded-2xl border-[1.5px] border-shell-border bg-g2k-bg-raised p-6 transition-all duration-300 hover:-translate-y-1 animate-fadeInUp"
+              href={`/projects/${project.slug}`}
+              className="group relative block rounded-2xl border-[1.5px] border-shell-border bg-g2k-bg-raised p-6 transition-all duration-300 hover:-translate-y-1 animate-fadeInUp overflow-hidden"
               style={{
                 boxShadow: 'var(--g2k-shadow-sm), var(--g2k-shadow-inset)',
                 animationDelay: `${0.1 + index * 0.1}s`,
               }}
             >
+              {/* Status Badge - Industrial workshop plate style */}
+              <div
+                className="absolute -top-1 -right-1 z-20 pointer-events-none"
+                style={{ opacity: status.opacity }}
+              >
+                <div
+                  className="relative px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider rotate-3 origin-top-right"
+                  style={{
+                    color: `hsl(var(--${project.color}))`,
+                    background: `linear-gradient(135deg, hsl(var(--g2k-bg-sunken)) 0%, hsl(var(--g2k-bg-base)) 100%)`,
+                    border: `1px solid hsl(var(--${project.color}) / 0.4)`,
+                    borderRadius: '0 12px 0 8px',
+                    boxShadow: `
+                      inset 0 1px 0 hsl(0 0% 100% / 0.05),
+                      inset 0 -1px 2px hsl(var(--g2k-shadow-color) / 0.2),
+                      0 2px 4px hsl(var(--g2k-shadow-color) / 0.3)
+                    `,
+                  }}
+                >
+                  {/* Embossed inner highlight */}
+                  <span
+                    className="absolute inset-0 rounded-[inherit] pointer-events-none"
+                    style={{
+                      background: `linear-gradient(180deg, hsl(var(--${project.color}) / 0.08) 0%, transparent 50%)`,
+                    }}
+                    aria-hidden="true"
+                  />
+                  {/* Subtle corner rivet */}
+                  <span
+                    className="absolute top-1 left-1 w-1 h-1 rounded-full"
+                    style={{
+                      background: `hsl(var(--${project.color}) / 0.5)`,
+                      boxShadow: `inset 0 0.5px 0 hsl(0 0% 100% / 0.3)`,
+                    }}
+                    aria-hidden="true"
+                  />
+                  <span className="relative">{status.label}</span>
+                </div>
+              </div>
+
               {/* Hover glow effect */}
               <div
                 className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"
@@ -131,7 +180,7 @@ export function FeaturedProjects() {
 
                   {/* Arrow indicator */}
                   <span
-                    className="text-g2k-fg-muted/40 group-hover:text-g2k-fg-primary group-hover:translate-x-1 transition-all duration-300"
+                    className="text-g2k-fg-muted/40 group-hover:text-g2k-fg-primary group-hover:translate-x-1 transition-all duration-300 mt-6"
                     aria-hidden="true"
                   >
                     →

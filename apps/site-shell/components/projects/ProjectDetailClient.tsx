@@ -5,15 +5,20 @@
  * @see /specs/010-projects-section/contracts/routes.md
  */
 
+import type { ReactNode } from 'react';
 import type { ProjectDetailModel } from '@/lib/projects/types';
 import ProjectDetail from './ProjectDetail';
 import { trackProjectLinkClick } from '@/lib/projects/analytics';
 
 interface ProjectDetailClientProps {
   project: ProjectDetailModel;
+  children?: ReactNode; // Server-rendered MDX content
 }
 
-export default function ProjectDetailClient({ project }: ProjectDetailClientProps) {
+export default function ProjectDetailClient({
+  project,
+  children,
+}: ProjectDetailClientProps) {
   const handlePrimaryClick = () => {
     if (project.primaryLink) {
       trackProjectLinkClick(
@@ -25,5 +30,9 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
     }
   };
 
-  return <ProjectDetail project={project} onPrimaryClick={handlePrimaryClick} />;
+  return (
+    <ProjectDetail project={project} onPrimaryClick={handlePrimaryClick}>
+      {children}
+    </ProjectDetail>
+  );
 }

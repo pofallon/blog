@@ -4,6 +4,11 @@
  */
 
 /**
+ * Project development status
+ */
+export type ProjectStatus = 'ready' | 'in-progress' | 'coming-soon';
+
+/**
  * External resource link associated with a project
  */
 export interface ProjectLink {
@@ -26,6 +31,7 @@ export interface ProjectImage {
 export interface Project {
   slug: string;
   name: string;
+  status?: ProjectStatus;
   summary: string;
   details: string;
   tags: string[];

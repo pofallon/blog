@@ -10,6 +10,8 @@ import {
   toDetailModel,
 } from '@/lib/projects/loader';
 import ProjectDetailClient from '@/components/projects/ProjectDetailClient';
+import ProjectDetailContent from '@/components/projects/ProjectDetailContent';
+import { getProjectColor } from '@/lib/projects/colors';
 import ProjectNotFound from '@/components/projects/ProjectNotFound';
 import { buildPageMetadata } from '@/lib/seo';
 
@@ -55,10 +57,14 @@ export default async function ProjectPage({ params }: PageParams) {
   }
 
   const detailModel = toDetailModel(project);
+  const colorVar = getProjectColor(slug);
 
   return (
     <main className="space-y-6">
-      <ProjectDetailClient project={detailModel} />
+      <ProjectDetailClient project={detailModel}>
+        {/* MDX content rendered server-side */}
+        <ProjectDetailContent content={project.details} colorVar={colorVar} />
+      </ProjectDetailClient>
     </main>
   );
 }
