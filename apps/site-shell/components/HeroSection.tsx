@@ -111,7 +111,7 @@ export function HeroSection({
                 boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
               }}
             >
-              Agentic Architect & Open Source Maker
+              Agentic Architect & Open Source Creator
             </p>
 
             <h1

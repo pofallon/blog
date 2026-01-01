@@ -58,7 +58,7 @@ export default function AboutFooter({ footer, links }: AboutFooterProps) {
           </div>
 
           <h2 className="font-brand text-2xl text-g2k-fg-primary mb-1">Paul O'Fallon</h2>
-          <p className="text-sm text-g2k-brass mb-4">Agentic Architect • Open Source Maker</p>
+          <p className="text-sm text-g2k-brass mb-4">Agentic Architect • Open Source Creator</p>
 
           {/* Social links */}
           {footer.social && footer.social.length > 0 && (
@@ -159,7 +159,7 @@ export default function AboutFooter({ footer, links }: AboutFooterProps) {
       {/* Bottom tagline */}
       <div className="mt-10 pt-6 border-t border-border/50 text-center">
         <p className="text-sm text-g2k-fg-muted">
-          Still building. Still curious. Still shipping.
+          Still curious. Still learning. Still building.
         </p>
       </div>
     </footer>
