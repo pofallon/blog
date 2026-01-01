@@ -14,7 +14,7 @@ type HeaderProps = {
 export default function Header({
   brandName,
   links,
-  tagline = 'Still curious. Still learning. Still building.',
+  tagline = 'Still curious. Still learning. Still creating.',
   isFirstReveal = false,
 }: HeaderProps) {
   // Enhanced styling for first reveal on homepage

@@ -159,7 +159,7 @@ export default function AboutFooter({ footer, links }: AboutFooterProps) {
       {/* Bottom tagline */}
       <div className="mt-10 pt-6 border-t border-border/50 text-center">
         <p className="text-sm text-g2k-fg-muted">
-          Still curious. Still learning. Still building.
+          Still curious. Still learning. Still creating.
         </p>
       </div>
     </footer>
