@@ -10,6 +10,7 @@ import type {
   Project,
   ProjectCardModel,
   ProjectDetailModel,
+  ProjectStatus,
 } from './types';
 
 const PROJECTS_FILE = join(process.cwd(), '../../content/projects.json');
@@ -97,13 +98,9 @@ function loadProjects(): Project[] {
         url: l.url,
         type: l.type,
       })),
+      ...(p.status && { status: p.status as ProjectStatus }),
+      ...(p.image && { image: p.image }),
     };
-    if (p.status) {
-      project.status = p.status as Project['status'];
-    }
-    if (p.image) {
-      project.image = p.image;
-    }
     return project;
   });
   return cachedProjects;
