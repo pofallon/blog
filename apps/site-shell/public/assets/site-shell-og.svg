@@ -1,0 +1,19 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="shellGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#f97316" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#020617" />
+  <rect x="80" y="80" width="1040" height="470" rx="48" fill="url(#shellGradient)" opacity="0.2" />
+  <text x="120" y="200" font-family="Inter, 'Segoe UI', sans-serif" font-size="56" font-weight="700" fill="#f8fafc">
+    Get2Know Site Shell
+  </text>
+  <text x="120" y="270" font-family="Inter, 'Segoe UI', sans-serif" font-size="32" fill="#e2e8f0">
+    Consistent navigation and placeholders for the migration team.
+  </text>
+  <text x="120" y="340" font-family="Inter, 'Segoe UI', sans-serif" font-size="24" fill="#fef3c7">
+    routes: /, /blog, /projects, /merch
+  </text>
+</svg>

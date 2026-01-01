@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hero Image Composition Mockup</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #1a1a2e;
+      color: #e0e0e0;
+      min-height: 100vh;
+      padding: 40px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+      color: #d4a853;
+      font-size: 1.5rem;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #888;
+      margin-bottom: 40px;
+      font-size: 0.9rem;
+    }
+
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .panel {
+      background: #252542;
+      border-radius: 16px;
+      padding: 24px;
+      border: 1px solid #3a3a5c;
+    }
+
+    .panel h2 {
+      font-size: 1rem;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .panel h2 .badge {
+      font-size: 0.65rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .badge.current { background: #dc3545; }
+    .badge.proposed { background: #28a745; }
+
+    .panel p {
+      font-size: 0.8rem;
+      color: #999;
+      margin-bottom: 20px;
+    }
+
+    .frame {
+      position: relative;
+      background: #1a1a2e;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .frame.current {
+      aspect-ratio: 16/9;
+    }
+
+    .frame.proposed {
+      aspect-ratio: 3/4;
+    }
+
+    /* Current layout representation */
+    .current-robots {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      width: 100%;
+      justify-content: center;
+      padding: 0 20px;
+    }
+
+    .robot {
+      border-radius: 8px 8px 0 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      position: relative;
+      transition: all 0.3s;
+    }
+
+    .robot .label {
+      position: absolute;
+      bottom: 8px;
+      font-size: 0.6rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.8);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Current robots - spread out, same depth */
+    .current-robots .robot.rust {
+      width: 22%;
+      height: 70%;
+      background: linear-gradient(180deg, #8b6914 0%, #6b4f0f 100%);
+    }
+
+    .current-robots .robot.blue {
+      width: 18%;
+      height: 65%;
+      background: linear-gradient(180deg, #4a90a4 0%, #2d5a6b 100%);
+    }
+
+    .current-robots .robot.worker {
+      width: 16%;
+      height: 50%;
+      background: linear-gradient(180deg, #7a8b8c 0%, #4a5859 100%);
+    }
+
+    .current-robots .robot.dome {
+      width: 14%;
+      height: 45%;
+      background: linear-gradient(180deg, #9a9a7a 0%, #6a6a5a 100%);
+      margin-right: -30px; /* Clipped off edge */
+    }
+
+    /* Proposed layout - tighter, depth hierarchy */
+    .proposed-robots {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 85%;
+      height: 90%;
+    }
+
+    .proposed-robots .robot {
+      position: absolute;
+      bottom: 0;
+    }
+
+    /* Rust robot - HERO, front and center-left */
+    .proposed-robots .robot.rust {
+      width: 45%;
+      height: 85%;
+      background: linear-gradient(180deg, #8b6914 0%, #6b4f0f 100%);
+      left: 5%;
+      z-index: 4;
+      box-shadow: 0 0 40px rgba(139, 105, 20, 0.3);
+    }
+
+    /* Blue robot - second prominence, behind right */
+    .proposed-robots .robot.blue {
+      width: 38%;
+      height: 75%;
+      background: linear-gradient(180deg, #4a90a4 0%, #2d5a6b 100%);
+      right: 8%;
+      z-index: 3;
+      opacity: 0.95;
+    }
+
+    /* Worker robot - mid-ground, tucked between */
+    .proposed-robots .robot.worker {
+      width: 28%;
+      height: 55%;
+      background: linear-gradient(180deg, #7a8b8c 0%, #4a5859 100%);
+      left: 38%;
+      z-index: 2;
+      opacity: 0.9;
+    }
+
+    /* Dome robot - background, peeking */
+    .proposed-robots .robot.dome {
+      width: 22%;
+      height: 40%;
+      background: linear-gradient(180deg, #9a9a7a 0%, #6a6a5a 100%);
+      right: 15%;
+      z-index: 1;
+      opacity: 0.85;
+    }
+
+    /* Annotations */
+    .annotation {
+      position: absolute;
+      font-size: 0.65rem;
+      color: #d4a853;
+      background: rgba(212, 168, 83, 0.15);
+      padding: 4px 8px;
+      border-radius: 4px;
+      border: 1px dashed #d4a853;
+      white-space: nowrap;
+    }
+
+    .issue {
+      color: #dc3545;
+      background: rgba(220, 53, 69, 0.15);
+      border-color: #dc3545;
+    }
+
+    .frame.current .annotation.a1 { top: 10px; left: 10px; }
+    .frame.current .annotation.a2 { top: 10px; right: 10px; }
+    .frame.current .annotation.a3 { bottom: 40%; right: -5px; }
+
+    .frame.proposed .annotation.a1 { top: 10px; left: 10px; }
+    .frame.proposed .annotation.a2 { top: 10px; right: 10px; }
+    .frame.proposed .annotation.a3 { bottom: 30%; left: 10px; }
+    .frame.proposed .annotation.a4 { bottom: 10%; right: 10px; }
+
+    /* Aspect ratio indicators */
+    .aspect-indicator {
+      position: absolute;
+      top: 50%;
+      right: -60px;
+      transform: translateY(-50%) rotate(90deg);
+      font-size: 0.7rem;
+      color: #666;
+      white-space: nowrap;
+    }
+
+    /* Legend */
+    .legend {
+      margin-top: 40px;
+      padding: 20px;
+      background: #252542;
+      border-radius: 12px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .legend h3 {
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+      color: #d4a853;
+    }
+
+    .legend-items {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.75rem;
+    }
+
+    .legend-item .swatch {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+    }
+
+    .swatch.rust { background: linear-gradient(180deg, #8b6914 0%, #6b4f0f 100%); }
+    .swatch.blue { background: linear-gradient(180deg, #4a90a4 0%, #2d5a6b 100%); }
+    .swatch.worker { background: linear-gradient(180deg, #7a8b8c 0%, #4a5859 100%); }
+    .swatch.dome { background: linear-gradient(180deg, #9a9a7a 0%, #6a6a5a 100%); }
+
+    /* Key changes list */
+    .changes {
+      margin-top: 40px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .changes h3 {
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+      color: #28a745;
+    }
+
+    .changes ul {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .changes li {
+      font-size: 0.8rem;
+      padding: 8px 12px;
+      background: rgba(40, 167, 69, 0.1);
+      border-radius: 6px;
+      border-left: 3px solid #28a745;
+    }
+  </style>
+</head>
+<body>
+  <h1>Hero Image Composition Mockup</h1>
+  <p class="subtitle">Comparing current layout vs. proposed recomposition</p>
+
+  <div class="comparison">
+    <!-- Current Layout -->
+    <div class="panel">
+      <h2>
+        <span class="badge current">CURRENT</span>
+        Wide Landscape (16:9-ish)
+      </h2>
+      <p>Robots spread horizontally, equal visual weight, edge clipping</p>
+
+      <div class="frame current">
+        <div class="current-robots">
+          <div class="robot rust"><span class="label">Rust</span></div>
+          <div class="robot blue"><span class="label">Blue</span></div>
+          <div class="robot worker"><span class="label">Worker</span></div>
+          <div class="robot dome"><span class="label">Dome</span></div>
+        </div>
+
+        <span class="annotation issue a1">⚠️ Wasted space</span>
+        <span class="annotation issue a2">⚠️ Empty corner</span>
+        <span class="annotation issue a3">⚠️ Clipped!</span>
+      </div>
+    </div>
+
+    <!-- Proposed Layout -->
+    <div class="panel">
+      <h2>
+        <span class="badge proposed">PROPOSED</span>
+        Vertical Portrait (3:4)
+      </h2>
+      <p>Layered depth, clear hero (Rust), tighter grouping, nothing clipped</p>
+
+      <div class="frame proposed">
+        <div class="proposed-robots">
+          <div class="robot rust"><span class="label">Hero</span></div>
+          <div class="robot blue"><span class="label">2nd</span></div>
+          <div class="robot worker"><span class="label">Mid</span></div>
+          <div class="robot dome"><span class="label">Back</span></div>
+        </div>
+
+        <span class="annotation a1">✓ Full frame used</span>
+        <span class="annotation a2">✓ Natural hierarchy</span>
+        <span class="annotation a3">✓ Rust = anchor</span>
+        <span class="annotation a4">✓ Depth layers</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <h3>Robot Identification</h3>
+    <div class="legend-items">
+      <div class="legend-item">
+        <div class="swatch rust"></div>
+        <span>Rust (tall, vintage)</span>
+      </div>
+      <div class="legend-item">
+        <div class="swatch blue"></div>
+        <span>Blue (humanoid)</span>
+      </div>
+      <div class="legend-item">
+        <div class="swatch worker"></div>
+        <span>Worker (utility)</span>
+      </div>
+      <div class="legend-item">
+        <div class="swatch dome"></div>
+        <span>Dome (stickers)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="changes">
+    <h3>Key Composition Changes</h3>
+    <ul>
+      <li><strong>Aspect ratio:</strong> 16:9 → 3:4 (vertical)</li>
+      <li><strong>Rust robot:</strong> 85% height, front-left anchor</li>
+      <li><strong>Blue robot:</strong> 75% height, rear-right</li>
+      <li><strong>Worker robot:</strong> 55% height, mid-ground center</li>
+      <li><strong>Dome robot:</strong> 40% height, background peek</li>
+      <li><strong>Overlap:</strong> Shoulders touch, creates unity</li>
+      <li><strong>Z-depth:</strong> 4 distinct layers with opacity fade</li>
+      <li><strong>Crop:</strong> All robots fully visible, no edge clips</li>
+    </ul>
+  </div>
+</body>
+</html>
