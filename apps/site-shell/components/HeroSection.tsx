@@ -12,7 +12,7 @@ interface HeroSectionProps {
 
 export function HeroSection({
   siteName = "Paul O'Fallon",
-  tagline = 'Learning out loud at get2know.io',
+  tagline = 'Learning out loud',
   subheading = 'Robot mascots. Endless curiosity. A workshop where ideas come to life.',
 }: HeroSectionProps) {
   const [scrollY, setScrollY] = useState(0);
@@ -160,15 +160,15 @@ export function HeroSection({
             </div>
           </div>
 
-          {/* Robot gang image - Large and Overlapping */}
+          {/* Robot gang image - Vertical composition */}
           <div
-            className="w-full lg:w-2/3 mt-12 lg:mt-0 lg:absolute lg:-right-32 lg:top-0 z-10 pointer-events-none select-none"
+            className="w-full lg:w-1/2 mt-12 lg:mt-0 lg:absolute lg:-right-16 lg:top-0 z-10 pointer-events-none select-none"
             style={{
               transform: `translateY(${scrollY * 0.08}px)`,
               transition: 'transform 0.05s linear'
             }}
           >
-            <div className="relative w-full aspect-[4/3] lg:aspect-auto lg:h-[800px] flex items-center justify-center lg:justify-end">
+            <div className="relative w-full aspect-[9/10] lg:aspect-auto lg:h-[700px] flex items-center justify-center lg:justify-end">
 
               {/* Depth Glow */}
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4/5 h-4/5 bg-gradient-to-tr from-g2k-teal/30 via-g2k-brass/30 to-g2k-coral/30 blur-[100px] opacity-40 animate-pulse duration-[10s]" />
@@ -176,13 +176,13 @@ export function HeroSection({
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/images/robots/gang_of_four.png"
-                alt="The Gang of Four: Alpha, Beta, Gamma, and Delta robots"
-                className="relative z-10 w-full h-full object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] transform -rotate-2 scale-110 lg:scale-125 hover:rotate-0 transition-transform duration-1000 ease-in-out animate-fadeInScale"
+                alt="The Gang of Four: Remo, Maverick, Deacon, and Newcleus robots"
+                className="relative z-10 w-full h-full object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] hover:scale-[1.02] transition-transform duration-1000 ease-in-out animate-fadeInScale"
                 style={{
                   filter: 'drop-shadow(0 0 40px rgba(var(--g2k-brass), 0.2))',
                   animationDelay: '0.5s',
-                  maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%)',
-                  WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%)'
+                  maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%)',
+                  WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%)'
                 }}
               />
 

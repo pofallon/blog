@@ -1,6 +1,6 @@
 import type { NavigationLink, NavigationPath } from './types';
 
-const REQUIRED_PATHS: NavigationPath[] = ['/', '/blog', '/#gang-of-four', '/merch'];
+const REQUIRED_PATHS: NavigationPath[] = ['/', '/blog', '/#gang-of-four'];
 
 const NAVIGATION_LINKS: NavigationLink[] = [
   {
@@ -26,14 +26,6 @@ const NAVIGATION_LINKS: NavigationLink[] = [
     order: 2,
     isPrimary: true,
     iconName: 'folder-kanban',
-  },
-  {
-    label: 'Merch',
-    path: '/merch',
-    description: 'Tangible artifacts for fellow curious minds.',
-    order: 3,
-    isPrimary: false,
-    iconName: 'shopping-bag',
   },
 ];
 
