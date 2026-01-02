@@ -118,13 +118,13 @@ export default function ProjectDetail({
           <Image
             src={project.image.src}
             alt={project.image.alt}
-            width={800}
-            height={400}
+            width={1920}
+            height={1080}
             className="w-full h-auto object-cover"
           />
         ) : (
           <div
-            className="w-full h-48 flex items-center justify-center"
+            className="w-full aspect-video flex items-center justify-center"
             style={{ backgroundColor: 'hsl(var(--g2k-bg-sunken))' }}
           >
             <div className="text-center">
