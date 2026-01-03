@@ -107,22 +107,24 @@ export default function ProjectDetail({
       </header>
 
       {/* Image or placeholder */}
-      <div
-        className="rounded-2xl overflow-hidden"
-        style={{
-          border: '1.5px solid hsl(var(--g2k-border))',
-          boxShadow: 'var(--g2k-shadow-md), var(--g2k-shadow-inset)',
-        }}
-      >
-        {project.image ? (
+      {project.image ? (
+        <div className="aspect-video relative rounded-2xl overflow-hidden">
           <Image
             src={project.image.src}
             alt={project.image.alt}
-            width={1920}
-            height={1080}
-            className="w-full h-auto object-cover"
+            fill
+            className="object-cover"
+            unoptimized
           />
-        ) : (
+        </div>
+      ) : (
+        <div
+          className="rounded-2xl overflow-hidden"
+          style={{
+            border: '1.5px solid hsl(var(--g2k-border))',
+            boxShadow: 'var(--g2k-shadow-md), var(--g2k-shadow-inset)',
+          }}
+        >
           <div
             className="w-full aspect-video flex items-center justify-center"
             style={{ backgroundColor: 'hsl(var(--g2k-bg-sunken))' }}
@@ -155,8 +157,8 @@ export default function ProjectDetail({
               </span>
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
 
       {/* Server-rendered MDX content passed as children */}
       {children}
