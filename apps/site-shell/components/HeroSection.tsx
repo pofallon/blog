@@ -103,7 +103,7 @@ export function HeroSection({
           >
             {/* Eyebrow */}
             <p
-              className="text-xs md:text-sm uppercase tracking-[0.3em] text-g2k-fg-muted mb-6 font-medium inline-block px-3 py-1 rounded border animate-fadeInUp transition-all duration-300 hover:scale-105 whitespace-nowrap"
+              className="text-xs md:text-sm uppercase tracking-[0.3em] text-g2k-fg-muted mb-6 font-medium inline-block px-3 py-1 rounded border animate-fadeInUp transition-all duration-300 hover:scale-105 md:whitespace-nowrap"
               style={{
                 animationDelay: '0.1s',
                 background: 'rgba(255, 255, 255, 0.05)',
@@ -116,7 +116,7 @@ export function HeroSection({
             </p>
 
             <h1
-              className="g2k-hero-title leading-[0.9] !text-[clamp(3.5rem,12vw,6.5rem)] mb-4 -ml-1 drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] animate-fadeInUp whitespace-nowrap"
+              className="g2k-hero-title leading-[0.9] !text-[clamp(3.5rem,12vw,6.5rem)] mb-4 -ml-1 drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] animate-fadeInUp md:whitespace-nowrap"
               style={{ animationDelay: '0.3s' }}
             >
               {siteName}
