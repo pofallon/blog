@@ -133,16 +133,19 @@
     /* Foreground / Text - warm, readable */
     --g2k-fg-primary: 35 25% 92%;
     --g2k-fg-secondary: 30 12% 68%;
-    --g2k-fg-muted: 220 10% 45%;
+    --g2k-fg-muted: 220 10% 58%;
 
     /* Brand colors - rich, not neon */
     --g2k-brass: 43 55% 50%;
     --g2k-brass-shine: 45 60% 58%;
     --g2k-copper: 28 50% 45%;
-    --g2k-teal: 178 35% 38%;
+    --g2k-teal: 178 35% 48%;
     --g2k-teal-oxidized: 180 30% 50%;
     --g2k-coral: 12 65% 60%;
     --g2k-coral-faded: 12 55% 72%;
+
+    /* Robot accent colors - override for dark mode contrast */
+    --g2k-robot-delta: 252 76% 75%;
 
     /* Semantic colors - muted for dark */
     --g2k-success: 150 45% 42%;

@@ -56,7 +56,7 @@ export function LatestPosts({ posts }: LatestPostsProps) {
                             )}
 
                             <div className="flex items-start justify-between gap-3 mb-2">
-                                <p className="text-xs font-medium text-g2k-fg-muted/60 uppercase tracking-wider">
+                                <p className="text-xs font-medium text-g2k-fg-muted uppercase tracking-wider">
                                     {post.formattedDate}
                                 </p>
                                 {/* Subtle directional hint */}
@@ -84,7 +84,7 @@ export function LatestPosts({ posts }: LatestPostsProps) {
             <div className="mt-6 text-center">
                 <Link
                     href="/blog"
-                    className="text-xs text-g2k-fg-muted/60 hover:text-g2k-brass transition-colors duration-150 inline-flex items-center gap-1"
+                    className="text-xs text-g2k-fg-muted hover:text-g2k-brass transition-colors duration-150 inline-flex items-center gap-1"
                 >
                     View all posts <span aria-hidden="true">→</span>
                 </Link>

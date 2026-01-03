@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { Cog } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
@@ -173,10 +174,12 @@ export function HeroSection({
               {/* Depth Glow */}
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4/5 h-4/5 bg-gradient-to-tr from-g2k-teal/30 via-g2k-brass/30 to-g2k-coral/30 blur-[100px] opacity-40 animate-pulse duration-[10s]" />
 
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src="/images/robots/gang_of_four.png"
                 alt="The Gang of Four: Remo, Maverick, Deacon, and Newcleus robots"
+                width={1705}
+                height={1923}
+                priority
                 className="relative z-10 w-full h-full object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] hover:scale-[1.02] transition-transform duration-1000 ease-in-out animate-fadeInScale"
                 style={{
                   filter: 'drop-shadow(0 0 40px rgba(var(--g2k-brass), 0.2))',
