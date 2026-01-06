@@ -14,11 +14,7 @@ const currentYear = new Date().getFullYear().toString();
 
 const footerContent: FooterContent = {
   text: `© ${currentYear} ${BRAND_NAME}. All rights reserved.`,
-  links: [
-    { label: 'Contact', href: 'mailto:hello@get2know.io' },
-    { label: 'Status', href: 'https://status.get2know.io' },
-    { label: 'Privacy', href: 'https://get2know.io/privacy' },
-  ],
+  links: [],
   social: [
     { label: 'GitHub', href: 'https://github.com/pofallon' },
     { label: 'LinkedIn', href: 'https://www.linkedin.com/in/pofallon/' },

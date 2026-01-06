@@ -43,18 +43,15 @@ export default function AboutFooter({ footer, links }: AboutFooterProps) {
       <div className="grid gap-8 md:grid-cols-[200px_1fr] md:gap-12 lg:gap-16">
         {/* Left column: Avatar and name */}
         <div className="flex flex-col items-center md:items-start">
-          {/* Avatar placeholder - replace with actual image */}
+          {/* Avatar */}
           <div className="w-40 h-40 rounded-2xl bg-gradient-to-br from-g2k-brass/20 to-g2k-teal/20 border-2 border-g2k-border mb-4 flex items-center justify-center overflow-hidden">
-            <div className="text-6xl text-g2k-fg-muted/30 font-brand">P</div>
-            {/* Replace with actual image:
             <Image
               src="/images/avatar.jpg"
-              alt="Paul's avatar"
+              alt="Paul O'Fallon"
               width={160}
               height={160}
-              className="object-cover"
+              className="object-cover w-full h-full"
             />
-            */}
           </div>
 
           <h2 className="font-brand text-2xl text-g2k-fg-primary mb-1">Paul O'Fallon</h2>

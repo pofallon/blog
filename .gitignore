@@ -106,3 +106,4 @@ dist
 # public/ - commented out for Next.js (static assets need to be tracked)
 .cache/
 .DS_Store
+.DS_Store
