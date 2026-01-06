@@ -91,15 +91,16 @@ export default function AboutFooter({ footer, links }: AboutFooterProps) {
 
             <div className="space-y-4 text-g2k-fg-secondary leading-relaxed">
               <p>
-                I build things at the intersection of infrastructure and application development.
-                The robots you see above aren't just decoration—they represent four ongoing projects,
-                each exploring different aspects of distributed systems, automation, and developer experience.
+                For over 30 years, I've been building things across the industry—spanning academia,
+                start-up, and massive enterprise environments. By day, I provide strategic direction
+                as a Sr. Principal Architect at Cox Automotive.
               </p>
 
               <p>
-                This workshop is where experiments happen. Some turn into production tools.
-                Others teach valuable lessons about what <em>not</em> to do. All of them push
-                the boundaries of what's possible when you combine curiosity with code.
+                But this workshop is where the personal experiments happen. The robots you see above
+                aren't just decoration—they represent ongoing projects exploring distributed systems
+                and developer experience. Whether I'm guiding enterprise architecture or tinkering
+                with code here, the goal is the same: pushing the boundaries of what's possible.
               </p>
 
               <p className="text-sm italic text-g2k-fg-muted">
