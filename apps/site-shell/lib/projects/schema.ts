@@ -1,5 +1,5 @@
 /**
- * Zod Validation Schemas for Projects
+ * Zod Validation Schemas for Project Frontmatter
  * @see /specs/010-projects-section/data-model.md
  */
 
@@ -7,52 +7,55 @@ import { z } from 'zod';
 
 export const projectLinkSchema = z.object({
   label: z.string().min(1, 'Link label is required'),
-  url: z.url('Invalid URL format'),
+  url: z.string().url('Invalid URL format'),
   type: z.enum(['primary', 'secondary']).optional().default('secondary'),
 });
 
-export const projectImageSchema = z.object({
-  src: z.string().min(1, 'Image src is required'),
-  alt: z.string().min(1, 'Image alt text is required'),
+export const projectHeroSchema = z.object({
+  src: z.string().min(1, 'Hero src is required'),
+  alt: z.string().min(1, 'Hero alt text is required'),
 });
 
 export const projectStatusSchema = z.enum(['ready', 'in-progress', 'coming-soon']);
 
-export const projectSchema = z.object({
-  slug: z
-    .string()
-    .min(1, 'Slug is required')
-    .regex(
-      /^[a-z0-9]+(-[a-z0-9]+)*$/,
-      'Slug must be lowercase kebab-case (e.g., my-project)'
-    ),
+/**
+ * Schema for project frontmatter (parsed from markdown files)
+ * Note: slug comes from folder name, details comes from markdown body
+ */
+export const projectFrontmatterSchema = z.object({
   name: z.string().min(1, 'Project name is required'),
   status: projectStatusSchema.optional(),
   summary: z.string().min(1, 'Summary is required'),
-  details: z.string().min(1, 'Details are required'),
   tags: z.array(z.string().min(1)).min(1, 'At least one tag is required'),
   links: z.array(projectLinkSchema).min(1, 'At least one link is required'),
-  image: projectImageSchema.optional(),
-});
-
-export const projectsDataSchema = z.object({
-  projects: z.array(projectSchema),
+  hero: projectHeroSchema.optional(),
+  order: z.number().int().optional(),
 });
 
 /**
- * Validate that all project slugs are unique
- * @param projects - Array of projects to validate
- * @returns Array of duplicate slug strings (empty if all unique)
+ * Validate slug format (kebab-case)
  */
-export function validateUniqueSlugs(
-  projects: z.infer<typeof projectSchema>[]
-): string[] {
-  const slugs = projects.map((p) => p.slug);
-  const duplicates = slugs.filter((slug, i) => slugs.indexOf(slug) !== i);
-  return [...new Set(duplicates)];
+export function isValidSlug(slug: string): boolean {
+  return /^[a-z0-9]+(-[a-z0-9]+)*$/.test(slug);
+}
+
+/**
+ * Format validation errors with clear, actionable messages
+ */
+export function formatValidationErrors(
+  issues: { path: PropertyKey[]; message: string }[]
+): string {
+  return issues
+    .map((issue) => {
+      const path = issue.path.map(String).join('.');
+      if (path.includes('url')) {
+        return `  - ${path}: ${issue.message}\n    Hint: URLs must include protocol (e.g., "https://...")`;
+      }
+      return `  - ${path}: ${issue.message}`;
+    })
+    .join('\n');
 }
 
 export type ProjectLinkSchema = z.infer<typeof projectLinkSchema>;
-export type ProjectImageSchema = z.infer<typeof projectImageSchema>;
-export type ProjectSchema = z.infer<typeof projectSchema>;
-export type ProjectsDataSchema = z.infer<typeof projectsDataSchema>;
+export type ProjectHeroSchema = z.infer<typeof projectHeroSchema>;
+export type ProjectFrontmatterSchema = z.infer<typeof projectFrontmatterSchema>;

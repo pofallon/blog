@@ -7,7 +7,7 @@
 'use client';
 
 import Image from 'next/image';
-import type { ProjectDetailModel, ProjectStatus } from '@/lib/projects/types';
+import type { ProjectDetailModel, ProjectStatus, ProcessedImage } from '@/lib/projects/types';
 import { getProjectColor } from '@/lib/projects/colors';
 import ProjectTags from './ProjectTags';
 import type { ReactNode } from 'react';
@@ -114,7 +114,10 @@ export default function ProjectDetail({
             alt={project.image.alt}
             fill
             className="object-cover"
-            unoptimized
+            {...(project.image.blurDataURL && {
+              placeholder: 'blur' as const,
+              blurDataURL: project.image.blurDataURL,
+            })}
           />
         </div>
       ) : (

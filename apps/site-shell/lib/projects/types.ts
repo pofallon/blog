@@ -4,6 +4,17 @@
  */
 
 /**
+ * Processed image ready for optimized display
+ */
+export interface ProcessedImage {
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+  blurDataURL?: string;
+}
+
+/**
  * Project development status
  */
 export type ProjectStatus = 'ready' | 'in-progress' | 'coming-soon';
@@ -18,9 +29,9 @@ export interface ProjectLink {
 }
 
 /**
- * Optional image metadata for project visuals
+ * Hero image metadata from frontmatter
  */
-export interface ProjectImage {
+export interface ProjectHero {
   src: string;
   alt: string;
 }
@@ -36,14 +47,11 @@ export interface Project {
   details: string;
   tags: string[];
   links: ProjectLink[];
-  image?: ProjectImage;
-}
-
-/**
- * Root data structure for projects.json
- */
-export interface ProjectsData {
-  projects: Project[];
+  hero?: ProjectHero;
+  /** Processed image with dimensions and blur placeholder */
+  image?: ProcessedImage;
+  /** Display order (lower numbers appear first) */
+  order?: number;
 }
 
 /**
