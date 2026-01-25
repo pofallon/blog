@@ -73,6 +73,94 @@ blog/
 - **`content/images/`**: Image assets used in blog posts
 - **`docs/`**: Project documentation for content authoring and structure
 
+## 🖼️ Image Guidelines
+
+This section documents recommended dimensions, file locations, and formats for all image types used across the site.
+
+### Blog Post Images
+
+Blog post images are stored in `content/images/<post-slug>/` where `<post-slug>` matches your post's folder name in `content/blog/`.
+
+| Image Type | Recommended Size | Aspect Ratio | Location |
+|------------|-----------------|--------------|----------|
+| Hero Image | 1920×1080px or larger | 16:9 | `content/images/<post-slug>/hero.jpg` |
+| Inline Images | 1200px wide max | Any | `content/images/<post-slug>/<name>.<ext>` |
+
+**Supported formats:** WebP (preferred), JPEG, PNG, GIF, AVIF, SVG
+
+**File size limit:** Under 500KB (build warns if larger)
+
+Example structure:
+```
+content/
+├── blog/
+│   └── my-post/
+│       └── index.md
+└── images/
+    └── my-post/
+        ├── hero.jpg          # Hero image (1920×1080+)
+        ├── screenshot.png    # Inline image (1200px wide)
+        └── diagram.svg       # Vector graphic
+```
+
+### Project Images
+
+Project banner images are stored in `content/images/projects/<project-slug>/`.
+
+| Image Type | Recommended Size | Aspect Ratio | Location |
+|------------|-----------------|--------------|----------|
+| Project Banner | 1920×1080px | 16:9 | `content/images/projects/<slug>/<name>_banner.jpg` |
+
+Example:
+```
+content/images/projects/
+├── maverick/
+│   └── maverick_banner.jpg
+└── deacon/
+    └── deacon_banner.jpg
+```
+
+### Social Sharing / Open Graph Images
+
+When sharing links on social media, the site uses hero images as Open Graph images.
+
+| Platform | Recommended Size | Notes |
+|----------|-----------------|-------|
+| Open Graph (Facebook, LinkedIn) | 1200×630px | Hero images are auto-scaled |
+| Twitter Card | 1200×630px | Uses `summary_large_image` card type |
+
+**Note:** Blog hero images (16:9 ratio) work well for OG images. The system automatically uses the post's hero image for social sharing.
+
+### Site Assets
+
+Static site assets are stored in `apps/site-shell/public/`.
+
+| Asset | Size | Location |
+|-------|------|----------|
+| Avatar | 160×160px (square) | `apps/site-shell/public/images/avatar.jpg` |
+| Favicon | Standard .ico | `apps/site-shell/app/favicon.ico` |
+| Default OG Image | 1200×630px | `apps/site-shell/public/assets/site-shell-og.svg` |
+
+### Merch Product Images
+
+Product images are referenced by URL in `content/merch/products.json`.
+
+| Image Type | Recommended Size | Notes |
+|------------|-----------------|-------|
+| Hero Image | 1200×1200px | Square format works best for product display |
+| Gallery Images | 1200×1200px | Up to 4 additional images per product |
+
+### Image Best Practices
+
+1. **Optimize before uploading** - Use tools like TinyPNG, Squoosh, or ImageOptim
+2. **Use WebP when possible** - Better compression than JPEG with similar quality
+3. **Provide meaningful alt text** - Required for accessibility
+4. **Match slug names exactly** - Image directories must match post/project slugs (case-sensitive)
+
+For detailed image authoring instructions, see [docs/authoring-images.md](docs/authoring-images.md).
+
+---
+
 ## 📝 Working with Content
 
 ### Adding Blog Posts
