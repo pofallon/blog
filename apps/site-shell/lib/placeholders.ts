@@ -3,51 +3,51 @@ import type { PlaceholderPage, PlaceholderSlug } from './types';
 const PLACEHOLDERS: Record<PlaceholderSlug, PlaceholderPage> = {
   home: {
     slug: 'home',
-    title: 'Home migration hub',
+    title: 'Home',
     description:
-      'Track the end-to-end migration program timeline, current rollout status, and sign-off milestones.',
+      'Welcome to the workshop. Explore projects, read the latest posts, and see what ideas are coming to life.',
     layoutSlots: [
-      { id: 'hero', description: 'Top-level timeline card with executive summary.' },
-      { id: 'body-grid', description: 'Grid summarizing MVP, P2, P3 scopes.' },
+      { id: 'hero', description: 'Hero section with site introduction.' },
+      { id: 'body-grid', description: 'Featured projects and latest posts.' },
     ],
-    cta: { label: 'View migration roadmap', href: '/projects' },
+    cta: { label: 'Explore projects', href: '/projects' },
     status: 'placeholder',
   },
   blog: {
     slug: 'blog',
-    title: 'Editorial feed',
+    title: 'Blog',
     description:
-      'Each entry surfaces migration journal updates while content moves from Gatsby to Next.js.',
+      'Thoughts on software architecture, developer experience, and learning out loud.',
     layoutSlots: [
-      { id: 'hero', description: 'Pinned update for the latest sprint recap.' },
-      { id: 'callout', description: 'Callout promoting MDX migration readiness checklist.' },
+      { id: 'hero', description: 'Featured or latest post highlight.' },
+      { id: 'callout', description: 'Post categories or tags.' },
     ],
-    cta: { label: 'Review publishing checklist', href: '/blog' },
+    cta: { label: 'Read latest posts', href: '/blog' },
     status: 'placeholder',
   },
   projects: {
     slug: 'projects',
-    title: 'Build trackers',
+    title: 'Projects',
     description:
-      'Stakeholders can browse active initiatives, owners, and blocked dependencies for the shell.',
+      'Ongoing experiments in distributed systems, developer tools, and creative technology.',
     layoutSlots: [
-      { id: 'hero', description: 'Overview of the current epic and OKRs.' },
-      { id: 'body-grid', description: 'Cards enumerating sub-tracks with target ship dates.' },
-      { id: 'footer', description: 'Links to Jira, Figma, and research docs.' },
+      { id: 'hero', description: 'Featured project showcase.' },
+      { id: 'body-grid', description: 'Project cards with descriptions and links.' },
+      { id: 'footer', description: 'Links to GitHub and documentation.' },
     ],
-    cta: { label: 'Open delivery board', href: 'https://get2know.io/projects' },
+    cta: { label: 'View all projects', href: '/projects' },
     status: 'placeholder',
   },
   merch: {
     slug: 'merch',
-    title: 'Brand experiments',
+    title: 'Merch',
     description:
-      'An early peek at merch partnerships and upcoming drops once ecommerce flows ship.',
+      'Robot-themed gear and workshop swag. Coming soon.',
     layoutSlots: [
-      { id: 'hero', description: 'Hero callout with featured collection tile.' },
-      { id: 'callout', description: 'Waitlist form for founding customers.' },
+      { id: 'hero', description: 'Hero with featured collection.' },
+      { id: 'callout', description: 'Newsletter signup for launch updates.' },
     ],
-    cta: { label: 'Join the merch waitlist', href: 'https://get2know.io/merch' },
+    cta: { label: 'Get notified', href: '/merch' },
     status: 'placeholder',
   },
 };

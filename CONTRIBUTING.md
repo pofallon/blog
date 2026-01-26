@@ -139,7 +139,9 @@ Static site assets are stored in `apps/site-shell/public/`.
 |-------|------|----------|
 | Avatar | 160×160px (square) | `apps/site-shell/public/images/avatar.jpg` |
 | Favicon | Standard .ico | `apps/site-shell/app/favicon.ico` |
-| Default OG Image | 1200×630px | `apps/site-shell/public/assets/site-shell-og.svg` |
+| Default OG Image | 1200×630px | `apps/site-shell/public/assets/og-default.png` |
+
+**Default OG Image**: This is the fallback image shown when sharing links on social media for pages without their own image (homepage, pages without heroes, etc.). Blog posts with hero images use the hero instead. Replace the placeholder at `apps/site-shell/public/assets/og-default.png` with a branded 1200×630px image.
 
 ### Merch Product Images
 

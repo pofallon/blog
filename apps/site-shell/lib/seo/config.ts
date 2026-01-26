@@ -12,9 +12,9 @@ import type { GlobalSEOConfig } from './types';
 const globalSEOConfig: GlobalSEOConfig = {
   siteName: 'get2know.io',
   titleTemplate: '%s | get2know.io',
-  defaultTitle: 'get2know.io — Site Shell',
+  defaultTitle: 'get2know.io',
   defaultDescription:
-    'A persistent navigation shell that keeps the migration team aligned across blog, projects, and merch previews.',
+    'Learning out loud. A workshop where ideas come to life.',
   canonicalHost: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://get2know.io',
   defaultShareImage: '/assets/site-shell-og.svg',
   locale: 'en_US',

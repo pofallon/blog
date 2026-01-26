@@ -1,0 +1,100 @@
+---
+title: 'Turn Your Agentic Development Up To 11'
+date: 2025-01-26
+description: 'Lessons from a year in the trenches with AI Agents.'
+hero:
+  src: 'hero.jpg'
+  alt: 'Turn your agentic development up to 11'
+---
+
+In 2025, I was fortunate to spend a significant amount of time with AI—both driving architectural strategy at work and experimenting on nights and weekends. Along the way, I picked up a series of patterns, anti-patterns, and tricks that transformed how I build software.
+
+Some of these came from my own trial and error. Others I picked up from brilliant peers in the industry. They have become the foundational lessons that helped me stop fighting the tools and start leveraging them.
+
+Here is how to move from "using AI" to true Agentic Development—and how to turn your productivity up to 11.
+
+## Part I: The Paradigm Shift
+
+_Before you can code with agents, you have to stop thinking like a traditional coder._
+
+### 1. Treat source code as the new assembler
+
+I’ve been writing software for over 30 years. Frankly, I haven’t thought much about Assembler since I studied it in college. I became comfortable operating one step removed from the hardware, trusting my compilers and interpreters to handle the translation.
+
+My goal now is to treat source code the same way. I collaborate with agents on the _intent_, but how they choose to capture that intent in syntax matters less to me every day. This isn't a perfect process—and despite what you see on YouTube, it is rarely a one-shot process—but the abstraction layer is rising. We trusted the compiler to write our machine code; it’s time to trust the agent to write our source code.
+
+### 2. Don't confuse the model with the agent
+
+I learned the hard way that an agent is much more than just a wrapper for a model. I recently spent weeks trying to coax an agent to solve a specific problem, convinced that pointing it toward the "best" model was the only lever I had to pull.
+
+As a last-ditch effort, I switched to a different agent framework using the _exact same model_. That agent completed the task in half a day. Relative performance will fluctuate as tools evolve, but the lesson stuck: agents are not interchangeable. They are the vehicle, not the fuel. If you have the right fuel (Model) but a broken transmission (Agent), you aren't going anywhere.
+
+### 3. Don't micro-manage the agent (you may learn something)
+
+Using a coding agent simply to type what I could have typed myself leaves a tremendous amount of value on the table. There is a common sentiment in the industry: "Don't let AI write anything you couldn't write yourself." I fundamentally disagree.
+
+To truly embrace agentic development, I had to stop dictating the "how." I started asking the agent, "Here is what I need done—how would you solve it?" More than once, the agent returned a path forward I wouldn't have chosen, one that was objectively better than my own default approach. By constraining the agent to my own mental limits, I was blocking novel, savvy solutions that I never would have considered.
+
+### 4. Don't constrain the agent with what you know (but make it teach you)
+
+Taking that trust a step further, I no longer feel constrained to build projects using only the technologies I already know. In the past, my architectural choices were shaped by my existing resume—I used what I had time to learn.
+
+Now, I look for the _right_ tool for the job, regardless of my history with it. If a specific tech stack is the best fit, I partner with an AI agent that brings expert-level knowledge of that stack to the table on day one. I don't need to know the syntax before I start; I need to know the architecture, and I make the agent teach me the rest as we build.
+
+## Part II: The Agentic Architecture
+
+_If your architecture is brittle, your agents will break it. You need a structure designed for parallel intelligence._
+
+### 5. Create a loosely coupled architecture supporting parallelized development
+
+In my opinion, as agents take on more of our software load, the single biggest constraint won't be the model's intelligence—it will be our system architecture. Historically, our architectures only needed to support parallel development equal to the size of a "two-pizza team." We never optimized for more than that because we never had the headcount.
+
+But as we enter an era where we can marshal fleets of agents simultaneously, we need an architecture that facilitates massive parallelization. If all my agents are colliding in the same tight codebase, creating Git merge nightmares, I haven't sped anything up; I’ve just moved the bottleneck. Without a loosely coupled architecture that allows ten agents to be "chefs in the kitchen" without bumping elbows, we simply cannot leverage the scale this paradigm offers.
+
+### 6. Manage context (and specialize) with subagents
+
+One of my primary goals in agentic development is to keep the main agent productive for as long as possible. The first wall I hit when doing this is invariably the context window. As the conversation grows, the "brain fog" sets in.
+
+I found that sub-agents are the key to overcoming this physics problem. When I delegate a task to a sub-agent, it spins up a fresh context window, does the heavy lifting, reports the success, and then vanishes. All that noise—the trial and error, the verbose logs—disappears with the sub-agent. The main context remains pristine. By offloading work from the main "thread," I can keep the primary agent focused on orchestration while an army of transient sub-agents handles the implementation in parallel.
+
+### 7. Leverage spec-driven development (such as SpecKit or BMAD)
+
+I can’t tell you how many tokens—and hours—I have wasted on vague, three-sentence prompts, only to end up with a codebase littered with random Markdown files and half-baked ideas. I needed a contract, not just a chat.
+
+Spec-Driven Development became the organizing force for my workflow. It provides a structured methodology to move from the abstract idea in my head to a series of concrete tasks that an agent can actually execute. It forces me to break down problems in a way that _agents_ understand, not just how humans understand. Until the next innovation comes along, I am totally sold on tools like SpecKit. It brings a "method to the madness" that turns a chaotic chat session into a reliable engineering process.
+
+## Part III: The Velocity Loop
+
+_The architecture is set. Now, how do we survive the daily workflow?_
+
+### 8. Embrace YOLO mode (and use git as insurance)
+
+Most of us started agentic development in "babysitting mode"—approving every tool call, answering every question, and watching the stream like a hawk to catch hallucinations. But in a world of unlimited agents, this simply doesn't scale.
+
+I’m moving toward a "YOLO" default: I create an appropriately sandboxed environment, give the agent a goal, and just let it run. If it destroys the environment, fine. We revert and try again. Git is my insurance policy. I realized that the compute cost of an agent acting autonomously—even if it fails twice before succeeding—is still significantly cheaper than the cost of me staring at a terminal watching it work. I give the agent everything it needs, block it from what it doesn't, and give it the opportunity to surprise me.
+
+### 9. Conserve context (and time) with fast, quiet builds & tests
+
+Agents love to run tests. And I admit, I used to love watching them do it—seeing hundreds of lines of green text scroll by made me feel like "real work" was happening. But I realized this productivity theater was eating up two critical resources: time and context.
+
+First, waiting for serial tests to run stalls the agent. I worked with my agent to refactor our test harness to use threading and multi-process orchestration, running absolutely as many tests in parallel as the hardware could handle.
+
+Second, and more importantly, all that scrolling text was pollution. Pouring 500 lines of "Success" messages into the context window pushes out the actual code logic. My approach now is to use a Makefile with targeted commands that run builds and tests silently. It only outputs text if something _fails_. The agent doesn't need to know what went right; it only needs to know what to fix.
+
+### 10. When in doubt, prompt the agent for a prompt
+
+To paraphrase early 2000s pop culture: "I heard you like AI, so I used AI to drive your AI." Often, I am either too fatigued or simply too lazy to craft the perfect, nuanced prompt required to execute a complex task.
+
+When I hit that wall, I get meta. I simply ask the current agent to write the prompt for the next agent. For example, after a long exploratory conversation about a feature, I won't try to summarize it myself. I’ll say, "Formulate this discussion into a strict prompt I can send to SpecKit’s `specify` command." It ensures that the transition from "brainstorming" to "execution" preserves all the technical details I might have forgotten to include. It works just as well for image generation—I let the text agent figure out how to whisper to the image model.
+
+## Part IV: The Force Multiplier
+
+### 11. Kick-off 3 agents at the end of every work day
+
+I can’t claim credit for this one—I picked it up from a brilliant engineer on X (if you know who, let me know so I can buy them a coffee). But it has become the most compelling pattern in my research.
+
+Once you have a process that can "just run"—utilizing the architecture, specs, and YOLO mindset we’ve discussed—you can marshal it in powerful ways. **The rule is simple:** at the end of every work day, kick off three agents to tackle backlog items, refactors, or exploratory features, and then walk away.
+
+Let them run into the evening. Even at modest runtimes, the math is staggering. You are generating 4–6 weeks of extra throughput over a year without adding a single hour to your own schedule. When you apply this at the team level, the compounding effect is undeniable. One developer reclaims a month; a team effectively adds a headcount.
+
+That is how you turn your development up to 11.

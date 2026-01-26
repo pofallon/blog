@@ -4,9 +4,9 @@ import type { FooterContent, NavigationLink, SiteMetadata, SiteShellLayout } fro
 const BRAND_NAME = 'get2know.io';
 
 const siteMetadata: SiteMetadata = {
-  title: `${BRAND_NAME} — Site Shell`,
+  title: BRAND_NAME,
   description:
-    'A persistent navigation shell that keeps the migration team aligned across blog, projects, and merch previews.',
+    'Learning out loud. A workshop where ideas come to life.',
   ogImage: '/assets/site-shell-og.svg',
 };
 
