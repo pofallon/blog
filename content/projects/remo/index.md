@@ -2,16 +2,18 @@
 name: Remo
 order: 1
 status: ready
-summary: A CLI tool that spins up fully-configured development environments in minutes with DevContainer support, persistent sessions, and flexible deployment to Hetzner Cloud or local Incus containers.
+summary: Fire up a coding agent, close your laptop, and walk away. Remo gives you persistent remote dev environments where your AI agents keep working even when you're not watching.
 tags:
   - cli
   - devcontainers
   - cloud-development
+  - aws
   - hetzner
   - incus
   - remote-dev
   - homelab
   - infrastructure-as-code
+  - ai-agents
 links:
   - label: GitHub
     url: https://github.com/get2knowio/remo
@@ -21,57 +23,99 @@ hero:
   alt: Remo robot mascot - a bronze industrial robot holding a holographic display, surrounded by cloud infrastructure icons
 ---
 
-## Overview
+## Your Agents Don't Need You Watching
 
-Remo is a command-line tool that provisions fully-configured remote development environments in minutes. It supports both cloud-based VMs on Hetzner and lightweight Incus containers on your own hardware, enabling developers to maintain persistent coding sessions accessible via SSH. With simple CLI commands, you get a complete environment with Docker, DevContainers, an interactive project menu, and terminal multiplexing.
+AI coding agents are powerful, but they're tethered to your laptop. Close the lid, lose your Wi-Fi, or just walk away from your desk, and your agent dies mid-task.
 
-## Deployment Options
+Remo fixes this. It gives you a persistent remote environment where your agents keep running no matter what happens to your local machine. SSH in, kick off an agent, disconnect. Come back hours later and pick up exactly where things left off. Your Zellij session holds the full context: terminal output, running processes, everything.
 
-### Hetzner Cloud (Remote)
-- Internet-accessible via DuckDNS hostname (~€4/month)
-- Persistent `/home/remo` volume survives server teardown
-- SSH-only firewall for secure access
-- Ideal for always-on remote development
+This is what "set it and forget it" looks like for development.
 
-### Incus Container (Local/Homelab)
-- Runs on personal hardware with minimal electricity cost
-- Containers obtain LAN IP addresses via DHCP
-- Hostname-accessible from any machine on your network
-- Better suited for local testing and homelab environments
+## How It Works
 
-## Key Features
+Install with a single command, provision an environment, and connect:
 
-- **Simple CLI** - Subcommands for `create`, `destroy`, `list`, and `bootstrap` operations on both Hetzner and Incus targets
-- **Interactive Project Menu** - An fzf-powered menu displays available projects from `~/projects` upon login, with arrow key navigation and number shortcuts (1-9)
-- **Zellij Session Persistence** - Terminal multiplexer maintains your work state even after SSH disconnection—detach with `Ctrl+o d` and reconnect to resume exactly where you left off
-- **DevContainer Integration** - Automatically launches and manages Docker-based development containers for projects with DevContainer configurations
-- **Pre-installed Tooling** - Every environment includes Docker with Compose, Node.js 24 LTS, GitHub CLI, Dev Containers CLI, and terminal utilities
+```
+curl -fsSL https://get2knowio.github.io/remo/install.sh | bash
+remo hetzner create        # or: remo aws create / remo incus create
+remo shell
+```
 
-## Use Cases
+You land in an interactive project menu. Pick a project, and you're in a persistent Zellij session with your DevContainer already running. Disconnect anytime — your session survives.
 
-Remo excels in these specific scenarios:
+```
+  Remote Coding Server
+  --------------------
 
-- **Remote-First Development** - Work from any machine with only an SSH client, accessing your persistent development environment
-- **Homelab Development** - Run development containers on your own hardware with near-native performance
-- **Multi-Project Workflows** - Use the interactive project menu to quickly switch between DevContainer-based projects
-- **Temporary High-Power Needs** - Spin up cloud servers for intensive tasks, destroy when done
-- **Team Onboarding** - New members provision identical environments without complex local tooling
+> my-project - active
+  another-project
+  [Clone new repo]
+  [Exit to shell]
+```
+
+## Pick Your Platform
+
+Remo deploys to three platforms. Same dev workflow, same tooling, your choice of infrastructure.
+
+| | Hetzner Cloud | AWS | Incus |
+|---|---|---|---|
+| **Cost** | ~€4/month | ~$10/month (spot) | Your electricity |
+| **Best for** | Budget EU/US hosting | Enterprise, spot savings | Local dev, homelab |
+| **Storage** | Persistent block volume | EBS / root volume | Host mounts |
+| **Access** | DuckDNS domain | SSM (zero open ports) or SSH | LAN hostname |
+
+**Hetzner** is the simplest path: cheap EU/US VMs with DuckDNS for a memorable hostname and a persistent volume that survives server teardown.
+
+**AWS** brings enterprise features: SSM Session Manager for zero-inbound-port access, spot instances for ~70% cost savings, stop/start to pause billing, multi-user namespacing, and Route53 DNS.
+
+**Incus** runs on your own hardware. Lightweight system containers get LAN IPs via DHCP and are accessible by hostname from any machine on your network.
+
+## What You Get
+
+Every Remo environment comes fully loaded:
+
+- **Persistent sessions** — Zellij keeps your terminal state alive across disconnects. Detach with `Ctrl+d`, reconnect with `remo shell`, and resume exactly where you left off.
+- **DevContainer integration** — Projects with a `.devcontainer` config auto-launch their Docker container when you select them. No manual setup.
+- **Interactive project menu** — An fzf-powered launcher shows your projects from `~/projects`. Arrow keys, number shortcuts, or just type to filter.
+- **Pre-installed tooling** — Docker + Compose, Dev Containers CLI, Node.js 24 LTS, GitHub CLI, Zellij, and fzf. Ready to go from the first SSH connection.
+- **One-command updates** — `remo self-update` updates the CLI. `remo <platform> update` refreshes the dev tools on your environment.
+
+## Why Not Just Use a Cloud IDE?
+
+Cloud IDEs lock you into a browser tab and a specific editor. Remo gives you a raw SSH environment. Use whatever editor, terminal, or workflow you want — VS Code Remote SSH, Neovim, Emacs, or a plain terminal. Your agent framework doesn't care where it runs as long as the session persists.
+
+And because it's just a Linux box with Docker, anything that works locally works on Remo. No vendor lock-in, no proprietary APIs, no monthly seat fees.
+
+## Install
+
+```bash
+curl -fsSL https://get2knowio.github.io/remo/install.sh | bash
+```
+
+That's it. `remo` lands in `~/.local/bin` and manages its own dependencies.
 
 ## Getting Started
 
-**Prerequisites:** Python 3.8+ and an SSH key pair. For Hetzner: API token and DuckDNS account. For Incus: bootstrapped Incus host.
+Set your platform credentials as environment variables, then create and connect:
 
-**Hetzner Cloud:**
-```
-git clone https://github.com/get2knowio/remo.git && cd remo
-./remo init
-vim .env  # Configure credentials
-./remo hetzner create
-ssh remo@your-subdomain.duckdns.org
+```bash
+# Hetzner (cheapest cloud option)
+export HETZNER_API_TOKEN=your-token
+export DUCKDNS_TOKEN=your-token
+export DUCKDNS_DOMAIN=your-subdomain
+remo hetzner create
+remo shell
+
+# AWS (enterprise features, spot pricing)
+export AWS_ACCESS_KEY_ID=your-key
+export AWS_SECRET_ACCESS_KEY=your-secret
+remo aws create --spot
+remo shell
+
+# Incus (your own hardware)
+remo incus bootstrap --host myserver --user paul
+remo incus create dev1 --host myserver --user paul
+remo shell
 ```
 
-**Incus:**
-```
-./remo incus create dev1 --host incus-host --user youruser
-ssh remo@dev1
-```
+All you need is an SSH key pair and credentials for your chosen platform.
