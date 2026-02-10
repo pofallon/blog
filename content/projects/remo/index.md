@@ -31,6 +31,16 @@ Remo fixes this. It gives you a persistent remote environment where your agents 
 
 This is what "set it and forget it" looks like for development.
 
+## Where Will You Remo?
+
+But "set it and forget it" is only half the story. The other half is checking back in — from *anywhere*.
+
+Kick off a Claude Code session at your desk before lunch. Check the progress from your phone over SSH while you're waiting in line for coffee. Pick it back up on your iPad from the couch that evening. Or don't check in at all — your agent doesn't care. It's still going.
+
+Remo decouples your development from any single device. Your agent runs on persistent infrastructure, and you connect to it on your terms — when it's convenient, from wherever you happen to be. The work doesn't stop when you step away, and it's always there when you come back.
+
+From a standing desk. From a hammock. From a hotel lobby the night before a conference. **#WhereWillYouRemo**
+
 ## How It Works
 
 Install with a single command, provision an environment, and connect:
@@ -53,6 +63,16 @@ You land in an interactive project menu. Pick a project, and you're in a persist
   [Exit to shell]
 ```
 
+## What You Get
+
+Every Remo environment comes fully loaded:
+
+- **Persistent sessions** — Zellij keeps your terminal state alive across disconnects. Detach with `Ctrl+d`, reconnect with `remo shell`, and resume exactly where you left off.
+- **DevContainer integration** — Projects with a `.devcontainer` config auto-launch their Docker container when you select them. No manual setup.
+- **Interactive project menu** — An fzf-powered launcher shows your projects from `~/projects`. Arrow keys, number shortcuts, or just type to filter.
+- **Pre-installed tooling** — Docker + Compose, Dev Containers CLI, Node.js 24 LTS, GitHub CLI, Zellij, and fzf. Ready to go from the first SSH connection.
+- **One-command updates** — `remo self-update` updates the CLI. `remo <platform> update` refreshes the dev tools on your environment.
+
 ## Pick Your Platform
 
 Remo deploys to three platforms. Same dev workflow, same tooling, your choice of infrastructure.
@@ -70,31 +90,11 @@ Remo deploys to three platforms. Same dev workflow, same tooling, your choice of
 
 **Incus** runs on your own hardware. Lightweight system containers get LAN IPs via DHCP and are accessible by hostname from any machine on your network.
 
-## What You Get
-
-Every Remo environment comes fully loaded:
-
-- **Persistent sessions** — Zellij keeps your terminal state alive across disconnects. Detach with `Ctrl+d`, reconnect with `remo shell`, and resume exactly where you left off.
-- **DevContainer integration** — Projects with a `.devcontainer` config auto-launch their Docker container when you select them. No manual setup.
-- **Interactive project menu** — An fzf-powered launcher shows your projects from `~/projects`. Arrow keys, number shortcuts, or just type to filter.
-- **Pre-installed tooling** — Docker + Compose, Dev Containers CLI, Node.js 24 LTS, GitHub CLI, Zellij, and fzf. Ready to go from the first SSH connection.
-- **One-command updates** — `remo self-update` updates the CLI. `remo <platform> update` refreshes the dev tools on your environment.
-
 ## Why Not Just Use a Cloud IDE?
 
 Cloud IDEs lock you into a browser tab and a specific editor. Remo gives you a raw SSH environment. Use whatever editor, terminal, or workflow you want — VS Code Remote SSH, Neovim, Emacs, or a plain terminal. Your agent framework doesn't care where it runs as long as the session persists.
 
 And because it's just a Linux box with Docker, anything that works locally works on Remo. No vendor lock-in, no proprietary APIs, no monthly seat fees.
-
-## Where Do You Remo?
-
-Close your laptop and walk away. That's the pitch. But here's the part that changes how you work: you can check back in from *anywhere*.
-
-Kick off a Claude Code session at your desk before lunch. Check the progress from your phone over SSH while you're waiting in line for coffee. Pick it back up on your iPad from the couch that evening. Or don't check in at all — your agent doesn't care. It's still going.
-
-Remo decouples your development from any single device. Your agent runs on persistent infrastructure, and you connect to it on your terms — when it's convenient, from wherever you happen to be. The work doesn't stop when you step away, and it's always there when you come back.
-
-From a standing desk. From a hammock. From a hotel lobby the night before a conference. **#WhereDoYouRemo**
 
 ## Install
 
