@@ -11,6 +11,7 @@ import type { ProjectDetailModel, ProjectStatus, ProcessedImage } from '@/lib/pr
 import { getProjectColor } from '@/lib/projects/colors';
 import ProjectTags from './ProjectTags';
 import type { ReactNode } from 'react';
+import { SiGithub } from '@icons-pack/react-simple-icons';
 
 const statusConfig: Record<ProjectStatus, { label: string; opacity: number }> = {
   'ready': { label: 'Give it a Try!', opacity: 1 },
@@ -103,6 +104,58 @@ export default function ProjectDetail({
           <p className="text-lg md:text-xl text-g2k-fg-secondary leading-relaxed">
             {project.summary}
           </p>
+
+          {/* Project links */}
+          {(project.primaryLink || project.secondaryLinks.length > 0) && (
+            <div className="flex flex-wrap items-center gap-2 mt-5">
+              {project.primaryLink && (
+                <a
+                  href={project.primaryLink.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={onPrimaryClick}
+                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 hover:-translate-y-0.5"
+                  style={{
+                    color: `hsl(var(--${colorVar}))`,
+                    backgroundColor: `hsl(var(--${colorVar}) / 0.08)`,
+                    border: `1px solid hsl(var(--${colorVar}) / 0.2)`,
+                  }}
+                >
+                  {project.primaryLink.label.toLowerCase().includes('github') ? (
+                    <SiGithub size={16} />
+                  ) : (
+                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  )}
+                  {project.primaryLink.label}
+                </a>
+              )}
+              {project.secondaryLinks.map((link) => (
+                <a
+                  key={link.url}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 hover:-translate-y-0.5"
+                  style={{
+                    color: `hsl(var(--${colorVar}))`,
+                    backgroundColor: `hsl(var(--${colorVar}) / 0.08)`,
+                    border: `1px solid hsl(var(--${colorVar}) / 0.2)`,
+                  }}
+                >
+                  {link.label.toLowerCase().includes('github') ? (
+                    <SiGithub size={16} />
+                  ) : (
+                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  )}
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          )}
         </div>
       </header>
 
@@ -187,75 +240,6 @@ export default function ProjectDetail({
         <ProjectTags tags={project.tags} colorVar={colorVar} />
       </div>
 
-      {/* Links section */}
-      <div className="flex flex-wrap items-center gap-4 pt-4">
-        {/* Primary CTA */}
-        {project.primaryLink && (
-          <a
-            href={project.primaryLink.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={onPrimaryClick}
-            className="group relative inline-flex items-center justify-center rounded-xl px-6 py-3 text-base font-semibold transition-all duration-300 overflow-hidden"
-            style={{
-              background: `linear-gradient(135deg, hsl(var(--${colorVar})) 0%, hsl(var(--${colorVar}-shine, var(--${colorVar}))) 100%)`,
-              color: 'hsl(var(--g2k-bg-base))',
-              boxShadow: `var(--g2k-shadow-sm), 0 0 0 1px hsl(var(--${colorVar}))`,
-            }}
-          >
-            {/* Shine effect */}
-            <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-            <span className="relative flex items-center gap-2">
-              {project.primaryLink.label}
-              <svg
-                className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                />
-              </svg>
-            </span>
-          </a>
-        )}
-
-        {/* Secondary links */}
-        {project.secondaryLinks.length > 0 &&
-          project.secondaryLinks.map((link) => (
-            <a
-              key={link.url}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:-translate-y-0.5"
-              style={{
-                color: `hsl(var(--${colorVar}))`,
-                backgroundColor: `hsl(var(--${colorVar}) / 0.08)`,
-                border: `1px solid hsl(var(--${colorVar}) / 0.2)`,
-              }}
-            >
-              {link.label}
-              <svg
-                className="h-3.5 w-3.5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                />
-              </svg>
-            </a>
-          ))}
-      </div>
     </article>
   );
 }
