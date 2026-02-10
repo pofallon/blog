@@ -35,7 +35,7 @@ This is what "set it and forget it" looks like for development.
 
 Install with a single command, provision an environment, and connect:
 
-```
+```bash
 curl -fsSL https://get2knowio.github.io/remo/install.sh | bash
 remo hetzner create        # or: remo aws create / remo incus create
 remo shell
@@ -43,7 +43,7 @@ remo shell
 
 You land in an interactive project menu. Pick a project, and you're in a persistent Zellij session with your DevContainer already running. Disconnect anytime — your session survives.
 
-```
+```text
   Remote Coding Server
   --------------------
 

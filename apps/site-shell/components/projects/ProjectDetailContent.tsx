@@ -4,6 +4,7 @@
  */
 
 import { MDXRemote } from 'next-mdx-remote/rsc';
+import remarkGfm from 'remark-gfm';
 import type { ComponentProps, ReactNode } from 'react';
 
 interface ProjectDetailContentProps {
@@ -126,6 +127,50 @@ function createMDXComponents(colorVar: string) {
         {children}
       </a>
     ),
+
+    // Table components
+    table: ({ children }: { children?: ReactNode }) => (
+      <div className="my-6 overflow-x-auto rounded-xl"
+        style={{
+          border: '1.5px solid hsl(var(--g2k-border))',
+          boxShadow: 'var(--g2k-shadow-sm)',
+        }}
+      >
+        <table className="w-full text-sm">{children}</table>
+      </div>
+    ),
+    thead: ({ children }: { children?: ReactNode }) => (
+      <thead
+        style={{
+          backgroundColor: `hsl(var(--${colorVar}) / 0.1)`,
+          borderBottom: '1.5px solid hsl(var(--g2k-border))',
+        }}
+      >
+        {children}
+      </thead>
+    ),
+    tbody: ({ children }: { children?: ReactNode }) => (
+      <tbody>{children}</tbody>
+    ),
+    tr: ({ children }: { children?: ReactNode }) => (
+      <tr
+        className="transition-colors"
+        style={{ borderBottom: '1px solid hsl(var(--g2k-border))' }}
+      >
+        {children}
+      </tr>
+    ),
+    th: ({ children }: { children?: ReactNode }) => (
+      <th
+        className="px-4 py-3 text-left font-semibold"
+        style={{ color: `hsl(var(--${colorVar}))` }}
+      >
+        {children}
+      </th>
+    ),
+    td: ({ children }: { children?: ReactNode }) => (
+      <td className="px-4 py-3 text-g2k-fg-secondary">{children}</td>
+    ),
   };
 }
 
@@ -137,7 +182,11 @@ export default function ProjectDetailContent({
 
   return (
     <div className="relative">
-      <MDXRemote source={content} components={mdxComponents} />
+      <MDXRemote
+        source={content}
+        components={mdxComponents}
+        options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
+      />
     </div>
   );
 }
