@@ -44,70 +44,73 @@ export default function ProjectDetail({
           style={{ backgroundColor: `hsl(var(--${colorVar}))` }}
         />
 
-        <div className="relative">
-          {/* Status Badge - Industrial workshop plate style */}
-          {status && (
-            <div
-              className="inline-block mb-4"
-              style={{ opacity: status.opacity }}
-            >
+        <div className="relative flex flex-col md:flex-row md:items-start md:gap-6">
+          {/* Left: title area */}
+          <div className="flex-1 min-w-0">
+            {/* Status Badge - Industrial workshop plate style */}
+            {status && (
               <div
-                className="relative px-4 py-2 text-xs font-bold uppercase tracking-wider"
-                style={{
-                  color: `hsl(var(--${colorVar}))`,
-                  background: `linear-gradient(135deg, hsl(var(--g2k-bg-sunken)) 0%, hsl(var(--g2k-bg-base)) 100%)`,
-                  border: `1px solid hsl(var(--${colorVar}) / 0.4)`,
-                  borderRadius: '8px',
-                  boxShadow: `
-                    inset 0 1px 0 hsl(0 0% 100% / 0.05),
-                    inset 0 -1px 2px hsl(var(--g2k-shadow-color) / 0.2),
-                    0 2px 4px hsl(var(--g2k-shadow-color) / 0.3)
-                  `,
-                }}
+                className="inline-block mb-4"
+                style={{ opacity: status.opacity }}
               >
-                {/* Embossed inner highlight */}
-                <span
-                  className="absolute inset-0 rounded-[inherit] pointer-events-none"
+                <div
+                  className="relative px-4 py-2 text-xs font-bold uppercase tracking-wider"
                   style={{
-                    background: `linear-gradient(180deg, hsl(var(--${colorVar}) / 0.08) 0%, transparent 50%)`,
+                    color: `hsl(var(--${colorVar}))`,
+                    background: `linear-gradient(135deg, hsl(var(--g2k-bg-sunken)) 0%, hsl(var(--g2k-bg-base)) 100%)`,
+                    border: `1px solid hsl(var(--${colorVar}) / 0.4)`,
+                    borderRadius: '8px',
+                    boxShadow: `
+                      inset 0 1px 0 hsl(0 0% 100% / 0.05),
+                      inset 0 -1px 2px hsl(var(--g2k-shadow-color) / 0.2),
+                      0 2px 4px hsl(var(--g2k-shadow-color) / 0.3)
+                    `,
                   }}
-                  aria-hidden="true"
-                />
-                {/* Corner rivets */}
-                <span
-                  className="absolute top-1.5 left-1.5 w-1 h-1 rounded-full"
-                  style={{
-                    background: `hsl(var(--${colorVar}) / 0.5)`,
-                    boxShadow: `inset 0 0.5px 0 hsl(0 0% 100% / 0.3)`,
-                  }}
-                  aria-hidden="true"
-                />
-                <span
-                  className="absolute top-1.5 right-1.5 w-1 h-1 rounded-full"
-                  style={{
-                    background: `hsl(var(--${colorVar}) / 0.5)`,
-                    boxShadow: `inset 0 0.5px 0 hsl(0 0% 100% / 0.3)`,
-                  }}
-                  aria-hidden="true"
-                />
-                <span className="relative">{status.label}</span>
+                >
+                  {/* Embossed inner highlight */}
+                  <span
+                    className="absolute inset-0 rounded-[inherit] pointer-events-none"
+                    style={{
+                      background: `linear-gradient(180deg, hsl(var(--${colorVar}) / 0.08) 0%, transparent 50%)`,
+                    }}
+                    aria-hidden="true"
+                  />
+                  {/* Corner rivets */}
+                  <span
+                    className="absolute top-1.5 left-1.5 w-1 h-1 rounded-full"
+                    style={{
+                      background: `hsl(var(--${colorVar}) / 0.5)`,
+                      boxShadow: `inset 0 0.5px 0 hsl(0 0% 100% / 0.3)`,
+                    }}
+                    aria-hidden="true"
+                  />
+                  <span
+                    className="absolute top-1.5 right-1.5 w-1 h-1 rounded-full"
+                    style={{
+                      background: `hsl(var(--${colorVar}) / 0.5)`,
+                      boxShadow: `inset 0 0.5px 0 hsl(0 0% 100% / 0.3)`,
+                    }}
+                    aria-hidden="true"
+                  />
+                  <span className="relative">{status.label}</span>
+                </div>
               </div>
-            </div>
-          )}
+            )}
 
-          <h1
-            className="font-brand text-4xl md:text-5xl lg:text-6xl mb-4 tracking-wide"
-            style={{ color: `hsl(var(--${colorVar}))` }}
-          >
-            {project.name}
-          </h1>
-          <p className="text-lg md:text-xl text-g2k-fg-secondary leading-relaxed">
-            {project.summary}
-          </p>
+            <h1
+              className="font-brand text-4xl md:text-5xl lg:text-6xl mb-4 tracking-wide"
+              style={{ color: `hsl(var(--${colorVar}))` }}
+            >
+              {project.name}
+            </h1>
+            <p className="text-lg md:text-xl text-g2k-fg-secondary leading-relaxed">
+              {project.summary}
+            </p>
+          </div>
 
-          {/* Project links */}
+          {/* Right: project links — floated top-right on desktop */}
           {(project.primaryLink || project.secondaryLinks.length > 0) && (
-            <div className="flex flex-wrap items-center gap-2 mt-5">
+            <div className="flex flex-wrap items-start gap-2 mt-4 md:mt-1 md:shrink-0">
               {project.primaryLink && (
                 <a
                   href={project.primaryLink.url}
