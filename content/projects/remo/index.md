@@ -86,6 +86,16 @@ Cloud IDEs lock you into a browser tab and a specific editor. Remo gives you a r
 
 And because it's just a Linux box with Docker, anything that works locally works on Remo. No vendor lock-in, no proprietary APIs, no monthly seat fees.
 
+## Where Do You Remo?
+
+Close your laptop and walk away. That's the pitch. But here's the part that changes how you work: you can check back in from *anywhere*.
+
+Kick off a Claude Code session at your desk before lunch. Check the progress from your phone over SSH while you're waiting in line for coffee. Pick it back up on your iPad from the couch that evening. Or don't check in at all — your agent doesn't care. It's still going.
+
+Remo decouples your development from any single device. Your agent runs on persistent infrastructure, and you connect to it on your terms — when it's convenient, from wherever you happen to be. The work doesn't stop when you step away, and it's always there when you come back.
+
+From a standing desk. From a hammock. From a hotel lobby the night before a conference. **#WhereDoYouRemo**
+
 ## Install
 
 ```bash
