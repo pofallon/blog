@@ -44,73 +44,122 @@ export default function ProjectDetail({
           style={{ backgroundColor: `hsl(var(--${colorVar}))` }}
         />
 
-        <div className="relative flex flex-col md:flex-row md:items-start md:gap-6">
-          {/* Left: title area */}
-          <div className="flex-1 min-w-0">
-            {/* Status Badge - Industrial workshop plate style */}
-            {status && (
-              <div
-                className="inline-block mb-4"
-                style={{ opacity: status.opacity }}
-              >
-                <div
-                  className="relative px-4 py-2 text-xs font-bold uppercase tracking-wider"
+        <div className="relative">
+          {/* Project links — absolute top-right on desktop, inline below title on mobile */}
+          {(project.primaryLink || project.secondaryLinks.length > 0) && (
+            <div className="hidden md:flex flex-wrap justify-end gap-2 absolute top-0 right-0">
+              {project.primaryLink && (
+                <a
+                  href={project.primaryLink.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={onPrimaryClick}
+                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 hover:-translate-y-0.5"
                   style={{
                     color: `hsl(var(--${colorVar}))`,
-                    background: `linear-gradient(135deg, hsl(var(--g2k-bg-sunken)) 0%, hsl(var(--g2k-bg-base)) 100%)`,
-                    border: `1px solid hsl(var(--${colorVar}) / 0.4)`,
-                    borderRadius: '8px',
-                    boxShadow: `
-                      inset 0 1px 0 hsl(0 0% 100% / 0.05),
-                      inset 0 -1px 2px hsl(var(--g2k-shadow-color) / 0.2),
-                      0 2px 4px hsl(var(--g2k-shadow-color) / 0.3)
-                    `,
+                    backgroundColor: `hsl(var(--${colorVar}) / 0.08)`,
+                    border: `1px solid hsl(var(--${colorVar}) / 0.2)`,
                   }}
                 >
-                  {/* Embossed inner highlight */}
-                  <span
-                    className="absolute inset-0 rounded-[inherit] pointer-events-none"
-                    style={{
-                      background: `linear-gradient(180deg, hsl(var(--${colorVar}) / 0.08) 0%, transparent 50%)`,
-                    }}
-                    aria-hidden="true"
-                  />
-                  {/* Corner rivets */}
-                  <span
-                    className="absolute top-1.5 left-1.5 w-1 h-1 rounded-full"
-                    style={{
-                      background: `hsl(var(--${colorVar}) / 0.5)`,
-                      boxShadow: `inset 0 0.5px 0 hsl(0 0% 100% / 0.3)`,
-                    }}
-                    aria-hidden="true"
-                  />
-                  <span
-                    className="absolute top-1.5 right-1.5 w-1 h-1 rounded-full"
-                    style={{
-                      background: `hsl(var(--${colorVar}) / 0.5)`,
-                      boxShadow: `inset 0 0.5px 0 hsl(0 0% 100% / 0.3)`,
-                    }}
-                    aria-hidden="true"
-                  />
-                  <span className="relative">{status.label}</span>
-                </div>
-              </div>
-            )}
+                  {project.primaryLink.label.toLowerCase().includes('github') ? (
+                    <SiGithub size={16} />
+                  ) : (
+                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  )}
+                  {project.primaryLink.label}
+                </a>
+              )}
+              {project.secondaryLinks.map((link) => (
+                <a
+                  key={link.url}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 hover:-translate-y-0.5"
+                  style={{
+                    color: `hsl(var(--${colorVar}))`,
+                    backgroundColor: `hsl(var(--${colorVar}) / 0.08)`,
+                    border: `1px solid hsl(var(--${colorVar}) / 0.2)`,
+                  }}
+                >
+                  {link.label.toLowerCase().includes('github') ? (
+                    <SiGithub size={16} />
+                  ) : (
+                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  )}
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          )}
 
-            <h1
-              className="font-brand text-4xl md:text-5xl lg:text-6xl mb-4 tracking-wide"
-              style={{ color: `hsl(var(--${colorVar}))` }}
+          {/* Status Badge - Industrial workshop plate style */}
+          {status && (
+            <div
+              className="inline-block mb-4"
+              style={{ opacity: status.opacity }}
             >
-              {project.name}
-            </h1>
-            <p className="text-lg md:text-xl text-g2k-fg-secondary leading-relaxed">
-              {project.summary}
-            </p>
-          </div>
+              <div
+                className="relative px-4 py-2 text-xs font-bold uppercase tracking-wider"
+                style={{
+                  color: `hsl(var(--${colorVar}))`,
+                  background: `linear-gradient(135deg, hsl(var(--g2k-bg-sunken)) 0%, hsl(var(--g2k-bg-base)) 100%)`,
+                  border: `1px solid hsl(var(--${colorVar}) / 0.4)`,
+                  borderRadius: '8px',
+                  boxShadow: `
+                    inset 0 1px 0 hsl(0 0% 100% / 0.05),
+                    inset 0 -1px 2px hsl(var(--g2k-shadow-color) / 0.2),
+                    0 2px 4px hsl(var(--g2k-shadow-color) / 0.3)
+                  `,
+                }}
+              >
+                {/* Embossed inner highlight */}
+                <span
+                  className="absolute inset-0 rounded-[inherit] pointer-events-none"
+                  style={{
+                    background: `linear-gradient(180deg, hsl(var(--${colorVar}) / 0.08) 0%, transparent 50%)`,
+                  }}
+                  aria-hidden="true"
+                />
+                {/* Corner rivets */}
+                <span
+                  className="absolute top-1.5 left-1.5 w-1 h-1 rounded-full"
+                  style={{
+                    background: `hsl(var(--${colorVar}) / 0.5)`,
+                    boxShadow: `inset 0 0.5px 0 hsl(0 0% 100% / 0.3)`,
+                  }}
+                  aria-hidden="true"
+                />
+                <span
+                  className="absolute top-1.5 right-1.5 w-1 h-1 rounded-full"
+                  style={{
+                    background: `hsl(var(--${colorVar}) / 0.5)`,
+                    boxShadow: `inset 0 0.5px 0 hsl(0 0% 100% / 0.3)`,
+                  }}
+                  aria-hidden="true"
+                />
+                <span className="relative">{status.label}</span>
+              </div>
+            </div>
+          )}
 
-          {/* Right: project links — floated top-right on desktop */}
+          <h1
+            className="font-brand text-4xl md:text-5xl lg:text-6xl mb-4 tracking-wide"
+            style={{ color: `hsl(var(--${colorVar}))` }}
+          >
+            {project.name}
+          </h1>
+          <p className="text-lg md:text-xl text-g2k-fg-secondary leading-relaxed">
+            {project.summary}
+          </p>
+
+          {/* Mobile-only inline links */}
           {(project.primaryLink || project.secondaryLinks.length > 0) && (
-            <div className="flex flex-wrap items-start gap-2 mt-4 md:mt-1 md:shrink-0">
+            <div className="flex flex-wrap items-start gap-2 mt-4 md:hidden">
               {project.primaryLink && (
                 <a
                   href={project.primaryLink.url}
