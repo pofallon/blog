@@ -77,7 +77,7 @@ Every Remo environment comes fully loaded:
 
 Remo deploys to three platforms. Same dev workflow, same tooling, your choice of infrastructure.
 
-| | Hetzner Cloud | AWS | Incus |
+| | Hetzner Cloud | AWS | LXC (Incus) |
 |---|---|---|---|
 | **Cost** | ~€4/month | ~$10/month (spot) | Your electricity |
 | **Best for** | Budget EU/US hosting | Enterprise, spot savings | Local dev, homelab |
@@ -88,7 +88,7 @@ Remo deploys to three platforms. Same dev workflow, same tooling, your choice of
 
 **AWS** brings enterprise features: SSM Session Manager for zero-inbound-port access, spot instances for ~70% cost savings, stop/start to pause billing, multi-user namespacing, and Route53 DNS.
 
-**Incus** runs on your own hardware. Lightweight system containers get LAN IPs via DHCP and are accessible by hostname from any machine on your network.
+**LXC (via Incus)** runs on your own hardware. Lightweight system containers get LAN IPs via DHCP and are accessible by hostname from any machine on your network.
 
 ## Why Not Just Use a Cloud IDE?
 
@@ -122,7 +122,7 @@ export AWS_SECRET_ACCESS_KEY=your-secret
 remo aws create --spot
 remo shell
 
-# Incus (your own hardware)
+# LXC via Incus (your own hardware)
 remo incus bootstrap --host myserver --user paul
 remo incus create dev1 --host myserver --user paul
 remo shell
