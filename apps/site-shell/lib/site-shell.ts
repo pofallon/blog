@@ -17,7 +17,7 @@ const footerContent: FooterContent = {
   links: [],
   social: [
     { label: 'GitHub', href: 'https://github.com/pofallon' },
-    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/pofallon/' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/paulofallon/' },
   ],
 };
 
