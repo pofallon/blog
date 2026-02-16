@@ -2,55 +2,131 @@
 name: Maverick
 order: 2
 status: in-progress
-summary: AI-powered development workflow orchestration that uses autonomous Claude agents to implement features, fix issues, run code reviews, and create PRs from declarative YAML definitions.
+summary: Point your AI agents at a task list and let them fly. Maverick orchestrates implementation, code review, fixes, and PR creation — the full development lifecycle on autopilot.
 tags:
   - python
+  - cli
+  - ai-agents
   - claude-ai
   - workflow-automation
-  - cli
-  - tui
+  - code-review
   - developer-tools
 links:
   - label: GitHub
     url: https://github.com/get2knowio/maverick
     type: primary
-  - label: Documentation
-    url: https://get2knowio.github.io/maverick/
-  - label: Training Slides
-    url: https://get2knowio.github.io/maverick/slides/
 hero:
   src: maverick_banner.jpg
   alt: Maverick robot mascot - a sleek blue-gray humanoid robot with brass accents, surrounded by workflow and AI automation icons
 ---
 
-## Overview
+## Your Agents Need a Flight Plan
 
-Maverick is a Python CLI/TUI application that orchestrates complete development workflows using the Claude Agent SDK. It automates the full development lifecycle—from implementing features defined in task lists, through code review and validation, to PR creation—using autonomous AI agents that make decisions and recover from failures. Unlike traditional CI/CD tools that run static scripts, Maverick's agents dynamically adapt to errors, retry with fixes, and handle complex multi-phase implementations.
+AI coding agents can write code, but they can't run your development process. You still prompt them one at a time, babysit validation, manually re-run after lint failures, coordinate reviews, and stitch it all together into a PR. You've automated the typing but not the workflow.
 
-## Key Features
+Maverick fixes this. Define your workflow in YAML, point it at your task list, and step back. Maverick flies through implementation, validation, code review, fixes, and PR creation — with agents that recover from failures, retry with context, and keep going until the work is done.
 
-- **Declarative YAML Workflows** - Define multi-step workflows with conditional execution, parallel steps, checkpoints, and sub-workflow composition. The DSL supports expression evaluation, iteration, and type-safe inputs.
-- **Autonomous AI Agents** - Specialized agents (ImplementerAgent, CodeReviewerAgent, FixerAgent) execute tasks using Claude, with built-in tool permission scoping and structured result extraction.
-- **Validation-Fix Loops** - Automatic retry cycles run format/lint/typecheck/test stages, then invoke a fixer agent to resolve failures before retrying.
-- **Interactive TUI** - Real-time Textual-based interface shows agent operations, validation progress, review findings, and workflow state.
-- **Workflow Discovery & Customization** - Three-tier discovery (project → user → built-in) lets teams override any workflow by placing modified YAML in `.maverick/workflows/`.
-- **Checkpointing & Resumption** - Workflows can checkpoint state to disk, enabling resumption from any checkpoint if interrupted.
+This is what development on autopilot looks like.
 
-## Use Cases
+## Come Fly With Me
 
-Maverick excels at automating development workflows that would otherwise require manual coordination:
+But autopilot isn't just about speed. It's about letting go of the controls.
 
-- Implementing features from spec files with automatic validation and PR creation
-- Batch processing tech-debt issues with parallel fixes and individual PRs
-- Single-issue quick fixes with automatic commit and push
-- AI-powered code review for architecture and convention compliance
-- Validation pipelines with automatic fix attempts on failure
-- Custom team workflows composed from reusable fragments
+Queue up a dozen features before lunch. Come back to find them implemented, reviewed, and committed. Batch-fix tech debt across your codebase without coordinating a single change manually. Let the review-and-fix loop catch what you'd miss on your fourth cup of coffee.
 
-## Technical Highlights
+Maverick doesn't just run agents — it choreographs them. Implementers hand off to reviewers. Reviewers surface findings. Fixers resolve them. Validators confirm the fix. The cycle repeats until everything passes or there's nothing left to try.
 
-Built on the Claude Agent SDK with a clean layered architecture: CLI (Click) → Workflow DSL (YAML parsing, step execution, checkpointing) → Agent layer (system prompts, tool selection) → Tool layer (MCP servers for GitHub/Git). The YAML DSL supports eight step types including python, agent, validate, parallel, subworkflow, branch, and checkpoint. All agents receive explicit allowed_tools following least-privilege principles, and all workflows are fully async with structured logging via structlog.
+From a spec to a stack of clean commits. From a backlog to a branch ready to push. **#ComeFlyWithMe**
+
+## How It Works
+
+Install, set your API key, and fly:
+
+```bash
+uv tool install maverick
+export ANTHROPIC_API_KEY=your-key
+maverick fly
+```
+
+Maverick picks up your next ready bead, runs it through the full development cycle, and moves on to the next. Your terminal shows the flight log — what's done, what's in progress, and what's queued.
+
+```text
+  Maverick — Flight Log
+  ---------------------
+
+  ✓ bead-001  Add user model         implemented · reviewed · committed
+  ✓ bead-002  Add auth middleware     implemented · reviewed · committed
+  ⟳ bead-003  Add login endpoint     implementing...
+    bead-004  Add session management  queued
+```
+
+## What You Get
+
+Every Maverick workflow comes loaded:
+
+- **Declarative YAML workflows** — Define multi-step workflows with conditional execution, parallel steps, checkpoints, and composition. No Python required.
+- **Autonomous AI agents** — Specialized agents for implementation, code review, and fixing. Each scoped to exactly the tools it needs, following least-privilege principles.
+- **Review-and-fix loops** — Automatic cycles run format, lint, typecheck, and test stages. Failures trigger a fixer agent that retries with full context. Rinse and repeat until clean.
+- **Accountability tracking** — Every review finding is tracked to resolution. Fixers must report on every issue — no silent skipping, no hand-waving. Unresolved items become tech-debt issues.
+- **Workflow discovery** — Three-tier precedence (project → user → built-in) lets teams override any workflow by dropping modified YAML in `.maverick/workflows/`.
+- **Checkpointing** — Workflows save state to disk. Get interrupted? Resume from exactly where you left off.
+
+## The Flight Plan
+
+Every project follows three phases. Refuel loads the work. Fly executes it. Land ships it.
+
+**Refuel** parses your spec into beads — atomic units of work with dependencies wired up and ready to go.
+
+```bash
+maverick refuel speckit .specify/features/my-feature
+```
+
+**Fly** picks up the next ready bead and runs the full cycle: implement, validate, review, fix, commit. When one bead lands, it grabs the next. Failures get retried. Review findings get addressed. You don't have to watch.
+
+```bash
+maverick fly
+```
+
+**Land** curates your commits into clean history and pushes. An AI curator reorganizes the work into logical, reviewable changesets.
+
+```bash
+maverick land
+```
+
+## Why Not Just Prompt an Agent?
+
+Because prompting is the easy part. The hard part is everything around it.
+
+You can ask Claude to implement a feature. But who validates the output? Who runs the linter, the type checker, the tests? Who reads the review findings and decides what to fix? Who commits with a clean message, who pushes, who creates the PR? Who handles it when the tests fail and the agent needs to try again with different context?
+
+That's orchestration. That's what Maverick does. It turns "ask an agent to write code" into a complete, repeatable development workflow — with the same rigor you'd expect from a human team, but without the manual coordination.
+
+And because workflows are YAML, not Python, anyone on your team can read, modify, and share them.
+
+## Install
+
+```bash
+uv tool install maverick
+```
+
+That's it. `maverick` lands on your PATH in its own isolated environment.
 
 ## Getting Started
 
-Install with `uv sync` after cloning the repository, then set your `ANTHROPIC_API_KEY`. Run `maverick workflow list` to see available workflows, or execute with `maverick fly feature -i branch_name=my-feature`. Customize by copying any built-in workflow YAML to `.maverick/workflows/` and modifying it.
+Set your API key, load some work, and fly:
+
+```bash
+# Set your Anthropic API key
+export ANTHROPIC_API_KEY=your-key
+
+# Create beads from a SpecKit specification
+maverick refuel speckit .specify/features/my-feature
+
+# Implement, validate, review, and commit
+maverick fly
+
+# Curate history and push
+maverick land
+```
+
+All you need is an API key and a task list.
