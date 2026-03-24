@@ -43,10 +43,11 @@ From a standing desk. From a hammock. From a hotel lobby the night before a conf
 
 ## How It Works
 
-Install with a single command, provision an environment, and connect:
+Install from PyPI, provision an environment, and connect:
 
 ```bash
-curl -fsSL https://get2knowio.github.io/remo/install.sh | bash
+uv tool install remo-cli
+remo init
 remo hetzner create        # or: remo aws create / remo incus create
 remo shell
 ```
@@ -54,13 +55,22 @@ remo shell
 You land in an interactive project menu. Pick a project, and you're in a persistent Zellij session with your DevContainer already running. Disconnect anytime — your session survives.
 
 ```text
-  Remote Coding Server
-  --------------------
+   ____ ___ _ __ ___   ___
+  | __// _ \  _ ` _ \ / _ \
+  | | |  __/ | | | | | (_) |
+  |_|  \___|_| |_| |_|\___/
 
-> my-project - active
-  another-project
+  [ Remote Coding Server ]
+
+Select a project (1-9, ↑↓, Enter | c=clone, d=delete, x=exit):
+
+  my-project ● ⇡
+  another-project ●
+  cool-side-project
   [Clone new repo]
   [Exit to shell]
+
+> Legend:  ● changes  ⇡ push  ⇣ pull  ⚡ active
 ```
 
 ## What You Get
@@ -70,8 +80,10 @@ Every Remo environment comes fully loaded:
 - **Persistent sessions** — Zellij keeps your terminal state alive across disconnects. Detach with `Ctrl+d`, reconnect with `remo shell`, and resume exactly where you left off.
 - **DevContainer integration** — Projects with a `.devcontainer` config auto-launch their Docker container when you select them. No manual setup.
 - **Interactive project menu** — An fzf-powered launcher shows your projects from `~/projects`. Arrow keys, number shortcuts, or just type to filter.
+- **Port forwarding** — `remo shell -L 8080` tunnels remote ports to your local machine, with auto-open in your browser. Forward multiple ports at once.
+- **File transfer** — `remo cp` moves files between your machine and any environment using simple colon notation. No separate SCP setup needed.
 - **Pre-installed tooling** — Docker + Compose, Dev Containers CLI, Node.js 24 LTS, GitHub CLI, Zellij, and fzf. Ready to go from the first SSH connection.
-- **One-command updates** — `remo self-update` updates the CLI. `remo <platform> update` refreshes the dev tools on your environment.
+- **One-command updates** — `uv tool upgrade remo-cli` updates the CLI. `remo <platform> update` refreshes the dev tools on your environment.
 
 ## Pick Your Platform
 
@@ -79,12 +91,12 @@ Remo deploys to three platforms. Same dev workflow, same tooling, your choice of
 
 | | Hetzner Cloud | AWS | LXC (Incus) |
 |---|---|---|---|
-| **Cost** | ~€4/month | ~$10/month (spot) | Your electricity |
+| **Cost** | ~€4/month | ~$30/month (~$10 spot) | Your electricity |
 | **Best for** | Budget EU/US hosting | Enterprise, spot savings | Local dev, homelab |
 | **Storage** | Persistent block volume | EBS / root volume | Host mounts |
-| **Access** | DuckDNS domain | SSM (zero open ports) or SSH | LAN hostname |
+| **Access** | Server IP | SSM (zero open ports) or SSH | LAN hostname |
 
-**Hetzner** is the simplest path: cheap EU/US VMs with DuckDNS for a memorable hostname and a persistent volume that survives server teardown.
+**Hetzner** is the simplest path: cheap EU/US VMs with a persistent volume that survives server teardown.
 
 **AWS** brings enterprise features: SSM Session Manager for zero-inbound-port access, spot instances for ~70% cost savings, stop/start to pause billing, multi-user namespacing, and Route53 DNS.
 
@@ -99,10 +111,11 @@ And because it's just a Linux box with Docker, anything that works locally works
 ## Install
 
 ```bash
-curl -fsSL https://get2knowio.github.io/remo/install.sh | bash
+uv tool install remo-cli
+remo init
 ```
 
-That's it. `remo` lands in `~/.local/bin` and manages its own dependencies.
+That's it. Requires Python 3.11+ and [uv](https://docs.astral.sh/uv/) (or pip). `remo init` pulls in the Ansible collections that handle provisioning.
 
 ## Getting Started
 
@@ -111,8 +124,6 @@ Set your platform credentials as environment variables, then create and connect:
 ```bash
 # Hetzner (cheapest cloud option)
 export HETZNER_API_TOKEN=your-token
-export DUCKDNS_TOKEN=your-token
-export DUCKDNS_DOMAIN=your-subdomain
 remo hetzner create
 remo shell
 
@@ -123,8 +134,8 @@ remo aws create --spot
 remo shell
 
 # LXC via Incus (your own hardware)
-remo incus bootstrap --host myserver --user paul
-remo incus create dev1 --host myserver --user paul
+remo incus bootstrap --host myserver
+remo incus create --name dev1 --host myserver
 remo shell
 ```
 
