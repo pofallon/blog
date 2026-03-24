@@ -7,21 +7,21 @@ hero:
   alt: 'Remo working autonomously at a holographic workstation with a closed laptop on the desk and a phone showing notifications'
 ---
 
-In the last two weeks, Anthropic shipped two features that change how developers interact with AI coding agents. Remote Control lets you continue a local Claude Code session from your phone. Channels let you push messages from Telegram or Discord into a running session so your agent can react while you're away from the keyboard.
+Your AI coding agent deserves a better place to live.
 
-These are genuinely exciting capabilities. But they share an assumption that nobody seems to be questioning: the agent is running _somewhere_ reliable.
+Anthropic just shipped Remote Control and Channels for Claude Code. Now you can message your coding agent from Telegram while you're at dinner. You can steer a session from your phone.
 
-For most of us, it isn't.
+But here's what nobody's asking: where is that session actually running?
+
+Right now you have two options. Your laptop — close the lid and the agent dies. Or a vendor's cloud sandbox — a black box you can't customize or inspect.
 
 ## The Two Options (and Why Neither Works)
-
-Today, if you want to run an AI coding agent, you have two choices.
 
 **Your laptop.** This is where most of us start. You fire up Claude Code or Cursor, point it at a repo, and let it work. It's fast, it has your full local environment, and it works great — until you close the lid. The session dies. The agent loses its context. Whatever it was in the middle of is gone.
 
 Remote Control and Channels make this slightly better. You can steer the session from your phone instead of being chained to your desk. But the terminal still has to stay open. Your laptop still has to stay awake. You haven't actually decoupled the agent's compute from your physical presence — you've just added a longer leash.
 
-**A cloud black box.** Claude Code on the web runs in an Anthropic-managed cloud sandbox. It's persistent and you can walk away. But you can't SSH in. You can't customize the environment. You can't inspect what's happening between the commits. You get the output but not the transparency.
+**A vendor's cloud sandbox.** Several platforms now offer cloud-hosted agent environments. They're persistent and you can walk away. But you can't SSH in. You can't customize the environment. You can't inspect what's happening between the commits. You get the output but not the transparency.
 
 For quick, self-contained tasks, this is fine. For the kind of sustained, multi-session work where an agent is building across a codebase over hours or days? You want to be able to look under the hood.
 
@@ -69,7 +69,7 @@ This is the part I care about most.
 
 Remo environments aren't opaque. You can SSH in anytime. You can see what your agent is doing. Your Zellij sessions survive disconnects, so you can detach, go to dinner, and reattach to exactly where the agent left off.
 
-When Anthropic's Channels send a Telegram message to your agent, that message arrives in an environment you provisioned, configured, and can inspect. When Remote Control lets you steer from your phone, you're steering a session running in a place you understand.
+When you message your agent through Channels, that message arrives in an environment you provisioned, configured, and can inspect. When Remote Control lets you steer from your phone, you're steering a session running in a place you understand.
 
 This isn't about distrust. It's about the same principle that's made devcontainers successful: reproducibility, transparency, and control. You should be able to understand the environment your code is being written in, whether the author is a human or an agent.
 
