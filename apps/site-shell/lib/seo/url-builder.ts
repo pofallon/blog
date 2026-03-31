@@ -63,7 +63,7 @@ export function resolveShareImageUrl(
   if (slug) {
     // Remove leading ./ if present
     const cleanPath = imagePath.replace(/^\.\//, '');
-    return `${host}/blog-images/${slug}/${cleanPath}`;
+    return `${host}/content-images/${slug}/${cleanPath}`;
   }
 
   // Relative path without slug - append to host

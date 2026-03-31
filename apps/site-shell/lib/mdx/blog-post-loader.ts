@@ -192,7 +192,7 @@ function processHeroImage(
     const postDir = path.dirname(filePath);
     const imagePath = image.replace(/^\.\//, '');
     return {
-      src: `/blog-images/${path.basename(postDir)}/${imagePath}`,
+      src: `/content-images/${path.basename(postDir)}/${imagePath}`,
       width: 1200,
       height: 630,
       alt: 'Blog post hero image',
