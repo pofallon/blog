@@ -2,7 +2,7 @@
 name: Maverick
 order: 2
 status: in-progress
-summary: Point your AI agents at a task list and let them fly. Maverick orchestrates implementation, code review, fixes, and PR creation — the full development lifecycle on autopilot.
+summary: Drop PRDs in, get reviewed commits out. Plan on your schedule; Maverick flies whenever work is ready — orchestrating implementation, code review, fixes, and PR creation across the full development lifecycle.
 tags:
   - python
   - cli
@@ -36,7 +36,7 @@ Queue up a dozen features before lunch. Come back to find them implemented, revi
 
 Maverick doesn't just run agents — it choreographs 26+ specialized agents across four workflows. Implementers hand off to validators. Validators trigger fixers on failure. Reviewers run in parallel. Fixers must report on every finding. The cycle repeats until everything passes or there's nothing left to try.
 
-From a spec to a stack of clean commits. From a backlog to a branch ready to push. **#ComeFlyWithMe**
+From a PRD to a stack of clean commits. From a backlog to a branch ready to push. **#ComeFlyWithMe**
 
 <MaverickInnovations />
 
@@ -49,7 +49,7 @@ Three phases. **Refuel** loads the work. **Fly** executes it. **Land** ships it.
 **Plan** turns a PRD into a flight plan — objective, success criteria, scope boundaries — through a Pre-Flight Briefing Room of parallel agents.
 
 ```bash
-maverick plan generate my-feature --from-prd spec.md
+maverick plan generate my-feature --from-prd prd.md
 ```
 
 **Refuel** decomposes the flight plan into beads — atomic units of work with acceptance criteria, file scope, and dependencies wired up. New epics automatically chain behind existing open epics so work serializes safely while tasks within an epic parallelize.
@@ -181,7 +181,7 @@ maverick init
 maverick runway seed
 
 # Generate a flight plan from a PRD
-maverick plan generate my-feature --from-prd spec.md
+maverick plan generate my-feature --from-prd prd.md
 
 # Decompose into beads
 maverick refuel my-feature
