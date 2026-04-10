@@ -7,6 +7,8 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import remarkGfm from 'remark-gfm';
 import type { ComponentProps, ReactNode } from 'react';
 import ClimaxFlowDiagram from './ClimaxFlowDiagram';
+import MaverickFlowDiagram from './MaverickFlowDiagram';
+import MaverickInnovations from './MaverickInnovations';
 
 interface ProjectDetailContentProps {
   content: string;
@@ -131,6 +133,8 @@ function createMDXComponents(colorVar: string) {
 
     // Custom diagram components
     ClimaxFlowDiagram: () => <ClimaxFlowDiagram colorVar={colorVar} />,
+    MaverickFlowDiagram: () => <MaverickFlowDiagram colorVar={colorVar} />,
+    MaverickInnovations: () => <MaverickInnovations colorVar={colorVar} />,
 
     // Table components
     table: ({ children }: { children?: ReactNode }) => (
